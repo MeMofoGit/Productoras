@@ -1,0 +1,2250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProyectoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ciudades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="long_d" Type="decimal" Precision="10" Scale="6" />
+          <Property Name="lat_d" Type="decimal" Precision="10" Scale="6" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comentarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo_c" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="comentario_c" Type="text" Nullable="false" />
+          <Property Name="autor_xref" Type="int" Nullable="false" />
+          <Property Name="ip_c" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="fechaFirst_dt" Type="datetime" Nullable="false" />
+          <Property Name="fechaLast_dt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ComentariosProyecto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comentario_xref" Type="int" Nullable="false" />
+          <Property Name="proyecto_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComentariosUsuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comentario_xref" Type="int" Nullable="false" />
+          <Property Name="destinatario_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mensajes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="autor_xref" Type="int" Nullable="false" />
+          <Property Name="mensaje_txt" Type="text" Nullable="false" />
+          <Property Name="fechaFirst_dt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MensajesProyecto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mensaje_xref" Type="int" Nullable="false" />
+          <Property Name="proyecto_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MensajesProyectoLeido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mensaje_xref" Type="int" Nullable="false" />
+          <Property Name="usuLeido_xref" Type="int" Nullable="false" />
+          <Property Name="fechaLeido_dt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MensajesUsuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mensaje_xref" Type="int" Nullable="false" />
+          <Property Name="destinatario_xref" Type="int" Nullable="false" />
+          <Property Name="leido_b" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProyectoDemandas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proyecto_xref" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
+          <Property Name="fechaFin_dt" Type="datetime" Nullable="false" />
+          <Property Name="activo_b" Type="int" Nullable="false" />
+          <Property Name="categoria_xref" Type="int" Nullable="false" />
+          <Property Name="subcategoria_xref" Type="int" />
+          <Property Name="tipo_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProyectoFiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion_c" Type="text" Nullable="false" />
+          <Property Name="enlace_c" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="proyecto_xref" Type="int" Nullable="false" />
+          <Property Name="tipo_c" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProyectoParticipantes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proyecto_xref" Type="int" Nullable="false" />
+          <Property Name="participante_xref" Type="int" Nullable="false" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
+          <Property Name="fechaFin_dt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Proyectos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="descripcion_c" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
+          <Property Name="fechaLast_dt" Type="datetime" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+          <Property Name="tipo_xref" Type="int" Nullable="false" />
+          <Property Name="creador_xref" Type="int" Nullable="false" />
+          <Property Name="ciudad_xref" Type="int" />
+        </EntityType>
+        <EntityType Name="ProyectoSolicitud">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="solicitante_xref" Type="int" Nullable="false" />
+          <Property Name="proyecto_xref" Type="int" Nullable="false" />
+          <Property Name="fechaSolicitud_dt" Type="datetime" Nullable="false" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProyectosTipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion_c" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuarioActorCategoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+          <Property Name="categoria_xref" Type="int" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" />
+          <Property Name="fechaFin_dt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UsuarioProductoraCategoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+          <Property Name="categoria_xref" Type="int" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" />
+          <Property Name="fechaFin_dt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username_c" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email_c" Type="nvarchar" MaxLength="120" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fotoPerfil_c" Type="varchar" MaxLength="255" />
+          <Property Name="salt_c" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ip_c" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="ipLast_c" Type="varchar" MaxLength="16" />
+          <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
+          <Property Name="fechaLast_dt" Type="datetime" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+          <Property Name="ciudad_xref" Type="int" />
+          <Property Name="tipo_xref" Type="int" />
+        </EntityType>
+        <EntityType Name="UsuariosActor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellido_c" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefono_c" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="dni_c" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosFotos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion_c" Type="text" Nullable="false" />
+          <Property Name="enlace_c" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
+          <Property Name="fechaLast_dt" Type="datetime" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+          <Property Name="galeria_xref" Type="int" />
+          <Property Name="principal_b" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosGaleria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion_c" Type="text" />
+          <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
+          <Property Name="fechaLast_dt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UsuariosLocation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+          <Property Name="long_d" Type="float" Nullable="false" />
+          <Property Name="lat_d" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosProductora">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="telefono_c" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosTecnico">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidos_c" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="dni_c" Type="varchar" MaxLength="8" />
+          <Property Name="telefono_c" Type="varchar" MaxLength="20" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosTecnicosSubcategorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+          <Property Name="subcategoria_xref" Type="int" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" />
+          <Property Name="fechaFin_dt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UsuariosTipos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion_c" Type="text" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosTiposCategorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion_c" Type="text" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+          <Property Name="tipoUsuario_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosTiposSubcategorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion_c" Type="text" />
+          <Property Name="activo_b" Type="bit" Nullable="false" />
+          <Property Name="categoria_xref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuariosVideos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion_c" Type="text" Nullable="false" />
+          <Property Name="enlace_c" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
+          <Property Name="fechaLast_dt" Type="datetime" />
+          <Property Name="usuario_xref" Type="int" Nullable="false" />
+          <Property Name="galeria_xref" Type="int" />
+          <Property Name="principal_b" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comentarios_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="autor_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComentariosProyecto_comentario">
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="1" />
+          <End Role="ComentariosProyecto" Type="Self.ComentariosProyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comentarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComentariosProyecto">
+              <PropertyRef Name="comentario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComentariosProyecto_proyecto">
+          <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="1" />
+          <End Role="ComentariosProyecto" Type="Self.ComentariosProyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyectos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComentariosProyecto">
+              <PropertyRef Name="proyecto_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComentariosUsuario_comentario">
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="1" />
+          <End Role="ComentariosUsuario" Type="Self.ComentariosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comentarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComentariosUsuario">
+              <PropertyRef Name="comentario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComentariosUsuario_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="ComentariosUsuario" Type="Self.ComentariosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComentariosUsuario">
+              <PropertyRef Name="destinatario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mensajes_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Mensajes" Type="Self.Mensajes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mensajes">
+              <PropertyRef Name="autor_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesProyecto_mensaje">
+          <End Role="Mensajes" Type="Self.Mensajes" Multiplicity="1" />
+          <End Role="MensajesProyecto" Type="Self.MensajesProyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mensajes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesProyecto">
+              <PropertyRef Name="mensaje_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesProyectoLeido_mensaje">
+          <End Role="Mensajes" Type="Self.Mensajes" Multiplicity="1" />
+          <End Role="MensajesProyectoLeido" Type="Self.MensajesProyectoLeido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mensajes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesProyectoLeido">
+              <PropertyRef Name="mensaje_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesProyectoLeido_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="MensajesProyectoLeido" Type="Self.MensajesProyectoLeido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesProyectoLeido">
+              <PropertyRef Name="usuLeido_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesUsuario_mensaje">
+          <End Role="Mensajes" Type="Self.Mensajes" Multiplicity="1" />
+          <End Role="MensajesUsuario" Type="Self.MensajesUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mensajes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesUsuario">
+              <PropertyRef Name="mensaje_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesUsuario_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="MensajesUsuario" Type="Self.MensajesUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesUsuario">
+              <PropertyRef Name="destinatario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoDemandas_proyecto">
+          <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="1" />
+          <End Role="ProyectoDemandas" Type="Self.ProyectoDemandas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyectos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoDemandas">
+              <PropertyRef Name="proyecto_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoFiles_Proyecto">
+          <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="1" />
+          <End Role="ProyectoFiles" Type="Self.ProyectoFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyectos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoFiles">
+              <PropertyRef Name="proyecto_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoParticipantes_proyecto">
+          <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="1" />
+          <End Role="ProyectoParticipantes" Type="Self.ProyectoParticipantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyectos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoParticipantes">
+              <PropertyRef Name="proyecto_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoParticipantes_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="ProyectoParticipantes" Type="Self.ProyectoParticipantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoParticipantes">
+              <PropertyRef Name="participante_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proyectos_Ciudad">
+          <End Role="Ciudades" Type="Self.Ciudades" Multiplicity="0..1" />
+          <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Proyectos">
+              <PropertyRef Name="ciudad_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proyectos_ProyectosTipo1">
+          <End Role="ProyectosTipo" Type="Self.ProyectosTipo" Multiplicity="1" />
+          <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProyectosTipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Proyectos">
+              <PropertyRef Name="tipo_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proyectos_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Proyectos" Type="Self.Proyectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Proyectos">
+              <PropertyRef Name="creador_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoSolicitud_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="ProyectoSolicitud" Type="Self.ProyectoSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoSolicitud">
+              <PropertyRef Name="solicitante_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioActorCategoria_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuarioActorCategoria" Type="Self.UsuarioActorCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuarioActorCategoria">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioActorCategoria_UsuariosTiposCategorias">
+          <End Role="UsuariosTiposCategorias" Type="Self.UsuariosTiposCategorias" Multiplicity="1" />
+          <End Role="UsuarioActorCategoria" Type="Self.UsuarioActorCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTiposCategorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuarioActorCategoria">
+              <PropertyRef Name="categoria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioProductoraCategoria_Usuarios1">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuarioProductoraCategoria" Type="Self.UsuarioProductoraCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuarioProductoraCategoria">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioProductoraCategoria_UsuariosTiposCategorias">
+          <End Role="UsuariosTiposCategorias" Type="Self.UsuariosTiposCategorias" Multiplicity="1" />
+          <End Role="UsuarioProductoraCategoria" Type="Self.UsuarioProductoraCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTiposCategorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuarioProductoraCategoria">
+              <PropertyRef Name="categoria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Ciudad">
+          <End Role="Ciudades" Type="Self.Ciudades" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="ciudad_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_UsuariosTipos">
+          <End Role="UsuariosTipos" Type="Self.UsuariosTipos" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTipos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="tipo_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosActor_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosActor" Type="Self.UsuariosActor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosActor">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosFotos_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosFotos" Type="Self.UsuariosFotos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosFotos">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosFotos_UsuariosGaleria">
+          <End Role="UsuariosGaleria" Type="Self.UsuariosGaleria" Multiplicity="0..1" />
+          <End Role="UsuariosFotos" Type="Self.UsuariosFotos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosGaleria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosFotos">
+              <PropertyRef Name="galeria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosGaleria_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosGaleria" Type="Self.UsuariosGaleria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosGaleria">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosLocation_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosLocation" Type="Self.UsuariosLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosLocation">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosProductora_Usuarios1">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosProductora" Type="Self.UsuariosProductora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosProductora">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosTecnico_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosTecnico" Type="Self.UsuariosTecnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTecnico">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosTecnicosSubcategorias_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosTecnicosSubcategorias" Type="Self.UsuariosTecnicosSubcategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTecnicosSubcategorias">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
+          <End Role="UsuariosTiposSubcategorias" Type="Self.UsuariosTiposSubcategorias" Multiplicity="1" />
+          <End Role="UsuariosTecnicosSubcategorias" Type="Self.UsuariosTecnicosSubcategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTiposSubcategorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTecnicosSubcategorias">
+              <PropertyRef Name="subcategoria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosVideos_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosVideos" Type="Self.UsuariosVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosVideos">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosVideos_UsuariosGaleria">
+          <End Role="UsuariosGaleria" Type="Self.UsuariosGaleria" Multiplicity="0..1" />
+          <End Role="UsuariosVideos" Type="Self.UsuariosVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosGaleria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosVideos">
+              <PropertyRef Name="galeria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProyectoModelStoreContainer">
+          <EntitySet Name="Ciudades" EntityType="Self.Ciudades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comentarios" EntityType="Self.Comentarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComentariosProyecto" EntityType="Self.ComentariosProyecto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComentariosUsuario" EntityType="Self.ComentariosUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mensajes" EntityType="Self.Mensajes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MensajesProyecto" EntityType="Self.MensajesProyecto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MensajesProyectoLeido" EntityType="Self.MensajesProyectoLeido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MensajesUsuario" EntityType="Self.MensajesUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProyectoDemandas" EntityType="Self.ProyectoDemandas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProyectoFiles" EntityType="Self.ProyectoFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProyectoParticipantes" EntityType="Self.ProyectoParticipantes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proyectos" EntityType="Self.Proyectos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProyectoSolicitud" EntityType="Self.ProyectoSolicitud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProyectosTipo" EntityType="Self.ProyectosTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioActorCategoria" EntityType="Self.UsuarioActorCategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioProductoraCategoria" EntityType="Self.UsuarioProductoraCategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosActor" EntityType="Self.UsuariosActor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosFotos" EntityType="Self.UsuariosFotos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosGaleria" EntityType="Self.UsuariosGaleria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosLocation" EntityType="Self.UsuariosLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosProductora" EntityType="Self.UsuariosProductora" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosTecnico" EntityType="Self.UsuariosTecnico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosTecnicosSubcategorias" EntityType="Self.UsuariosTecnicosSubcategorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosTipos" EntityType="Self.UsuariosTipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosTiposCategorias" EntityType="Self.UsuariosTiposCategorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosTiposSubcategorias" EntityType="Self.UsuariosTiposSubcategorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosVideos" EntityType="Self.UsuariosVideos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comentarios_Usuarios" Association="Self.FK_Comentarios_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComentariosProyecto_comentario" Association="Self.FK_ComentariosProyecto_comentario">
+            <End Role="Comentarios" EntitySet="Comentarios" />
+            <End Role="ComentariosProyecto" EntitySet="ComentariosProyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComentariosProyecto_proyecto" Association="Self.FK_ComentariosProyecto_proyecto">
+            <End Role="Proyectos" EntitySet="Proyectos" />
+            <End Role="ComentariosProyecto" EntitySet="ComentariosProyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComentariosUsuario_comentario" Association="Self.FK_ComentariosUsuario_comentario">
+            <End Role="Comentarios" EntitySet="Comentarios" />
+            <End Role="ComentariosUsuario" EntitySet="ComentariosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComentariosUsuario_Usuarios" Association="Self.FK_ComentariosUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ComentariosUsuario" EntitySet="ComentariosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mensajes_Usuarios" Association="Self.FK_Mensajes_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Mensajes" EntitySet="Mensajes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesProyecto_mensaje" Association="Self.FK_MensajesProyecto_mensaje">
+            <End Role="Mensajes" EntitySet="Mensajes" />
+            <End Role="MensajesProyecto" EntitySet="MensajesProyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesProyectoLeido_mensaje" Association="Self.FK_MensajesProyectoLeido_mensaje">
+            <End Role="Mensajes" EntitySet="Mensajes" />
+            <End Role="MensajesProyectoLeido" EntitySet="MensajesProyectoLeido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesProyectoLeido_Usuarios" Association="Self.FK_MensajesProyectoLeido_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="MensajesProyectoLeido" EntitySet="MensajesProyectoLeido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesUsuario_mensaje" Association="Self.FK_MensajesUsuario_mensaje">
+            <End Role="Mensajes" EntitySet="Mensajes" />
+            <End Role="MensajesUsuario" EntitySet="MensajesUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesUsuario_Usuarios" Association="Self.FK_MensajesUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="MensajesUsuario" EntitySet="MensajesUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoDemandas_proyecto" Association="Self.FK_ProyectoDemandas_proyecto">
+            <End Role="Proyectos" EntitySet="Proyectos" />
+            <End Role="ProyectoDemandas" EntitySet="ProyectoDemandas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoFiles_Proyecto" Association="Self.FK_ProyectoFiles_Proyecto">
+            <End Role="Proyectos" EntitySet="Proyectos" />
+            <End Role="ProyectoFiles" EntitySet="ProyectoFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoParticipantes_proyecto" Association="Self.FK_ProyectoParticipantes_proyecto">
+            <End Role="Proyectos" EntitySet="Proyectos" />
+            <End Role="ProyectoParticipantes" EntitySet="ProyectoParticipantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoParticipantes_Usuarios" Association="Self.FK_ProyectoParticipantes_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ProyectoParticipantes" EntitySet="ProyectoParticipantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proyectos_Ciudad" Association="Self.FK_Proyectos_Ciudad">
+            <End Role="Ciudades" EntitySet="Ciudades" />
+            <End Role="Proyectos" EntitySet="Proyectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proyectos_ProyectosTipo1" Association="Self.FK_Proyectos_ProyectosTipo1">
+            <End Role="ProyectosTipo" EntitySet="ProyectosTipo" />
+            <End Role="Proyectos" EntitySet="Proyectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proyectos_Usuarios" Association="Self.FK_Proyectos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Proyectos" EntitySet="Proyectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoSolicitud_Usuarios" Association="Self.FK_ProyectoSolicitud_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ProyectoSolicitud" EntitySet="ProyectoSolicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioActorCategoria_Usuarios" Association="Self.FK_UsuarioActorCategoria_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuarioActorCategoria" EntitySet="UsuarioActorCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioActorCategoria_UsuariosTiposCategorias" Association="Self.FK_UsuarioActorCategoria_UsuariosTiposCategorias">
+            <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
+            <End Role="UsuarioActorCategoria" EntitySet="UsuarioActorCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioProductoraCategoria_Usuarios1" Association="Self.FK_UsuarioProductoraCategoria_Usuarios1">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuarioProductoraCategoria" EntitySet="UsuarioProductoraCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" Association="Self.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias">
+            <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
+            <End Role="UsuarioProductoraCategoria" EntitySet="UsuarioProductoraCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Ciudad" Association="Self.FK_Usuarios_Ciudad">
+            <End Role="Ciudades" EntitySet="Ciudades" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_UsuariosTipos" Association="Self.FK_Usuarios_UsuariosTipos">
+            <End Role="UsuariosTipos" EntitySet="UsuariosTipos" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosActor_Usuarios" Association="Self.FK_UsuariosActor_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosActor" EntitySet="UsuariosActor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosFotos_Usuarios" Association="Self.FK_UsuariosFotos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosFotos" EntitySet="UsuariosFotos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosFotos_UsuariosGaleria" Association="Self.FK_UsuariosFotos_UsuariosGaleria">
+            <End Role="UsuariosGaleria" EntitySet="UsuariosGaleria" />
+            <End Role="UsuariosFotos" EntitySet="UsuariosFotos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosGaleria_Usuarios" Association="Self.FK_UsuariosGaleria_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosGaleria" EntitySet="UsuariosGaleria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosLocation_Usuarios" Association="Self.FK_UsuariosLocation_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosLocation" EntitySet="UsuariosLocation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosProductora_Usuarios1" Association="Self.FK_UsuariosProductora_Usuarios1">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosProductora" EntitySet="UsuariosProductora" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTecnico_Usuarios" Association="Self.FK_UsuariosTecnico_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosTecnico" EntitySet="UsuariosTecnico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_Usuarios" Association="Self.FK_UsuariosTecnicosSubcategorias_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" Association="Self.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
+            <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
+            <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosVideos_Usuarios" Association="Self.FK_UsuariosVideos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosVideos" EntitySet="UsuariosVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosVideos_UsuariosGaleria" Association="Self.FK_UsuariosVideos_UsuariosGaleria">
+            <End Role="UsuariosGaleria" EntitySet="UsuariosGaleria" />
+            <End Role="UsuariosVideos" EntitySet="UsuariosVideos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProyectoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProyectoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ciudades" EntityType="ProyectoModel.Ciudades" />
+          <EntitySet Name="Comentarios" EntityType="ProyectoModel.Comentarios" />
+          <EntitySet Name="ComentariosProyecto" EntityType="ProyectoModel.ComentariosProyecto" />
+          <EntitySet Name="ComentariosUsuario" EntityType="ProyectoModel.ComentariosUsuario" />
+          <EntitySet Name="Mensajes" EntityType="ProyectoModel.Mensajes" />
+          <EntitySet Name="MensajesProyecto" EntityType="ProyectoModel.MensajesProyecto" />
+          <EntitySet Name="MensajesProyectoLeido" EntityType="ProyectoModel.MensajesProyectoLeido" />
+          <EntitySet Name="MensajesUsuario" EntityType="ProyectoModel.MensajesUsuario" />
+          <EntitySet Name="ProyectoDemandas" EntityType="ProyectoModel.ProyectoDemandas" />
+          <EntitySet Name="ProyectoFiles" EntityType="ProyectoModel.ProyectoFiles" />
+          <EntitySet Name="ProyectoParticipantes" EntityType="ProyectoModel.ProyectoParticipantes" />
+          <EntitySet Name="Proyectos" EntityType="ProyectoModel.Proyectos" />
+          <EntitySet Name="ProyectoSolicitud" EntityType="ProyectoModel.ProyectoSolicitud" />
+          <EntitySet Name="ProyectosTipo" EntityType="ProyectoModel.ProyectosTipo" />
+          <EntitySet Name="UsuarioActorCategoria" EntityType="ProyectoModel.UsuarioActorCategoria" />
+          <EntitySet Name="UsuarioProductoraCategoria" EntityType="ProyectoModel.UsuarioProductoraCategoria" />
+          <EntitySet Name="Usuarios" EntityType="ProyectoModel.Usuarios" />
+          <EntitySet Name="UsuariosActor" EntityType="ProyectoModel.UsuariosActor" />
+          <EntitySet Name="UsuariosFotos" EntityType="ProyectoModel.UsuariosFotos" />
+          <EntitySet Name="UsuariosGaleria" EntityType="ProyectoModel.UsuariosGaleria" />
+          <EntitySet Name="UsuariosLocation" EntityType="ProyectoModel.UsuariosLocation" />
+          <EntitySet Name="UsuariosProductora" EntityType="ProyectoModel.UsuariosProductora" />
+          <EntitySet Name="UsuariosTecnico" EntityType="ProyectoModel.UsuariosTecnico" />
+          <EntitySet Name="UsuariosTecnicosSubcategorias" EntityType="ProyectoModel.UsuariosTecnicosSubcategorias" />
+          <EntitySet Name="UsuariosTipos" EntityType="ProyectoModel.UsuariosTipos" />
+          <EntitySet Name="UsuariosTiposCategorias" EntityType="ProyectoModel.UsuariosTiposCategorias" />
+          <EntitySet Name="UsuariosTiposSubcategorias" EntityType="ProyectoModel.UsuariosTiposSubcategorias" />
+          <EntitySet Name="UsuariosVideos" EntityType="ProyectoModel.UsuariosVideos" />
+          <AssociationSet Name="FK_Proyectos_Ciudad" Association="ProyectoModel.FK_Proyectos_Ciudad">
+            <End Role="Ciudades" EntitySet="Ciudades" />
+            <End Role="Proyectos" EntitySet="Proyectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Ciudad" Association="ProyectoModel.FK_Usuarios_Ciudad">
+            <End Role="Ciudades" EntitySet="Ciudades" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentarios_Usuarios" Association="ProyectoModel.FK_Comentarios_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComentariosProyecto_comentario" Association="ProyectoModel.FK_ComentariosProyecto_comentario">
+            <End Role="Comentarios" EntitySet="Comentarios" />
+            <End Role="ComentariosProyecto" EntitySet="ComentariosProyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComentariosUsuario_comentario" Association="ProyectoModel.FK_ComentariosUsuario_comentario">
+            <End Role="Comentarios" EntitySet="Comentarios" />
+            <End Role="ComentariosUsuario" EntitySet="ComentariosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComentariosProyecto_proyecto" Association="ProyectoModel.FK_ComentariosProyecto_proyecto">
+            <End Role="Proyectos" EntitySet="Proyectos" />
+            <End Role="ComentariosProyecto" EntitySet="ComentariosProyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComentariosUsuario_Usuarios" Association="ProyectoModel.FK_ComentariosUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ComentariosUsuario" EntitySet="ComentariosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mensajes_Usuarios" Association="ProyectoModel.FK_Mensajes_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Mensajes" EntitySet="Mensajes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesProyecto_mensaje" Association="ProyectoModel.FK_MensajesProyecto_mensaje">
+            <End Role="Mensajes" EntitySet="Mensajes" />
+            <End Role="MensajesProyecto" EntitySet="MensajesProyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesProyectoLeido_mensaje" Association="ProyectoModel.FK_MensajesProyectoLeido_mensaje">
+            <End Role="Mensajes" EntitySet="Mensajes" />
+            <End Role="MensajesProyectoLeido" EntitySet="MensajesProyectoLeido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesUsuario_mensaje" Association="ProyectoModel.FK_MensajesUsuario_mensaje">
+            <End Role="Mensajes" EntitySet="Mensajes" />
+            <End Role="MensajesUsuario" EntitySet="MensajesUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesProyectoLeido_Usuarios" Association="ProyectoModel.FK_MensajesProyectoLeido_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="MensajesProyectoLeido" EntitySet="MensajesProyectoLeido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MensajesUsuario_Usuarios" Association="ProyectoModel.FK_MensajesUsuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="MensajesUsuario" EntitySet="MensajesUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoDemandas_proyecto" Association="ProyectoModel.FK_ProyectoDemandas_proyecto">
+            <End Role="Proyectos" EntitySet="Proyectos" />
+            <End Role="ProyectoDemandas" EntitySet="ProyectoDemandas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoFiles_Proyecto" Association="ProyectoModel.FK_ProyectoFiles_Proyecto">
+            <End Role="Proyectos" EntitySet="Proyectos" />
+            <End Role="ProyectoFiles" EntitySet="ProyectoFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoParticipantes_proyecto" Association="ProyectoModel.FK_ProyectoParticipantes_proyecto">
+            <End Role="Proyectos" EntitySet="Proyectos" />
+            <End Role="ProyectoParticipantes" EntitySet="ProyectoParticipantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoParticipantes_Usuarios" Association="ProyectoModel.FK_ProyectoParticipantes_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ProyectoParticipantes" EntitySet="ProyectoParticipantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proyectos_ProyectosTipo1" Association="ProyectoModel.FK_Proyectos_ProyectosTipo1">
+            <End Role="ProyectosTipo" EntitySet="ProyectosTipo" />
+            <End Role="Proyectos" EntitySet="Proyectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proyectos_Usuarios" Association="ProyectoModel.FK_Proyectos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Proyectos" EntitySet="Proyectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProyectoSolicitud_Usuarios" Association="ProyectoModel.FK_ProyectoSolicitud_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ProyectoSolicitud" EntitySet="ProyectoSolicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioActorCategoria_Usuarios" Association="ProyectoModel.FK_UsuarioActorCategoria_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuarioActorCategoria" EntitySet="UsuarioActorCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioActorCategoria_UsuariosTiposCategorias" Association="ProyectoModel.FK_UsuarioActorCategoria_UsuariosTiposCategorias">
+            <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
+            <End Role="UsuarioActorCategoria" EntitySet="UsuarioActorCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioProductoraCategoria_Usuarios1" Association="ProyectoModel.FK_UsuarioProductoraCategoria_Usuarios1">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuarioProductoraCategoria" EntitySet="UsuarioProductoraCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" Association="ProyectoModel.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias">
+            <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
+            <End Role="UsuarioProductoraCategoria" EntitySet="UsuarioProductoraCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_UsuariosTipos" Association="ProyectoModel.FK_Usuarios_UsuariosTipos">
+            <End Role="UsuariosTipos" EntitySet="UsuariosTipos" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosActor_Usuarios" Association="ProyectoModel.FK_UsuariosActor_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosActor" EntitySet="UsuariosActor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosFotos_Usuarios" Association="ProyectoModel.FK_UsuariosFotos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosFotos" EntitySet="UsuariosFotos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosGaleria_Usuarios" Association="ProyectoModel.FK_UsuariosGaleria_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosGaleria" EntitySet="UsuariosGaleria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosLocation_Usuarios" Association="ProyectoModel.FK_UsuariosLocation_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosLocation" EntitySet="UsuariosLocation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosProductora_Usuarios1" Association="ProyectoModel.FK_UsuariosProductora_Usuarios1">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosProductora" EntitySet="UsuariosProductora" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTecnico_Usuarios" Association="ProyectoModel.FK_UsuariosTecnico_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosTecnico" EntitySet="UsuariosTecnico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_Usuarios" Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosVideos_Usuarios" Association="ProyectoModel.FK_UsuariosVideos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosVideos" EntitySet="UsuariosVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosFotos_UsuariosGaleria" Association="ProyectoModel.FK_UsuariosFotos_UsuariosGaleria">
+            <End Role="UsuariosGaleria" EntitySet="UsuariosGaleria" />
+            <End Role="UsuariosFotos" EntitySet="UsuariosFotos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosVideos_UsuariosGaleria" Association="ProyectoModel.FK_UsuariosVideos_UsuariosGaleria">
+            <End Role="UsuariosGaleria" EntitySet="UsuariosGaleria" />
+            <End Role="UsuariosVideos" EntitySet="UsuariosVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
+            <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
+            <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ciudades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="long_d" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="lat_d" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Proyectos" Relationship="ProyectoModel.FK_Proyectos_Ciudad" FromRole="Ciudades" ToRole="Proyectos" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_Usuarios_Ciudad" FromRole="Ciudades" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Comentarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titulo_c" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="comentario_c" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="autor_xref" Type="Int32" Nullable="false" />
+          <Property Name="ip_c" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="fechaFirst_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaLast_dt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_Comentarios_Usuarios" FromRole="Comentarios" ToRole="Usuarios" />
+          <NavigationProperty Name="ComentariosProyecto" Relationship="ProyectoModel.FK_ComentariosProyecto_comentario" FromRole="Comentarios" ToRole="ComentariosProyecto" />
+          <NavigationProperty Name="ComentariosUsuario" Relationship="ProyectoModel.FK_ComentariosUsuario_comentario" FromRole="Comentarios" ToRole="ComentariosUsuario" />
+        </EntityType>
+        <EntityType Name="ComentariosProyecto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comentario_xref" Type="Int32" Nullable="false" />
+          <Property Name="proyecto_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comentarios" Relationship="ProyectoModel.FK_ComentariosProyecto_comentario" FromRole="ComentariosProyecto" ToRole="Comentarios" />
+          <NavigationProperty Name="Proyectos" Relationship="ProyectoModel.FK_ComentariosProyecto_proyecto" FromRole="ComentariosProyecto" ToRole="Proyectos" />
+        </EntityType>
+        <EntityType Name="ComentariosUsuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comentario_xref" Type="Int32" Nullable="false" />
+          <Property Name="destinatario_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comentarios" Relationship="ProyectoModel.FK_ComentariosUsuario_comentario" FromRole="ComentariosUsuario" ToRole="Comentarios" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_ComentariosUsuario_Usuarios" FromRole="ComentariosUsuario" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Mensajes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="autor_xref" Type="Int32" Nullable="false" />
+          <Property Name="mensaje_txt" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fechaFirst_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_Mensajes_Usuarios" FromRole="Mensajes" ToRole="Usuarios" />
+          <NavigationProperty Name="MensajesProyecto" Relationship="ProyectoModel.FK_MensajesProyecto_mensaje" FromRole="Mensajes" ToRole="MensajesProyecto" />
+          <NavigationProperty Name="MensajesProyectoLeido" Relationship="ProyectoModel.FK_MensajesProyectoLeido_mensaje" FromRole="Mensajes" ToRole="MensajesProyectoLeido" />
+          <NavigationProperty Name="MensajesUsuario" Relationship="ProyectoModel.FK_MensajesUsuario_mensaje" FromRole="Mensajes" ToRole="MensajesUsuario" />
+        </EntityType>
+        <EntityType Name="MensajesProyecto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mensaje_xref" Type="Int32" Nullable="false" />
+          <Property Name="proyecto_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mensajes" Relationship="ProyectoModel.FK_MensajesProyecto_mensaje" FromRole="MensajesProyecto" ToRole="Mensajes" />
+        </EntityType>
+        <EntityType Name="MensajesProyectoLeido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mensaje_xref" Type="Int32" Nullable="false" />
+          <Property Name="usuLeido_xref" Type="Int32" Nullable="false" />
+          <Property Name="fechaLeido_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Mensajes" Relationship="ProyectoModel.FK_MensajesProyectoLeido_mensaje" FromRole="MensajesProyectoLeido" ToRole="Mensajes" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_MensajesProyectoLeido_Usuarios" FromRole="MensajesProyectoLeido" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="MensajesUsuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mensaje_xref" Type="Int32" Nullable="false" />
+          <Property Name="destinatario_xref" Type="Int32" Nullable="false" />
+          <Property Name="leido_b" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Mensajes" Relationship="ProyectoModel.FK_MensajesUsuario_mensaje" FromRole="MensajesUsuario" ToRole="Mensajes" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_MensajesUsuario_Usuarios" FromRole="MensajesUsuario" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="ProyectoDemandas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proyecto_xref" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaFin_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="activo_b" Type="Int32" Nullable="false" />
+          <Property Name="categoria_xref" Type="Int32" Nullable="false" />
+          <Property Name="subcategoria_xref" Type="Int32" />
+          <Property Name="tipo_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Proyectos" Relationship="ProyectoModel.FK_ProyectoDemandas_proyecto" FromRole="ProyectoDemandas" ToRole="Proyectos" />
+        </EntityType>
+        <EntityType Name="ProyectoFiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="enlace_c" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="proyecto_xref" Type="Int32" Nullable="false" />
+          <Property Name="tipo_c" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Proyectos" Relationship="ProyectoModel.FK_ProyectoFiles_Proyecto" FromRole="ProyectoFiles" ToRole="Proyectos" />
+        </EntityType>
+        <EntityType Name="ProyectoParticipantes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proyecto_xref" Type="Int32" Nullable="false" />
+          <Property Name="participante_xref" Type="Int32" Nullable="false" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaFin_dt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Proyectos" Relationship="ProyectoModel.FK_ProyectoParticipantes_proyecto" FromRole="ProyectoParticipantes" ToRole="Proyectos" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_ProyectoParticipantes_Usuarios" FromRole="ProyectoParticipantes" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Proyectos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaLast_dt" Type="DateTime" Precision="3" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <Property Name="tipo_xref" Type="Int32" Nullable="false" />
+          <Property Name="creador_xref" Type="Int32" Nullable="false" />
+          <Property Name="ciudad_xref" Type="Int32" />
+          <NavigationProperty Name="Ciudades" Relationship="ProyectoModel.FK_Proyectos_Ciudad" FromRole="Proyectos" ToRole="Ciudades" />
+          <NavigationProperty Name="ComentariosProyecto" Relationship="ProyectoModel.FK_ComentariosProyecto_proyecto" FromRole="Proyectos" ToRole="ComentariosProyecto" />
+          <NavigationProperty Name="ProyectoDemandas" Relationship="ProyectoModel.FK_ProyectoDemandas_proyecto" FromRole="Proyectos" ToRole="ProyectoDemandas" />
+          <NavigationProperty Name="ProyectoFiles" Relationship="ProyectoModel.FK_ProyectoFiles_Proyecto" FromRole="Proyectos" ToRole="ProyectoFiles" />
+          <NavigationProperty Name="ProyectoParticipantes" Relationship="ProyectoModel.FK_ProyectoParticipantes_proyecto" FromRole="Proyectos" ToRole="ProyectoParticipantes" />
+          <NavigationProperty Name="ProyectosTipo" Relationship="ProyectoModel.FK_Proyectos_ProyectosTipo1" FromRole="Proyectos" ToRole="ProyectosTipo" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_Proyectos_Usuarios" FromRole="Proyectos" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="ProyectoSolicitud">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="solicitante_xref" Type="Int32" Nullable="false" />
+          <Property Name="proyecto_xref" Type="Int32" Nullable="false" />
+          <Property Name="fechaSolicitud_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_ProyectoSolicitud_Usuarios" FromRole="ProyectoSolicitud" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="ProyectosTipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Proyectos" Relationship="ProyectoModel.FK_Proyectos_ProyectosTipo1" FromRole="ProyectosTipo" ToRole="Proyectos" />
+        </EntityType>
+        <EntityType Name="UsuarioActorCategoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <Property Name="categoria_xref" Type="Int32" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Precision="3" />
+          <Property Name="fechaFin_dt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuarioActorCategoria_Usuarios" FromRole="UsuarioActorCategoria" ToRole="Usuarios" />
+          <NavigationProperty Name="UsuariosTiposCategorias" Relationship="ProyectoModel.FK_UsuarioActorCategoria_UsuariosTiposCategorias" FromRole="UsuarioActorCategoria" ToRole="UsuariosTiposCategorias" />
+        </EntityType>
+        <EntityType Name="UsuarioProductoraCategoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <Property Name="categoria_xref" Type="Int32" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Precision="3" />
+          <Property Name="fechaFin_dt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_Usuarios1" FromRole="UsuarioProductoraCategoria" ToRole="Usuarios" />
+          <NavigationProperty Name="UsuariosTiposCategorias" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" FromRole="UsuarioProductoraCategoria" ToRole="UsuariosTiposCategorias" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username_c" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email_c" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fotoPerfil_c" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="salt_c" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ip_c" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="ipLast_c" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaLast_dt" Type="DateTime" Precision="3" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <Property Name="ciudad_xref" Type="Int32" />
+          <Property Name="tipo_xref" Type="Int32" />
+          <NavigationProperty Name="Ciudades" Relationship="ProyectoModel.FK_Usuarios_Ciudad" FromRole="Usuarios" ToRole="Ciudades" />
+          <NavigationProperty Name="Comentarios" Relationship="ProyectoModel.FK_Comentarios_Usuarios" FromRole="Usuarios" ToRole="Comentarios" />
+          <NavigationProperty Name="ComentariosUsuario" Relationship="ProyectoModel.FK_ComentariosUsuario_Usuarios" FromRole="Usuarios" ToRole="ComentariosUsuario" />
+          <NavigationProperty Name="Mensajes" Relationship="ProyectoModel.FK_Mensajes_Usuarios" FromRole="Usuarios" ToRole="Mensajes" />
+          <NavigationProperty Name="MensajesProyectoLeido" Relationship="ProyectoModel.FK_MensajesProyectoLeido_Usuarios" FromRole="Usuarios" ToRole="MensajesProyectoLeido" />
+          <NavigationProperty Name="MensajesUsuario" Relationship="ProyectoModel.FK_MensajesUsuario_Usuarios" FromRole="Usuarios" ToRole="MensajesUsuario" />
+          <NavigationProperty Name="ProyectoParticipantes" Relationship="ProyectoModel.FK_ProyectoParticipantes_Usuarios" FromRole="Usuarios" ToRole="ProyectoParticipantes" />
+          <NavigationProperty Name="Proyectos" Relationship="ProyectoModel.FK_Proyectos_Usuarios" FromRole="Usuarios" ToRole="Proyectos" />
+          <NavigationProperty Name="ProyectoSolicitud" Relationship="ProyectoModel.FK_ProyectoSolicitud_Usuarios" FromRole="Usuarios" ToRole="ProyectoSolicitud" />
+          <NavigationProperty Name="UsuarioActorCategoria" Relationship="ProyectoModel.FK_UsuarioActorCategoria_Usuarios" FromRole="Usuarios" ToRole="UsuarioActorCategoria" />
+          <NavigationProperty Name="UsuarioProductoraCategoria" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_Usuarios1" FromRole="Usuarios" ToRole="UsuarioProductoraCategoria" />
+          <NavigationProperty Name="UsuariosTipos" Relationship="ProyectoModel.FK_Usuarios_UsuariosTipos" FromRole="Usuarios" ToRole="UsuariosTipos" />
+          <NavigationProperty Name="UsuariosActor" Relationship="ProyectoModel.FK_UsuariosActor_Usuarios" FromRole="Usuarios" ToRole="UsuariosActor" />
+          <NavigationProperty Name="UsuariosFotos" Relationship="ProyectoModel.FK_UsuariosFotos_Usuarios" FromRole="Usuarios" ToRole="UsuariosFotos" />
+          <NavigationProperty Name="UsuariosGaleria" Relationship="ProyectoModel.FK_UsuariosGaleria_Usuarios" FromRole="Usuarios" ToRole="UsuariosGaleria" />
+          <NavigationProperty Name="UsuariosLocation" Relationship="ProyectoModel.FK_UsuariosLocation_Usuarios" FromRole="Usuarios" ToRole="UsuariosLocation" />
+          <NavigationProperty Name="UsuariosProductora" Relationship="ProyectoModel.FK_UsuariosProductora_Usuarios1" FromRole="Usuarios" ToRole="UsuariosProductora" />
+          <NavigationProperty Name="UsuariosTecnico" Relationship="ProyectoModel.FK_UsuariosTecnico_Usuarios" FromRole="Usuarios" ToRole="UsuariosTecnico" />
+          <NavigationProperty Name="UsuariosTecnicosSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_Usuarios" FromRole="Usuarios" ToRole="UsuariosTecnicosSubcategorias" />
+          <NavigationProperty Name="UsuariosVideos" Relationship="ProyectoModel.FK_UsuariosVideos_Usuarios" FromRole="Usuarios" ToRole="UsuariosVideos" />
+        </EntityType>
+        <EntityType Name="UsuariosActor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="apellido_c" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="telefono_c" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="dni_c" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosActor_Usuarios" FromRole="UsuariosActor" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="UsuariosFotos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="enlace_c" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaLast_dt" Type="DateTime" Precision="3" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <Property Name="galeria_xref" Type="Int32" />
+          <Property Name="principal_b" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosFotos_Usuarios" FromRole="UsuariosFotos" ToRole="Usuarios" />
+          <NavigationProperty Name="UsuariosGaleria" Relationship="ProyectoModel.FK_UsuariosFotos_UsuariosGaleria" FromRole="UsuariosFotos" ToRole="UsuariosGaleria" />
+        </EntityType>
+        <EntityType Name="UsuariosGaleria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaLast_dt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosGaleria_Usuarios" FromRole="UsuariosGaleria" ToRole="Usuarios" />
+          <NavigationProperty Name="UsuariosFotos" Relationship="ProyectoModel.FK_UsuariosFotos_UsuariosGaleria" FromRole="UsuariosGaleria" ToRole="UsuariosFotos" />
+          <NavigationProperty Name="UsuariosVideos" Relationship="ProyectoModel.FK_UsuariosVideos_UsuariosGaleria" FromRole="UsuariosGaleria" ToRole="UsuariosVideos" />
+        </EntityType>
+        <EntityType Name="UsuariosLocation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <Property Name="long_d" Type="Double" Nullable="false" />
+          <Property Name="lat_d" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosLocation_Usuarios" FromRole="UsuariosLocation" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="UsuariosProductora">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="telefono_c" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosProductora_Usuarios1" FromRole="UsuariosProductora" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="UsuariosTecnico">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos_c" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="dni_c" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="telefono_c" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosTecnico_Usuarios" FromRole="UsuariosTecnico" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="UsuariosTecnicosSubcategorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <Property Name="subcategoria_xref" Type="Int32" Nullable="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Precision="3" />
+          <Property Name="fechaFin_dt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_Usuarios" FromRole="UsuariosTecnicosSubcategorias" ToRole="Usuarios" />
+          <NavigationProperty Name="UsuariosTiposSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" FromRole="UsuariosTecnicosSubcategorias" ToRole="UsuariosTiposSubcategorias" />
+        </EntityType>
+        <EntityType Name="UsuariosTipos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_Usuarios_UsuariosTipos" FromRole="UsuariosTipos" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="UsuariosTiposCategorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <Property Name="tipoUsuario_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UsuarioActorCategoria" Relationship="ProyectoModel.FK_UsuarioActorCategoria_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuarioActorCategoria" />
+          <NavigationProperty Name="UsuarioProductoraCategoria" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuarioProductoraCategoria" />
+        </EntityType>
+        <EntityType Name="UsuariosTiposSubcategorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <Property Name="categoria_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UsuariosTecnicosSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" FromRole="UsuariosTiposSubcategorias" ToRole="UsuariosTecnicosSubcategorias" />
+        </EntityType>
+        <EntityType Name="UsuariosVideos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="enlace_c" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaLast_dt" Type="DateTime" Precision="3" />
+          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
+          <Property Name="galeria_xref" Type="Int32" />
+          <Property Name="principal_b" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosVideos_Usuarios" FromRole="UsuariosVideos" ToRole="Usuarios" />
+          <NavigationProperty Name="UsuariosGaleria" Relationship="ProyectoModel.FK_UsuariosVideos_UsuariosGaleria" FromRole="UsuariosVideos" ToRole="UsuariosGaleria" />
+        </EntityType>
+        <Association Name="FK_Proyectos_Ciudad">
+          <End Type="ProyectoModel.Ciudades" Role="Ciudades" Multiplicity="0..1" />
+          <End Type="ProyectoModel.Proyectos" Role="Proyectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Proyectos">
+              <PropertyRef Name="ciudad_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Ciudad">
+          <End Type="ProyectoModel.Ciudades" Role="Ciudades" Multiplicity="0..1" />
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="ciudad_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentarios_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.Comentarios" Role="Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="autor_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComentariosProyecto_comentario">
+          <End Type="ProyectoModel.Comentarios" Role="Comentarios" Multiplicity="1" />
+          <End Type="ProyectoModel.ComentariosProyecto" Role="ComentariosProyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comentarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComentariosProyecto">
+              <PropertyRef Name="comentario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComentariosUsuario_comentario">
+          <End Type="ProyectoModel.Comentarios" Role="Comentarios" Multiplicity="1" />
+          <End Type="ProyectoModel.ComentariosUsuario" Role="ComentariosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comentarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComentariosUsuario">
+              <PropertyRef Name="comentario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComentariosProyecto_proyecto">
+          <End Type="ProyectoModel.Proyectos" Role="Proyectos" Multiplicity="1" />
+          <End Type="ProyectoModel.ComentariosProyecto" Role="ComentariosProyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyectos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComentariosProyecto">
+              <PropertyRef Name="proyecto_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComentariosUsuario_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.ComentariosUsuario" Role="ComentariosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComentariosUsuario">
+              <PropertyRef Name="destinatario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mensajes_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.Mensajes" Role="Mensajes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mensajes">
+              <PropertyRef Name="autor_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesProyecto_mensaje">
+          <End Type="ProyectoModel.Mensajes" Role="Mensajes" Multiplicity="1" />
+          <End Type="ProyectoModel.MensajesProyecto" Role="MensajesProyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mensajes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesProyecto">
+              <PropertyRef Name="mensaje_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesProyectoLeido_mensaje">
+          <End Type="ProyectoModel.Mensajes" Role="Mensajes" Multiplicity="1" />
+          <End Type="ProyectoModel.MensajesProyectoLeido" Role="MensajesProyectoLeido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mensajes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesProyectoLeido">
+              <PropertyRef Name="mensaje_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesUsuario_mensaje">
+          <End Type="ProyectoModel.Mensajes" Role="Mensajes" Multiplicity="1" />
+          <End Type="ProyectoModel.MensajesUsuario" Role="MensajesUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mensajes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesUsuario">
+              <PropertyRef Name="mensaje_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesProyectoLeido_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.MensajesProyectoLeido" Role="MensajesProyectoLeido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesProyectoLeido">
+              <PropertyRef Name="usuLeido_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MensajesUsuario_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.MensajesUsuario" Role="MensajesUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MensajesUsuario">
+              <PropertyRef Name="destinatario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoDemandas_proyecto">
+          <End Type="ProyectoModel.Proyectos" Role="Proyectos" Multiplicity="1" />
+          <End Type="ProyectoModel.ProyectoDemandas" Role="ProyectoDemandas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyectos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoDemandas">
+              <PropertyRef Name="proyecto_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoFiles_Proyecto">
+          <End Type="ProyectoModel.Proyectos" Role="Proyectos" Multiplicity="1" />
+          <End Type="ProyectoModel.ProyectoFiles" Role="ProyectoFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyectos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoFiles">
+              <PropertyRef Name="proyecto_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoParticipantes_proyecto">
+          <End Type="ProyectoModel.Proyectos" Role="Proyectos" Multiplicity="1" />
+          <End Type="ProyectoModel.ProyectoParticipantes" Role="ProyectoParticipantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyectos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoParticipantes">
+              <PropertyRef Name="proyecto_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoParticipantes_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.ProyectoParticipantes" Role="ProyectoParticipantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoParticipantes">
+              <PropertyRef Name="participante_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proyectos_ProyectosTipo1">
+          <End Type="ProyectoModel.ProyectosTipo" Role="ProyectosTipo" Multiplicity="1" />
+          <End Type="ProyectoModel.Proyectos" Role="Proyectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProyectosTipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Proyectos">
+              <PropertyRef Name="tipo_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proyectos_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.Proyectos" Role="Proyectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Proyectos">
+              <PropertyRef Name="creador_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProyectoSolicitud_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.ProyectoSolicitud" Role="ProyectoSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProyectoSolicitud">
+              <PropertyRef Name="solicitante_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioActorCategoria_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuarioActorCategoria" Role="UsuarioActorCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuarioActorCategoria">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioActorCategoria_UsuariosTiposCategorias">
+          <End Type="ProyectoModel.UsuariosTiposCategorias" Role="UsuariosTiposCategorias" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuarioActorCategoria" Role="UsuarioActorCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTiposCategorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuarioActorCategoria">
+              <PropertyRef Name="categoria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioProductoraCategoria_Usuarios1">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuarioProductoraCategoria" Role="UsuarioProductoraCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuarioProductoraCategoria">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioProductoraCategoria_UsuariosTiposCategorias">
+          <End Type="ProyectoModel.UsuariosTiposCategorias" Role="UsuariosTiposCategorias" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuarioProductoraCategoria" Role="UsuarioProductoraCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTiposCategorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuarioProductoraCategoria">
+              <PropertyRef Name="categoria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_UsuariosTipos">
+          <End Type="ProyectoModel.UsuariosTipos" Role="UsuariosTipos" Multiplicity="0..1" />
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTipos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="tipo_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosActor_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosActor" Role="UsuariosActor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosActor">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosFotos_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosFotos" Role="UsuariosFotos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosFotos">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosGaleria_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosGaleria" Role="UsuariosGaleria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosGaleria">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosLocation_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosLocation" Role="UsuariosLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosLocation">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosProductora_Usuarios1">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosProductora" Role="UsuariosProductora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosProductora">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosTecnico_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosTecnico" Role="UsuariosTecnico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTecnico">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosTecnicosSubcategorias_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosTecnicosSubcategorias" Role="UsuariosTecnicosSubcategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTecnicosSubcategorias">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosVideos_Usuarios">
+          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosVideos" Role="UsuariosVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosVideos">
+              <PropertyRef Name="usuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosFotos_UsuariosGaleria">
+          <End Type="ProyectoModel.UsuariosGaleria" Role="UsuariosGaleria" Multiplicity="0..1" />
+          <End Type="ProyectoModel.UsuariosFotos" Role="UsuariosFotos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosGaleria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosFotos">
+              <PropertyRef Name="galeria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosVideos_UsuariosGaleria">
+          <End Type="ProyectoModel.UsuariosGaleria" Role="UsuariosGaleria" Multiplicity="0..1" />
+          <End Type="ProyectoModel.UsuariosVideos" Role="UsuariosVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosGaleria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosVideos">
+              <PropertyRef Name="galeria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
+          <End Type="ProyectoModel.UsuariosTiposSubcategorias" Role="UsuariosTiposSubcategorias" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosTecnicosSubcategorias" Role="UsuariosTecnicosSubcategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTiposSubcategorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTecnicosSubcategorias">
+              <PropertyRef Name="subcategoria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProyectoModelStoreContainer" CdmEntityContainer="ProyectoEntities">
+          <EntitySetMapping Name="Ciudades">
+            <EntityTypeMapping TypeName="ProyectoModel.Ciudades">
+              <MappingFragment StoreEntitySet="Ciudades">
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="lat_d" ColumnName="lat_d" />
+                <ScalarProperty Name="long_d" ColumnName="long_d" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comentarios">
+            <EntityTypeMapping TypeName="ProyectoModel.Comentarios">
+              <MappingFragment StoreEntitySet="Comentarios">
+                <ScalarProperty Name="fechaLast_dt" ColumnName="fechaLast_dt" />
+                <ScalarProperty Name="fechaFirst_dt" ColumnName="fechaFirst_dt" />
+                <ScalarProperty Name="ip_c" ColumnName="ip_c" />
+                <ScalarProperty Name="autor_xref" ColumnName="autor_xref" />
+                <ScalarProperty Name="comentario_c" ColumnName="comentario_c" />
+                <ScalarProperty Name="titulo_c" ColumnName="titulo_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComentariosProyecto">
+            <EntityTypeMapping TypeName="ProyectoModel.ComentariosProyecto">
+              <MappingFragment StoreEntitySet="ComentariosProyecto">
+                <ScalarProperty Name="proyecto_xref" ColumnName="proyecto_xref" />
+                <ScalarProperty Name="comentario_xref" ColumnName="comentario_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComentariosUsuario">
+            <EntityTypeMapping TypeName="ProyectoModel.ComentariosUsuario">
+              <MappingFragment StoreEntitySet="ComentariosUsuario">
+                <ScalarProperty Name="destinatario_xref" ColumnName="destinatario_xref" />
+                <ScalarProperty Name="comentario_xref" ColumnName="comentario_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mensajes">
+            <EntityTypeMapping TypeName="ProyectoModel.Mensajes">
+              <MappingFragment StoreEntitySet="Mensajes">
+                <ScalarProperty Name="fechaFirst_dt" ColumnName="fechaFirst_dt" />
+                <ScalarProperty Name="mensaje_txt" ColumnName="mensaje_txt" />
+                <ScalarProperty Name="autor_xref" ColumnName="autor_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MensajesProyecto">
+            <EntityTypeMapping TypeName="ProyectoModel.MensajesProyecto">
+              <MappingFragment StoreEntitySet="MensajesProyecto">
+                <ScalarProperty Name="proyecto_xref" ColumnName="proyecto_xref" />
+                <ScalarProperty Name="mensaje_xref" ColumnName="mensaje_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MensajesProyectoLeido">
+            <EntityTypeMapping TypeName="ProyectoModel.MensajesProyectoLeido">
+              <MappingFragment StoreEntitySet="MensajesProyectoLeido">
+                <ScalarProperty Name="fechaLeido_dt" ColumnName="fechaLeido_dt" />
+                <ScalarProperty Name="usuLeido_xref" ColumnName="usuLeido_xref" />
+                <ScalarProperty Name="mensaje_xref" ColumnName="mensaje_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MensajesUsuario">
+            <EntityTypeMapping TypeName="ProyectoModel.MensajesUsuario">
+              <MappingFragment StoreEntitySet="MensajesUsuario">
+                <ScalarProperty Name="leido_b" ColumnName="leido_b" />
+                <ScalarProperty Name="destinatario_xref" ColumnName="destinatario_xref" />
+                <ScalarProperty Name="mensaje_xref" ColumnName="mensaje_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProyectoDemandas">
+            <EntityTypeMapping TypeName="ProyectoModel.ProyectoDemandas">
+              <MappingFragment StoreEntitySet="ProyectoDemandas">
+                <ScalarProperty Name="tipo_xref" ColumnName="tipo_xref" />
+                <ScalarProperty Name="subcategoria_xref" ColumnName="subcategoria_xref" />
+                <ScalarProperty Name="categoria_xref" ColumnName="categoria_xref" />
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="fechaFin_dt" ColumnName="fechaFin_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="proyecto_xref" ColumnName="proyecto_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProyectoFiles">
+            <EntityTypeMapping TypeName="ProyectoModel.ProyectoFiles">
+              <MappingFragment StoreEntitySet="ProyectoFiles">
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="tipo_c" ColumnName="tipo_c" />
+                <ScalarProperty Name="proyecto_xref" ColumnName="proyecto_xref" />
+                <ScalarProperty Name="enlace_c" ColumnName="enlace_c" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProyectoParticipantes">
+            <EntityTypeMapping TypeName="ProyectoModel.ProyectoParticipantes">
+              <MappingFragment StoreEntitySet="ProyectoParticipantes">
+                <ScalarProperty Name="fechaFin_dt" ColumnName="fechaFin_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="participante_xref" ColumnName="participante_xref" />
+                <ScalarProperty Name="proyecto_xref" ColumnName="proyecto_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proyectos">
+            <EntityTypeMapping TypeName="ProyectoModel.Proyectos">
+              <MappingFragment StoreEntitySet="Proyectos">
+                <ScalarProperty Name="ciudad_xref" ColumnName="ciudad_xref" />
+                <ScalarProperty Name="creador_xref" ColumnName="creador_xref" />
+                <ScalarProperty Name="tipo_xref" ColumnName="tipo_xref" />
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="fechaLast_dt" ColumnName="fechaLast_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProyectoSolicitud">
+            <EntityTypeMapping TypeName="ProyectoModel.ProyectoSolicitud">
+              <MappingFragment StoreEntitySet="ProyectoSolicitud">
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="fechaSolicitud_dt" ColumnName="fechaSolicitud_dt" />
+                <ScalarProperty Name="proyecto_xref" ColumnName="proyecto_xref" />
+                <ScalarProperty Name="solicitante_xref" ColumnName="solicitante_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProyectosTipo">
+            <EntityTypeMapping TypeName="ProyectoModel.ProyectosTipo">
+              <MappingFragment StoreEntitySet="ProyectosTipo">
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioActorCategoria">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuarioActorCategoria">
+              <MappingFragment StoreEntitySet="UsuarioActorCategoria">
+                <ScalarProperty Name="fechaFin_dt" ColumnName="fechaFin_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="categoria_xref" ColumnName="categoria_xref" />
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioProductoraCategoria">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuarioProductoraCategoria">
+              <MappingFragment StoreEntitySet="UsuarioProductoraCategoria">
+                <ScalarProperty Name="fechaFin_dt" ColumnName="fechaFin_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="categoria_xref" ColumnName="categoria_xref" />
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="ProyectoModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="tipo_xref" ColumnName="tipo_xref" />
+                <ScalarProperty Name="ciudad_xref" ColumnName="ciudad_xref" />
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="fechaLast_dt" ColumnName="fechaLast_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="ipLast_c" ColumnName="ipLast_c" />
+                <ScalarProperty Name="ip_c" ColumnName="ip_c" />
+                <ScalarProperty Name="salt_c" ColumnName="salt_c" />
+                <ScalarProperty Name="fotoPerfil_c" ColumnName="fotoPerfil_c" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email_c" ColumnName="email_c" />
+                <ScalarProperty Name="username_c" ColumnName="username_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosActor">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosActor">
+              <MappingFragment StoreEntitySet="UsuariosActor">
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="dni_c" ColumnName="dni_c" />
+                <ScalarProperty Name="telefono_c" ColumnName="telefono_c" />
+                <ScalarProperty Name="apellido_c" ColumnName="apellido_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosFotos">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosFotos">
+              <MappingFragment StoreEntitySet="UsuariosFotos">
+                <ScalarProperty Name="principal_b" ColumnName="principal_b" />
+                <ScalarProperty Name="galeria_xref" ColumnName="galeria_xref" />
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="fechaLast_dt" ColumnName="fechaLast_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="enlace_c" ColumnName="enlace_c" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosGaleria">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosGaleria">
+              <MappingFragment StoreEntitySet="UsuariosGaleria">
+                <ScalarProperty Name="fechaLast_dt" ColumnName="fechaLast_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosLocation">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosLocation">
+              <MappingFragment StoreEntitySet="UsuariosLocation">
+                <ScalarProperty Name="lat_d" ColumnName="lat_d" />
+                <ScalarProperty Name="long_d" ColumnName="long_d" />
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosProductora">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosProductora">
+              <MappingFragment StoreEntitySet="UsuariosProductora">
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="telefono_c" ColumnName="telefono_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosTecnico">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosTecnico">
+              <MappingFragment StoreEntitySet="UsuariosTecnico">
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="telefono_c" ColumnName="telefono_c" />
+                <ScalarProperty Name="dni_c" ColumnName="dni_c" />
+                <ScalarProperty Name="apellidos_c" ColumnName="apellidos_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosTecnicosSubcategorias">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosTecnicosSubcategorias">
+              <MappingFragment StoreEntitySet="UsuariosTecnicosSubcategorias">
+                <ScalarProperty Name="fechaFin_dt" ColumnName="fechaFin_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="subcategoria_xref" ColumnName="subcategoria_xref" />
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosTipos">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosTipos">
+              <MappingFragment StoreEntitySet="UsuariosTipos">
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosTiposCategorias">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosTiposCategorias">
+              <MappingFragment StoreEntitySet="UsuariosTiposCategorias">
+                <ScalarProperty Name="tipoUsuario_xref" ColumnName="tipoUsuario_xref" />
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosTiposSubcategorias">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosTiposSubcategorias">
+              <MappingFragment StoreEntitySet="UsuariosTiposSubcategorias">
+                <ScalarProperty Name="categoria_xref" ColumnName="categoria_xref" />
+                <ScalarProperty Name="activo_b" ColumnName="activo_b" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosVideos">
+            <EntityTypeMapping TypeName="ProyectoModel.UsuariosVideos">
+              <MappingFragment StoreEntitySet="UsuariosVideos">
+                <ScalarProperty Name="principal_b" ColumnName="principal_b" />
+                <ScalarProperty Name="galeria_xref" ColumnName="galeria_xref" />
+                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
+                <ScalarProperty Name="fechaLast_dt" ColumnName="fechaLast_dt" />
+                <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
+                <ScalarProperty Name="enlace_c" ColumnName="enlace_c" />
+                <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

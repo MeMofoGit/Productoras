@@ -1,0 +1,412 @@
+body {
+    margin: 0;
+}
+ul {
+    list-style: none;
+}
+.bg {
+    background: url('../img/cine2.jpg') no-repeat center center;
+    background-size: cover;
+    position: fixed;
+    width: 100%;
+    height: 350px; /*same height as jumbotron */
+    top:0;
+    left:0;
+    z-index: -1;
+}
+
+.perfil_jumbotron {
+  height: 350px;
+  color: white;
+  text-shadow: #444 0 1px 1px;
+  background:transparent;
+}
+.perfil_imagenPerfil {
+  display: block;
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em;
+  border: 5px solid #eee;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+.perfil_recursos {
+    z-index: 1;
+}
+
+.perfil_video_principal {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), 0px 2px 10px 0 rgba(0, 0, 0, 0.2);
+    max-height: 250px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.perfil_video_principal_infoBox {
+    width: 100%;
+    max-height: 30%;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    bottom: 0;
+}
+.width100 {
+    min-height: 100%;
+    
+}
+.perfil_video_titulo p {
+    font-size: 1.2vw;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+/*    font-size: 1.3vw;*/
+    bottom: 0;
+}
+.perfil_video_principal_infoBox > .perfil_video_principal_descripcion{
+    font-weight: bold;
+/*    font-size: 1.3vw;*/
+    padding: 15px;
+    object-fit: cover;
+    white-space: pre-wrap;
+    bottom: 0;
+}
+
+/*
+.embed-responsive-item, .embed-responsive iframe {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1), 0px 3px 10px 0 rgba(0, 0, 0, 0.5);
+    max-height: 300px;
+}
+.embed-responsive, .embed-responsive iframe, .embed-responsive-16by9, .embed-responsive-item {
+    max-width: 800px;
+    max-height:300px; 
+}
+*/
+.perfil_fotoBox {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0px 2px 10px 0 rgba(0, 0, 0, 0.12);
+    min-height: 150px;
+    padding: 0;
+    margin-right: 10px;
+}
+.perfil_fotoBox > img {
+    width: 100%;
+    height: 150px;
+}
+.perfil_panel_md {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0px 2px 10px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 0px;
+}
+.perfil_panel_md:hover {
+    /*-moz-*/transform: scale(1);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15), 0px 5px 10px 0 rgba(0, 0, 0, 0.15);
+    z-index: 2;
+}
+.perfil_panel_xs:hover {
+    cursor: pointer;
+}
+.panel-default > .panel-heading {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+.margen_abajo_5 {
+    margin-bottom: 0%;
+}
+video {
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+.fa-quote-right {
+    color: white;
+}
+.leerMas{
+    font-size: 20pt;
+    cursor: pointer;
+}
+.row-center {
+  text-align:center;
+}
+
+.col-center {
+  display:inline-block;
+  float:none;
+}
+/* Comentarios */
+.thumbnail {
+    padding:0px;
+}
+.panel_comentario {
+	position:relative;
+}
+/*
+.panel>.panel-heading:after,.panel>.panel-heading:before{
+	position:absolute;
+	top:11px;left:-16px;
+	right:100%;
+	width:0;
+	height:0;
+	display:block;
+	content:" ";
+	border-color:transparent;
+	border-style:solid solid outset;
+	pointer-events:none;
+}
+.panel>.panel-heading:after{
+	border-width:7px;
+	border-right-color:#f7f7f7;
+	margin-top:1px;
+	margin-left:2px;
+}
+.panel>.panel-heading:before{
+	border-right-color:#ddd;
+	border-width:8px;
+}
+*/
+.margen_arriba_5 {
+    margin-top: 5px;
+}
+.margen_arriba_50 {
+    margin-top: 50px;
+}
+.comentario_autor_fotoPerfil {
+    width: 85px;
+    height: 85px;
+    display: block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-border-radius: 99em;
+    -moz-border-radius: 99em;
+    border-radius: 99em;
+    vertical-align: middle;
+/*
+    border: 5px solid #eee;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+*/
+}
+.comentario_contenido {
+    padding: 10px;
+}
+.comentario_fecha {
+    text-align: left;
+}
+.pull-right {
+  float: right !important;
+}
+.index_jumbotron{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    min-height: 100px;
+    max-height: 500px;
+    margin: 0;
+    padding: 0;
+}
+
+#index_video_background { 
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+/*    overflow: hidden;*/
+    width: 100%;
+    
+}
+.index_jumbotron_slogan {
+    position: absolute;
+    top: 30%;
+    color: white;
+    font-size: 4vw;
+}
+.index_jumbotron_slogan_sub {
+    position: absolute;
+    top: 43%;
+    color: white;
+    font-size: 2vw;
+}
+.index_jumbotron_botones {
+    position: absolute;
+    top: 60%;
+    margin: 0 auto;
+}
+.index_jumbotron_botones button {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0 0 0 0;
+}
+.index_jumbotron_botones button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color:white;
+}
+.index_jumbotron_botones .btn{
+    display: inline-block;
+    margin-bottom: 0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.43;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    height: 60px;
+    width: 130px;
+}
+.index_jumbotron_buscador {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    max-height: 30%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.43;
+    color: #565a5c;
+    -webkit-font-smoothing: antialiased;
+}
+.index_jumbotron_barraBuscador {
+    padding-bottom: 26px;
+    padding-top: 26px;
+}
+.buscador_inputs {
+    padding: 20px;
+}
+.buscador_inputs input {
+    height: 40px;
+}
+.buscador_ciudad {
+    display: inline-block;
+    margin-right: 0;
+}
+.buscador_profesional {
+    display: inline-block;
+}
+.buscador_formulario {
+    
+}
+.buscador_submit {
+    display: inline-block;
+}
+.buscador_submit button {
+    width: 100px;
+    height: 40px;
+    border-radius: 0 0 0 0;
+}
+
+.hide-bullets {
+    list-style:none;
+    margin-left: -40px;
+    margin-top:20px;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+    width: 100%;
+}
+#slider {
+    margin-top: 20px;
+}
+.video_panel_izquierda_head {
+    padding: 10px;
+/*    border-bottom: solid rgba(0, 0, 0, 0.1) 1px;*/
+    width: 95%;
+    font-size: 14pt;
+}
+.video_panel_izquierda_body {
+    padding: 15px;
+    font-size: 12pt;
+}
+.perfil_video_previa {
+    background: url('../img/videoPrevia.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    max-width: 86.4%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), 0px 2px 10px 0 rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+}
+.video_infoBox {
+    width: 100%;
+    min-height: 35%;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    bottom: 0;
+}
+.perfil_video_siguiente {
+    color: rgba(0, 0, 0, 0.1);
+    font-size: 5vw;
+    position: absolute;
+    top: 200px;
+    right: 0;
+}
+.perfil_video_siguiente:hover {
+    color:grey;
+    
+}
+.perfil_video_anterior {
+    color: rgba(0, 0, 0, 0.1);
+    font-size: 5vw;
+    position: absolute;
+    top: 200px;
+}
+.perfil_video_anterior:hover {
+    color: grey;
+}
+.perfil_video_previa img {
+    width: 100%;
+}
+.margen_arriba_10 {
+    margin-top: 10px;
+}
+.margen_arriba_20 {
+    margin-top: 20px;
+}
+.margen_arriba_30{
+    margin-top: 30px;
+}
+.margen_arriba_40 {
+    margin-top: 40px;
+}
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+.carousel-control.left {
+    font-size: 5vw;
+    color: grey;
+    cursor: pointer;
+}
+.carousel-control.left:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.galeria_fotos_ul {
+    
+}
+.galeria_fotos_ul > li img {
+    width: 120px;
+    height: 75px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), 0px 2px 10px 0 rgba(0, 0, 0, 0.2);
+}
+.galeria_fotos_ul > li img:hover {
+    position: relative;
+    z-index: 101;
+    transform: scale(2);
+}
+.carousel-inner > .item img {
+    width: 100%;
+    height: 350px;
+    
+}

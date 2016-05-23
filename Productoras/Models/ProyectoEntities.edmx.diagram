@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c083638526a408fb846774398cd81ea" Name="Diagram1" ZoomLevel="59">
+        <EntityTypeShape EntityType="ProyectoModel.Ciudades" Width="1.5" PointX="0.75" PointY="30.5" />
+        <EntityTypeShape EntityType="ProyectoModel.Comentarios" Width="1.5" PointX="8.25" PointY="32" />
+        <EntityTypeShape EntityType="ProyectoModel.ComentariosProyecto" Width="1.5" PointX="10.5" PointY="34.25" />
+        <EntityTypeShape EntityType="ProyectoModel.ComentariosUsuario" Width="1.5" PointX="13.5" PointY="27.625" />
+        <EntityTypeShape EntityType="ProyectoModel.Mensajes" Width="1.5" PointX="8.25" PointY="42.25" />
+        <EntityTypeShape EntityType="ProyectoModel.MensajesProyecto" Width="1.5" PointX="10.5" PointY="48.5" />
+        <EntityTypeShape EntityType="ProyectoModel.MensajesProyectoLeido" Width="1.5" PointX="15.5" PointY="35.375" />
+        <EntityTypeShape EntityType="ProyectoModel.MensajesUsuario" Width="1.5" PointX="13.5" PointY="38.375" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectoDemandas" Width="1.5" PointX="5.25" PointY="23.5" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectoFiles" Width="1.5" PointX="5.25" PointY="38.25" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectoParticipantes" Width="1.5" PointX="11.25" PointY="30.375" />
+        <EntityTypeShape EntityType="ProyectoModel.Proyectos" Width="1.5" PointX="3" PointY="29.625" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectoSolicitud" Width="1.5" PointX="8.25" PointY="48.25" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectosTipo" Width="1.5" PointX="0.75" PointY="27.375" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuarioActorCategoria" Width="1.5" PointX="11.25" PointY="26.5" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuarioProductoraCategoria" Width="1.5" PointX="13.25" PointY="34.5" />
+        <EntityTypeShape EntityType="ProyectoModel.Usuarios" Width="1.5" PointX="6" PointY="28" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosActor" Width="1.5" PointX="8.25" PointY="54.75" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosFotos" Width="1.5" PointX="10.5" PointY="39.375" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosGaleria" Width="1.5" PointX="8.25" PointY="51.25" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosLocation" Width="1.5" PointX="8.25" PointY="35.625" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosProductora" Width="1.5" PointX="8.25" PointY="45.625" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTecnico" Width="1.5" PointX="8.25" PointY="25.75" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTecnicosSubcategorias" Width="1.5" PointX="14.25" PointY="30.5" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTipos" Width="1.5" PointX="3.75" PointY="34.625" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTiposCategorias" Width="1.5" PointX="9" PointY="22.5" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTiposSubcategorias" Width="1.5" PointX="12" PointY="22.625" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosVideos" Width="1.5" PointX="13.5" PointY="41.375" />
+        <AssociationConnector Association="ProyectoModel.FK_Proyectos_Ciudad" />
+        <AssociationConnector Association="ProyectoModel.FK_Usuarios_Ciudad" />
+        <AssociationConnector Association="ProyectoModel.FK_Comentarios_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_ComentariosProyecto_comentario" />
+        <AssociationConnector Association="ProyectoModel.FK_ComentariosUsuario_comentario" />
+        <AssociationConnector Association="ProyectoModel.FK_ComentariosProyecto_proyecto" />
+        <AssociationConnector Association="ProyectoModel.FK_ComentariosUsuario_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_Mensajes_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_MensajesProyecto_mensaje" />
+        <AssociationConnector Association="ProyectoModel.FK_MensajesProyectoLeido_mensaje" />
+        <AssociationConnector Association="ProyectoModel.FK_MensajesUsuario_mensaje" />
+        <AssociationConnector Association="ProyectoModel.FK_MensajesProyectoLeido_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_MensajesUsuario_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_ProyectoDemandas_proyecto" />
+        <AssociationConnector Association="ProyectoModel.FK_ProyectoFiles_Proyecto" />
+        <AssociationConnector Association="ProyectoModel.FK_ProyectoParticipantes_proyecto" />
+        <AssociationConnector Association="ProyectoModel.FK_ProyectoParticipantes_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_Proyectos_ProyectosTipo1" />
+        <AssociationConnector Association="ProyectoModel.FK_Proyectos_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_ProyectoSolicitud_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuarioActorCategoria_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuarioActorCategoria_UsuariosTiposCategorias" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuarioProductoraCategoria_Usuarios1" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" />
+        <AssociationConnector Association="ProyectoModel.FK_Usuarios_UsuariosTipos" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosActor_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosFotos_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosGaleria_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosLocation_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosProductora_Usuarios1" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosTecnico_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosVideos_Usuarios" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosFotos_UsuariosGaleria" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosVideos_UsuariosGaleria" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

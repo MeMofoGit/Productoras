@@ -1,0 +1,12 @@
+﻿@model Productoras.Models.Usuarios
+
+@{
+    ViewBag.Title = "View";
+}
+<br /><br />
+<h2>@Model.username_c</h2>
+
+@foreach(var comentario in Model.ComentariosUsuario)
+{
+    <span>@comentario.Comentarios.comentario_c</span>
+}

@@ -1,0 +1,45 @@
+.login {
+    width: 30%;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    top: 35%;
+    left: 35%;
+    padding: 20px;
+}
+.login label {
+    margin-bottom: 10px;
+}
+.login input[type=text], input[type=password] {
+    width: 100%;
+    margin-bottom: 20px;
+    height: 35px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+}
+.login input[type=submit] {
+    height: 40px;
+    width: 100px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-style: none;
+    border-radius: 1px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+    float: right;
+}
+/*
+.form_error {
+    background-color: rgba(255, 0, 0, 0.3);
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 20px;
+}
+*/
+.form_error span {
+    color: brown;
+    font-weight: bold;
+}
+.input_error {
+    color: brown;
+    margin-left: 10px;
+}
