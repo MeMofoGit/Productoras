@@ -1,0 +1,63 @@
+﻿@model Productoras.Models.frmUsuariosRegistroModel
+
+@{
+    ViewBag.Title = "Registrar un nuevo usuario";
+}
+
+@using (Html.BeginForm("Registro", "Usuario"))
+{
+    <fieldset>
+        <div class="login">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-sm-12 form_error" style="text-align: center; margin-bottom: 20px;">
+                        <span class="mensajeError">@Html.ValidationSummary(true)</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(u => u.username_c)<span class="input_error">@Html.ValidationMessageFor(u => u.username_c)</span>
+                        @Html.TextBoxFor(u => u.username_c)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(u => u.email_c)<span class="input_error">@Html.ValidationMessageFor(u => u.email_c)</span>
+                        @Html.TextBoxFor(u => u.email_c)
+                    </div>
+                </div>
+                
+                @*<div class="row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(u => u.ciudad_xref)<span class="input_error">@Html.ValidationMessageFor(u => u.ciudad_xref)</span>
+                        @Html.DropDownListFor(u => u.ciudad_xref, ViewBag.lstCiudades as IEnumerable<SelectListItem>)
+                    </div>
+                </div>*@
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(u => u.fotoPerfil_c)<span class="input_error">@Html.ValidationMessageFor(u => u.fotoPerfil_c)</span>
+                        Foto
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(u => u.password)<span class="input_error">@Html.ValidationMessageFor(u => u.password)</span>
+                        @Html.PasswordFor(u => u.password)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input style="margin-top: 10px;" type="submit" value="Registrar" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </fieldset>
+}

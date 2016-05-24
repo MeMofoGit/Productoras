@@ -28,5 +28,6 @@ namespace Productoras.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuariosTecnicosSubcategorias> UsuariosTecnicosSubcategorias { get; set; }
+        public virtual UsuariosTiposCategorias UsuariosTiposCategorias { get; set; }
     }
 }

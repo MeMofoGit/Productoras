@@ -1,0 +1,53 @@
+﻿@model Productoras.Models.UsuariosActor
+
+@using (Html.BeginForm("DefineActor", "Usuario"))
+{
+    @*@Html.ValidationSummary(true) Se puede pasar como segundo parametro el error de validación aqui mismo*@ 
+
+    <fieldset>
+        <div>
+            Cambiar esto, actor
+        </div>
+        <div>
+            @Html.TextBoxFor(u => u.nombre_c)
+            @Html.ValidationMessageFor(u => u.nombre_c)
+        </div>
+        @Ajax.ActionLink("Añadir categoría", "GetCategorias", new { id = 2 }, new AjaxOptions { UpdateTargetId = "categorias_actor", InsertionMode = InsertionMode.InsertAfter, HttpMethod = "GET" })
+        <div id="categorias_actor">
+            @Html.Action("GetCategorias", new { id = 2 })
+        </div>
+        @*<div>
+            @Html.LabelFor(u => u.apellidos_c)
+        </div>
+        <div>
+            @Html.TextBoxFor(u => u.apellidos_c)
+            @Html.ValidationMessageFor(u => u.apellidos_c)
+        </div>
+
+        <div>
+            @Html.LabelFor(u => u.dni_c)
+        </div>
+        <div>
+            @Html.TextBoxFor(u => u.dni_c)
+            @Html.ValidationMessageFor(u => u.dni_c)
+        </div>
+
+        <div>
+            @Html.LabelFor(u => u.telefono_c)
+        </div>
+        <div>
+            @Html.TextBoxFor(u => u.telefono_c)
+            @Html.ValidationMessageFor(u => u.telefono_c)
+        </div>*@
+
+        @*<div>
+            @Html.LabelFor(u => u.tipoProfesional_xref)
+        </div>
+        <div>
+            @Html.DropDownListFor(u => u.tipoProfesional_xref, ViewBag.lstTipoProfesional as IEnumerable<SelectListItem>)
+            @Html.ValidationMessageFor(u => u.tipoProfesional_xref)
+        </div>*@
+
+        <input style="margin-top: 10px;" type="submit" value="Registrar usuario" />
+    </fieldset>
+}

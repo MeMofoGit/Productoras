@@ -1,0 +1,76 @@
+﻿@model Productoras.Models.clsDefineUsuarioModel
+
+@{
+    ViewBag.Title = "DefineUsuario";
+}
+
+<h2>Define el tipo de usuario que eres</h2>
+
+<div class="row text-center">
+
+    <div class="col-sm-4">
+        <div id="tecnico">
+            @*<a onclick="muestraFichaDefine('tecnico')">Técnico</a>*@
+            @Ajax.ActionLink("Técnico",
+                    "DefineTecnico",
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = "fichaDefine",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "GET"
+                    })
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div id="tecnico">
+            @Ajax.ActionLink("Actor",
+                    "DefineActor",
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = "fichaDefine",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "GET"
+                    })
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div id="productora">
+            @*<a onclick="muestraFichaDefine('productora')">Productora</a>*@
+            @Ajax.ActionLink("Productora",
+                    "DefineProductora",
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = "fichaDefine",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "GET"
+                    })
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="row text-center">
+
+    <div class="col-sm-12">
+
+        <div id="fichaDefine">
+                @Html.Action("DefineTecnico")
+        </div>
+
+    </div>
+
+</div>
+@*<script>
+    function muestraFichaDefine(tipo) {
+        if (tipo == "productora") {
+            $("#defineProductora").css("display", "block");
+            $("#defineTecnico").css("display", "none");
+        }
+        else {
+            $("#defineTecnico").css("display", "block");
+            $("#defineProductora").css("display", "none");
+        }
+    }
+</script>*@

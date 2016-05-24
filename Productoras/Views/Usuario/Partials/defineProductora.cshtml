@@ -1,0 +1,31 @@
+﻿@model Productoras.Models.UsuariosProductora
+
+@using (Html.BeginForm("DefineProductoraEnviar", "Usuario"))
+{
+    
+    <fieldset>
+        @*@Html.ValidationSummary(true)  Se puede pasar como segundo parametro el error de validación aqui mismo*@
+        <div>
+            @Html.LabelFor(u => u.nombre_c)
+        </div>
+        <div>
+            @Html.TextBoxFor(u => u.nombre_c)
+            @Html.ValidationMessageFor(u => u.nombre_c)
+        </div>
+
+        <div>
+            @Html.LabelFor(u => u.telefono_c)
+        </div>
+        <div>
+            @Html.TextBoxFor(u => u.telefono_c)
+            @Html.ValidationMessageFor(u => u.telefono_c)
+        </div>
+
+        @Ajax.ActionLink("Añadir categoría", "GetCategorias", new { id = 3 }, new AjaxOptions { UpdateTargetId = "categorias_productora", InsertionMode = InsertionMode.InsertAfter, HttpMethod = "GET" })
+        <div id="categoria_productora">
+            @Html.Action("GetCategorias", new { id = 3 })
+        </div>
+
+        <input style="margin-top: 10px;" type="submit" value="Registrar usuario" />
+    </fieldset>
+}

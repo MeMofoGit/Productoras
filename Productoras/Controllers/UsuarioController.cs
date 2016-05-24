@@ -19,7 +19,10 @@ namespace Proyecto.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-
+            if(Session["id_usuario"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             return View();
         }
         // Registro de un nuevo usuario
@@ -92,6 +95,12 @@ namespace Proyecto.Controllers
         }
         public ActionResult DefineUsuario()
         {
+
+            if (ViewBag.numero_subcategoria == null)
+            {
+                ViewBag.numero_subcategoria = 1;
+            }
+
             return View();
         }
         // Login que redirecciona a formulario de login
@@ -108,21 +117,133 @@ namespace Proyecto.Controllers
         {
             return PartialView("Partials/defineProductora");
         }
-        //public ActionResult DefineTecnico()
-        //{
-        //    var lstTipoProfesional = db.TipoProfesional.Where(t => t.activo_b == true).ToList();
-        //    IEnumerable<SelectListItem> tipoProfesional =
-        //           from c in lstTipoProfesional
-        //           select new SelectListItem
-        //           {
-        //               Text = c.nombre_c,
-        //               Value = c.id.ToString()
-        //           };
+        [HttpGet]
+        public PartialViewResult DefineTecnico()
+        {
+            return PartialView("Partials/defineTecnico");
+        }
+        [HttpPost]
+        public ActionResult DefineTecnico(frmUsuariosDefineTecnico argTecnico)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    UsuariosTecnico clsUsuarioTecnico = new UsuariosTecnico();
+                    clsUsuarioTecnico.nombre_c = argTecnico.nombre_c;
+                    clsUsuarioTecnico.apellidos_c = argTecnico.apellidos_c;
+                    clsUsuarioTecnico.dni_c = argTecnico.dni_c;
+                    clsUsuarioTecnico.telefono_c = argTecnico.telefono_c;
+                    clsUsuarioTecnico.usuario_xref = (int)Session["id_usuario"];
+                    //ATENCION !!! FALTAN DEFINIR LAS SUBCATEGORIAS DEL TECNICO, QUE PUEDEN SER MÁS DE UNA DESDE LA VISTA
+                    //clsUsuarioTecnico.Usuarios.UsuariosTecnicosSubcategorias = argTecnico.tipoProfesional_xref;
 
-        //    ViewBag.lstTipoProfesional = tipoProfesional;
+                    db.UsuariosTecnico.Add(clsUsuarioTecnico);
+                    db.SaveChanges();
+                    return Redirect("Index");
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException e)
+                {
+                    Console.WriteLine("Error en la validacion: " + e);
+                    return View();
+                }
+                catch (HttpException e)
+                {
+                    System.Console.Write(e);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error en el registro, datos incorrectos");
+                TempData["ModelState"] = ModelState;
+                return Redirect("DefineUsuario");
+            }
+            return PartialView();
+        }
+        public PartialViewResult GetCategorias(int id, int? argNumeroSubcategoria)
+        {
+            var lstCategorias = db.UsuariosTiposCategorias.Where(c => c.activo_b == true && c.tipoUsuario_xref == id).ToList();
+            var lstSubcategorias = db.UsuariosTiposSubcategorias.Where(s => s.activo_b == true && s.UsuariosTiposCategorias.tipoUsuario_xref == id).ToList();
 
-        //    return PartialView("Partials/defineTecnico");
-        //}
+            ViewBag.lstCategorias = lstCategorias;
+
+            if (id == 1)
+            {
+                return PartialView("Partials/listaCategoriasTecnico");
+            }
+            if (id == 2)
+            {
+                // Categorias para enviar por ViewBag a la vista
+                IEnumerable<SelectListItem> categorias =
+                       from c in lstCategorias
+                       select new SelectListItem
+                       {
+                           Text = c.nombre_c,
+                           Value = c.id.ToString()
+                       };
+                ViewBag.lstCategorias = categorias;
+                return PartialView("Partials/listaCategoriasActor");
+            }
+            if (id == 3)
+            {
+                // Categorias para enviar por ViewBag a la vista
+                IEnumerable<SelectListItem> categorias =
+                       from c in lstCategorias
+                       select new SelectListItem
+                       {
+                           Text = c.nombre_c,
+                           Value = c.id.ToString()
+                       };
+                ViewBag.lstCategorias = categorias;
+                return PartialView("Partials/listaCategoriasProductora");
+            }
+            return PartialView();
+        }
+        public PartialViewResult GetSubcategorias(int id)
+        {
+            var lstSubcategorias = db.UsuariosTiposSubcategorias.Where(s => s.activo_b == true && s.categoria_xref == id).ToList();
+
+            // Subcategorias para enviar por ViewBag a la vista
+            IEnumerable<SelectListItem> subcategorias =
+                   from c in lstSubcategorias
+                   select new SelectListItem
+                   {
+                       Text = c.nombre_c,
+                       Value = c.id.ToString()
+                   };
+
+            ViewBag.lstSubcategorias = subcategorias;
+
+            return PartialView("Partials/listaSubcategorias");
+        }
+        [HttpGet]
+        public PartialViewResult DefineActor()
+        {
+            var lstCategorias = db.UsuariosTiposCategorias.Where(c => c.activo_b == true).ToList();
+            var lstSubcategorias = db.UsuariosTiposSubcategorias.Where(s => s.activo_b == true).ToList();
+
+            // Categorias para enviar por ViewBag a la vista
+            IEnumerable<SelectListItem> categorias =
+                   from c in lstCategorias
+                   select new SelectListItem
+                   {
+                       Text = c.nombre_c,
+                       Value = c.id.ToString()
+                   };
+
+            ViewBag.lstCategorias = categorias;
+            // Subcategorias para enviar por ViewBag a la vista
+            IEnumerable<SelectListItem> subcategorias =
+                   from c in lstSubcategorias
+                   select new SelectListItem
+                   {
+                       Text = c.nombre_c,
+                       Value = c.id.ToString()
+                   };
+
+            ViewBag.lstCategorias = subcategorias;
+            return PartialView("Partials/defineActor");
+        }
         //[HttpPost]
         //public ActionResult DefineTecnicoEnviar(frmUsuariosDefineTecnico argTecnico)
         //{
@@ -198,7 +319,7 @@ namespace Proyecto.Controllers
 
         // Login de usuario con comprobación con POST
         [HttpPost]
-        public ActionResult Login(frmUsuariosLoginModel argUsuario)
+        public ActionResult Login(Usuarios argUsuario)
         {
             if (Session["id_usuario"] != null)
             {

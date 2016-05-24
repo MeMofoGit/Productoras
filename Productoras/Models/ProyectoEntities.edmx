@@ -712,6 +712,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias">
+          <End Role="UsuariosTiposCategorias" Type="Self.UsuariosTiposCategorias" Multiplicity="1" />
+          <End Role="UsuariosTiposSubcategorias" Type="Self.UsuariosTiposSubcategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTiposCategorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTiposSubcategorias">
+              <PropertyRef Name="categoria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UsuariosVideos_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="UsuariosVideos" Type="Self.UsuariosVideos" Multiplicity="*" />
@@ -901,6 +913,10 @@
             <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
             <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
           </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" Association="Self.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias">
+            <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
+            <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
+          </AssociationSet>
           <AssociationSet Name="FK_UsuariosVideos_Usuarios" Association="Self.FK_UsuariosVideos_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UsuariosVideos" EntitySet="UsuariosVideos" />
@@ -1086,6 +1102,10 @@
           <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
             <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
             <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" Association="ProyectoModel.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias">
+            <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
+            <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Ciudades">
@@ -1431,6 +1451,7 @@
           <Property Name="tipoUsuario_xref" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UsuarioActorCategoria" Relationship="ProyectoModel.FK_UsuarioActorCategoria_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuarioActorCategoria" />
           <NavigationProperty Name="UsuarioProductoraCategoria" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuarioProductoraCategoria" />
+          <NavigationProperty Name="UsuariosTiposSubcategorias" Relationship="ProyectoModel.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuariosTiposSubcategorias" />
         </EntityType>
         <EntityType Name="UsuariosTiposSubcategorias">
           <Key>
@@ -1442,6 +1463,7 @@
           <Property Name="activo_b" Type="Boolean" Nullable="false" />
           <Property Name="categoria_xref" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UsuariosTecnicosSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" FromRole="UsuariosTiposSubcategorias" ToRole="UsuariosTecnicosSubcategorias" />
+          <NavigationProperty Name="UsuariosTiposCategorias" Relationship="ProyectoModel.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" FromRole="UsuariosTiposSubcategorias" ToRole="UsuariosTiposCategorias" />
         </EntityType>
         <EntityType Name="UsuariosVideos">
           <Key>
@@ -1888,6 +1910,18 @@
             </Principal>
             <Dependent Role="UsuariosTecnicosSubcategorias">
               <PropertyRef Name="subcategoria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias">
+          <End Type="ProyectoModel.UsuariosTiposCategorias" Role="UsuariosTiposCategorias" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosTiposSubcategorias" Role="UsuariosTiposSubcategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTiposCategorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTiposSubcategorias">
+              <PropertyRef Name="categoria_xref" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

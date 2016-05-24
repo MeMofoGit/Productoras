@@ -1,0 +1,40 @@
+﻿@model Productoras.Models.Usuarios
+@{
+    ViewBag.Title = "Login";
+}
+
+@using (Html.BeginForm("Login", "Usuario"))
+{
+    <fieldset>
+        <div class="login">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-sm-12 form_error" style="text-align: center; margin-bottom: 20px;">
+                        <span class="mensajeError">@Html.ValidationSummary(true)</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(u => u.username_c)<span class="input_error">@Html.ValidationMessageFor(u => u.username_c)</span>
+                        @Html.TextBoxFor(u => u.username_c)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(u => u.password)<span class="input_error">@Html.ValidationMessageFor(u => u.password)</span>
+                        @Html.PasswordFor(u => u.password)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="submit" value="Login">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </fieldset>
+}
