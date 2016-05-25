@@ -5,34 +5,34 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7c083638526a408fb846774398cd81ea" Name="Diagram1" ZoomLevel="59">
-        <EntityTypeShape EntityType="ProyectoModel.Ciudades" Width="1.5" PointX="0.75" PointY="30.5" />
-        <EntityTypeShape EntityType="ProyectoModel.Comentarios" Width="1.5" PointX="8.25" PointY="29" />
-        <EntityTypeShape EntityType="ProyectoModel.ComentariosProyecto" Width="1.5" PointX="10.5" PointY="30.375" />
-        <EntityTypeShape EntityType="ProyectoModel.ComentariosUsuario" Width="1.5" PointX="10.5" PointY="36.625" />
-        <EntityTypeShape EntityType="ProyectoModel.Mensajes" Width="1.5" PointX="8.25" PointY="22.625" />
-        <EntityTypeShape EntityType="ProyectoModel.MensajesProyecto" Width="1.5" PointX="10.5" PointY="25.875" />
-        <EntityTypeShape EntityType="ProyectoModel.MensajesProyectoLeido" Width="1.5" PointX="13.5" PointY="29.875" />
-        <EntityTypeShape EntityType="ProyectoModel.MensajesUsuario" Width="1.5" PointX="13.5" PointY="26.875" />
-        <EntityTypeShape EntityType="ProyectoModel.ProyectoDemandas" Width="1.5" PointX="5.25" PointY="39.875" />
-        <EntityTypeShape EntityType="ProyectoModel.ProyectoFiles" Width="1.5" PointX="5.25" PointY="36.625" />
-        <EntityTypeShape EntityType="ProyectoModel.ProyectoParticipantes" Width="1.5" PointX="11.25" PointY="33.375" />
-        <EntityTypeShape EntityType="ProyectoModel.Proyectos" Width="1.5" PointX="3" PointY="29.625" />
-        <EntityTypeShape EntityType="ProyectoModel.ProyectoSolicitud" Width="1.5" PointX="8.25" PointY="49.125" />
-        <EntityTypeShape EntityType="ProyectoModel.ProyectosTipo" Width="1.5" PointX="0.75" PointY="27.375" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuarioActorCategoria" Width="1.5" PointX="13.25" PointY="23.5" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuarioProductoraCategoria" Width="1.5" PointX="14.25" PointY="33.5" />
-        <EntityTypeShape EntityType="ProyectoModel.Usuarios" Width="1.5" PointX="6" PointY="28" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosActor" Width="1.5" PointX="8.25" PointY="54.75" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosFotos" Width="1.5" PointX="13.5" PointY="37" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosGaleria" Width="1.5" PointX="8.25" PointY="42.5" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosLocation" Width="1.5" PointX="8.25" PointY="52" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosProductora" Width="1.5" PointX="8.25" PointY="35.875" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosTecnico" Width="1.5" PointX="8.25" PointY="19.5" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosTecnicosSubcategorias" Width="1.5" PointX="16.25" PointY="29.5" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosTipos" Width="1.5" PointX="3.75" PointY="26.625" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosTiposCategorias" Width="1.5" PointX="11" PointY="22.375" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosTiposSubcategorias" Width="1.5" PointX="14" PointY="19.5" />
-        <EntityTypeShape EntityType="ProyectoModel.UsuariosVideos" Width="1.5" PointX="10.5" PointY="40" />
+        <EntityTypeShape EntityType="ProyectoModel.Ciudades" Width="1.5" PointX="0.75" PointY="29.125" />
+        <EntityTypeShape EntityType="ProyectoModel.Comentarios" Width="1.5" PointX="8.25" PointY="18" />
+        <EntityTypeShape EntityType="ProyectoModel.ComentariosProyecto" Width="1.5" PointX="10.5" PointY="24.125" />
+        <EntityTypeShape EntityType="ProyectoModel.ComentariosUsuario" Width="1.5" PointX="13.5" PointY="25" />
+        <EntityTypeShape EntityType="ProyectoModel.Mensajes" Width="1.5" PointX="8.25" PointY="38.375" />
+        <EntityTypeShape EntityType="ProyectoModel.MensajesProyecto" Width="1.5" PointX="10.5" PointY="44.625" />
+        <EntityTypeShape EntityType="ProyectoModel.MensajesProyectoLeido" Width="1.5" PointX="13.5" PointY="36.75" />
+        <EntityTypeShape EntityType="ProyectoModel.MensajesUsuario" Width="1.5" PointX="10.5" PointY="36.75" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectoDemandas" Width="1.5" PointX="5.25" PointY="38.5" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectoFiles" Width="1.5" PointX="5.25" PointY="35.25" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectoParticipantes" Width="1.5" PointX="11.25" PointY="29" />
+        <EntityTypeShape EntityType="ProyectoModel.Proyectos" Width="1.5" PointX="3" PointY="28.25" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectoSolicitud" Width="1.5" PointX="8.25" PointY="47.75" />
+        <EntityTypeShape EntityType="ProyectoModel.ProyectosTipo" Width="1.5" PointX="0.75" PointY="25.875" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuarioActorCategoria" Width="1.5" PointX="8.25" PointY="22" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuarioProductoraCategoria" Width="1.5" PointX="16.25" PointY="29" />
+        <EntityTypeShape EntityType="ProyectoModel.Usuarios" Width="1.5" PointX="6" PointY="26.625" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosActor" Width="1.5" PointX="8.25" PointY="50.75" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosFotos" Width="1.5" PointX="13.5" PointY="28.25" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosGaleria" Width="1.5" PointX="8.25" PointY="25.625" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosLocation" Width="1.5" PointX="8.25" PointY="45" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosProductora" Width="1.5" PointX="8.25" PointY="29.125" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTecnico" Width="1.5" PointX="8.25" PointY="31.75" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTecnicosSubcategorias" Width="1.5" PointX="10.5" PointY="32.75" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTipos" Width="1.5" PointX="3.75" PointY="25.25" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTiposCategorias" Width="1.5" PointX="6" PointY="21.875" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosTiposSubcategorias" Width="1.5" PointX="8.25" PointY="13.75" />
+        <EntityTypeShape EntityType="ProyectoModel.UsuariosVideos" Width="1.5" PointX="13.5" PointY="32.25" />
         <AssociationConnector Association="ProyectoModel.FK_Proyectos_Ciudad" />
         <AssociationConnector Association="ProyectoModel.FK_Usuarios_Ciudad" />
         <AssociationConnector Association="ProyectoModel.FK_Comentarios_Usuarios" />
@@ -64,10 +64,10 @@
         <AssociationConnector Association="ProyectoModel.FK_UsuariosLocation_Usuarios" />
         <AssociationConnector Association="ProyectoModel.FK_UsuariosProductora_Usuarios1" />
         <AssociationConnector Association="ProyectoModel.FK_UsuariosTecnico_Usuarios" />
-        <AssociationConnector Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_Usuarios" />
         <AssociationConnector Association="ProyectoModel.FK_UsuariosVideos_Usuarios" />
         <AssociationConnector Association="ProyectoModel.FK_UsuariosFotos_UsuariosGaleria" />
         <AssociationConnector Association="ProyectoModel.FK_UsuariosVideos_UsuariosGaleria" />
+        <AssociationConnector Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTecnico" />
         <AssociationConnector Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" />
         <AssociationConnector Association="ProyectoModel.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" />
       </Diagram>

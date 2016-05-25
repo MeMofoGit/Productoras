@@ -33,7 +33,6 @@ namespace Productoras.Models
             this.UsuariosLocation = new HashSet<UsuariosLocation>();
             this.UsuariosProductora = new HashSet<UsuariosProductora>();
             this.UsuariosTecnico = new HashSet<UsuariosTecnico>();
-            this.UsuariosTecnicosSubcategorias = new HashSet<UsuariosTecnicosSubcategorias>();
             this.UsuariosVideos = new HashSet<UsuariosVideos>();
         }
     
@@ -50,6 +49,7 @@ namespace Productoras.Models
         public bool activo_b { get; set; }
         public Nullable<int> ciudad_xref { get; set; }
         public Nullable<int> tipo_xref { get; set; }
+        public bool definido_b { get; set; }
     
         public virtual Ciudades Ciudades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -85,8 +85,6 @@ namespace Productoras.Models
         public virtual ICollection<UsuariosProductora> UsuariosProductora { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuariosTecnico> UsuariosTecnico { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsuariosTecnicosSubcategorias> UsuariosTecnicosSubcategorias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuariosVideos> UsuariosVideos { get; set; }
     }

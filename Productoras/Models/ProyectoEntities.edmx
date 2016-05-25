@@ -157,6 +157,7 @@
           <Property Name="categoria_xref" Type="int" Nullable="false" />
           <Property Name="fechaIni_dt" Type="datetime" />
           <Property Name="fechaFin_dt" Type="datetime" />
+          <Property Name="experiencia_i" Type="int" />
         </EntityType>
         <EntityType Name="UsuarioProductoraCategoria">
           <Key>
@@ -167,6 +168,7 @@
           <Property Name="categoria_xref" Type="int" Nullable="false" />
           <Property Name="fechaIni_dt" Type="datetime" />
           <Property Name="fechaFin_dt" Type="datetime" />
+          <Property Name="expeciencia_i" Type="int" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -185,6 +187,7 @@
           <Property Name="activo_b" Type="bit" Nullable="false" />
           <Property Name="ciudad_xref" Type="int" />
           <Property Name="tipo_xref" Type="int" />
+          <Property Name="definido_b" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UsuariosActor">
           <Key>
@@ -256,10 +259,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="usuario_xref" Type="int" Nullable="false" />
-          <Property Name="subcategoria_xref" Type="int" Nullable="false" />
           <Property Name="fechaIni_dt" Type="datetime" />
           <Property Name="fechaFin_dt" Type="datetime" />
+          <Property Name="experiencia_i" Type="int" />
+          <Property Name="usuarioTecnico_xref" Type="int" Nullable="false" />
+          <Property Name="subcategoria_xref" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UsuariosTipos">
           <Key>
@@ -269,6 +273,7 @@
           <Property Name="nombre_c" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="descripcion_c" Type="text" />
           <Property Name="activo_b" Type="bit" Nullable="false" />
+          <Property Name="icono_c" Type="varchar" MaxLength="120" />
         </EntityType>
         <EntityType Name="UsuariosTiposCategorias">
           <Key>
@@ -279,6 +284,7 @@
           <Property Name="descripcion_c" Type="text" />
           <Property Name="activo_b" Type="bit" Nullable="false" />
           <Property Name="tipoUsuario_xref" Type="int" Nullable="false" />
+          <Property Name="icono_c" Type="varchar" MaxLength="120" />
         </EntityType>
         <EntityType Name="UsuariosTiposSubcategorias">
           <Key>
@@ -289,6 +295,7 @@
           <Property Name="descripcion_c" Type="text" />
           <Property Name="activo_b" Type="bit" Nullable="false" />
           <Property Name="categoria_xref" Type="int" Nullable="false" />
+          <Property Name="icono_c" Type="varchar" MaxLength="120" />
         </EntityType>
         <EntityType Name="UsuariosVideos">
           <Key>
@@ -688,15 +695,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UsuariosTecnicosSubcategorias_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+        <Association Name="FK_UsuariosTecnicosSubcategorias_UsuariosTecnico">
+          <End Role="UsuariosTecnico" Type="Self.UsuariosTecnico" Multiplicity="1" />
           <End Role="UsuariosTecnicosSubcategorias" Type="Self.UsuariosTecnicosSubcategorias" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Usuarios">
+            <Principal Role="UsuariosTecnico">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="UsuariosTecnicosSubcategorias">
-              <PropertyRef Name="usuario_xref" />
+              <PropertyRef Name="usuarioTecnico_xref" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -905,8 +912,8 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UsuariosTecnico" EntitySet="UsuariosTecnico" />
           </AssociationSet>
-          <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_Usuarios" Association="Self.FK_UsuariosTecnicosSubcategorias_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
+          <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_UsuariosTecnico" Association="Self.FK_UsuariosTecnicosSubcategorias_UsuariosTecnico">
+            <End Role="UsuariosTecnico" EntitySet="UsuariosTecnico" />
             <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
           </AssociationSet>
           <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" Association="Self.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
@@ -1083,10 +1090,6 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UsuariosTecnico" EntitySet="UsuariosTecnico" />
           </AssociationSet>
-          <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_Usuarios" Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
-          </AssociationSet>
           <AssociationSet Name="FK_UsuariosVideos_Usuarios" Association="ProyectoModel.FK_UsuariosVideos_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UsuariosVideos" EntitySet="UsuariosVideos" />
@@ -1098,6 +1101,10 @@
           <AssociationSet Name="FK_UsuariosVideos_UsuariosGaleria" Association="ProyectoModel.FK_UsuariosVideos_UsuariosGaleria">
             <End Role="UsuariosGaleria" EntitySet="UsuariosGaleria" />
             <End Role="UsuariosVideos" EntitySet="UsuariosVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_UsuariosTecnico" Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTecnico">
+            <End Role="UsuariosTecnico" EntitySet="UsuariosTecnico" />
+            <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
           </AssociationSet>
           <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
             <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
@@ -1291,6 +1298,7 @@
           <Property Name="categoria_xref" Type="Int32" Nullable="false" />
           <Property Name="fechaIni_dt" Type="DateTime" Precision="3" />
           <Property Name="fechaFin_dt" Type="DateTime" Precision="3" />
+          <Property Name="experiencia_i" Type="Int32" />
           <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuarioActorCategoria_Usuarios" FromRole="UsuarioActorCategoria" ToRole="Usuarios" />
           <NavigationProperty Name="UsuariosTiposCategorias" Relationship="ProyectoModel.FK_UsuarioActorCategoria_UsuariosTiposCategorias" FromRole="UsuarioActorCategoria" ToRole="UsuariosTiposCategorias" />
         </EntityType>
@@ -1303,6 +1311,7 @@
           <Property Name="categoria_xref" Type="Int32" Nullable="false" />
           <Property Name="fechaIni_dt" Type="DateTime" Precision="3" />
           <Property Name="fechaFin_dt" Type="DateTime" Precision="3" />
+          <Property Name="expeciencia_i" Type="Int32" />
           <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_Usuarios1" FromRole="UsuarioProductoraCategoria" ToRole="Usuarios" />
           <NavigationProperty Name="UsuariosTiposCategorias" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" FromRole="UsuarioProductoraCategoria" ToRole="UsuariosTiposCategorias" />
         </EntityType>
@@ -1323,6 +1332,7 @@
           <Property Name="activo_b" Type="Boolean" Nullable="false" />
           <Property Name="ciudad_xref" Type="Int32" />
           <Property Name="tipo_xref" Type="Int32" />
+          <Property Name="definido_b" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Ciudades" Relationship="ProyectoModel.FK_Usuarios_Ciudad" FromRole="Usuarios" ToRole="Ciudades" />
           <NavigationProperty Name="Comentarios" Relationship="ProyectoModel.FK_Comentarios_Usuarios" FromRole="Usuarios" ToRole="Comentarios" />
           <NavigationProperty Name="ComentariosUsuario" Relationship="ProyectoModel.FK_ComentariosUsuario_Usuarios" FromRole="Usuarios" ToRole="ComentariosUsuario" />
@@ -1341,7 +1351,6 @@
           <NavigationProperty Name="UsuariosLocation" Relationship="ProyectoModel.FK_UsuariosLocation_Usuarios" FromRole="Usuarios" ToRole="UsuariosLocation" />
           <NavigationProperty Name="UsuariosProductora" Relationship="ProyectoModel.FK_UsuariosProductora_Usuarios1" FromRole="Usuarios" ToRole="UsuariosProductora" />
           <NavigationProperty Name="UsuariosTecnico" Relationship="ProyectoModel.FK_UsuariosTecnico_Usuarios" FromRole="Usuarios" ToRole="UsuariosTecnico" />
-          <NavigationProperty Name="UsuariosTecnicosSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_Usuarios" FromRole="Usuarios" ToRole="UsuariosTecnicosSubcategorias" />
           <NavigationProperty Name="UsuariosVideos" Relationship="ProyectoModel.FK_UsuariosVideos_Usuarios" FromRole="Usuarios" ToRole="UsuariosVideos" />
         </EntityType>
         <EntityType Name="UsuariosActor">
@@ -1417,17 +1426,19 @@
           <Property Name="telefono_c" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="usuario_xref" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosTecnico_Usuarios" FromRole="UsuariosTecnico" ToRole="Usuarios" />
+          <NavigationProperty Name="UsuariosTecnicosSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTecnico" FromRole="UsuariosTecnico" ToRole="UsuariosTecnicosSubcategorias" />
         </EntityType>
         <EntityType Name="UsuariosTecnicosSubcategorias">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="usuario_xref" Type="Int32" Nullable="false" />
-          <Property Name="subcategoria_xref" Type="Int32" Nullable="false" />
           <Property Name="fechaIni_dt" Type="DateTime" Precision="3" />
           <Property Name="fechaFin_dt" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_Usuarios" FromRole="UsuariosTecnicosSubcategorias" ToRole="Usuarios" />
+          <Property Name="experiencia_i" Type="Int32" />
+          <Property Name="usuarioTecnico_xref" Type="Int32" Nullable="false" />
+          <Property Name="subcategoria_xref" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UsuariosTecnico" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTecnico" FromRole="UsuariosTecnicosSubcategorias" ToRole="UsuariosTecnico" />
           <NavigationProperty Name="UsuariosTiposSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" FromRole="UsuariosTecnicosSubcategorias" ToRole="UsuariosTiposSubcategorias" />
         </EntityType>
         <EntityType Name="UsuariosTipos">
@@ -1438,6 +1449,7 @@
           <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="descripcion_c" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="activo_b" Type="Boolean" Nullable="false" />
+          <Property Name="icono_c" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_Usuarios_UsuariosTipos" FromRole="UsuariosTipos" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="UsuariosTiposCategorias">
@@ -1449,6 +1461,7 @@
           <Property Name="descripcion_c" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="activo_b" Type="Boolean" Nullable="false" />
           <Property Name="tipoUsuario_xref" Type="Int32" Nullable="false" />
+          <Property Name="icono_c" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UsuarioActorCategoria" Relationship="ProyectoModel.FK_UsuarioActorCategoria_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuarioActorCategoria" />
           <NavigationProperty Name="UsuarioProductoraCategoria" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuarioProductoraCategoria" />
           <NavigationProperty Name="UsuariosTiposSubcategorias" Relationship="ProyectoModel.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuariosTiposSubcategorias" />
@@ -1462,6 +1475,7 @@
           <Property Name="descripcion_c" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="activo_b" Type="Boolean" Nullable="false" />
           <Property Name="categoria_xref" Type="Int32" Nullable="false" />
+          <Property Name="icono_c" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UsuariosTecnicosSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" FromRole="UsuariosTiposSubcategorias" ToRole="UsuariosTecnicosSubcategorias" />
           <NavigationProperty Name="UsuariosTiposCategorias" Relationship="ProyectoModel.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" FromRole="UsuariosTiposSubcategorias" ToRole="UsuariosTiposCategorias" />
         </EntityType>
@@ -1853,18 +1867,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UsuariosTecnicosSubcategorias_Usuarios">
-          <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
-          <End Type="ProyectoModel.UsuariosTecnicosSubcategorias" Role="UsuariosTecnicosSubcategorias" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="UsuariosTecnicosSubcategorias">
-              <PropertyRef Name="usuario_xref" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UsuariosVideos_Usuarios">
           <End Type="ProyectoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
           <End Type="ProyectoModel.UsuariosVideos" Role="UsuariosVideos" Multiplicity="*" />
@@ -1898,6 +1900,18 @@
             </Principal>
             <Dependent Role="UsuariosVideos">
               <PropertyRef Name="galeria_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuariosTecnicosSubcategorias_UsuariosTecnico">
+          <End Type="ProyectoModel.UsuariosTecnico" Role="UsuariosTecnico" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosTecnicosSubcategorias" Role="UsuariosTecnicosSubcategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTecnico">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTecnicosSubcategorias">
+              <PropertyRef Name="usuarioTecnico_xref" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2091,6 +2105,7 @@
           <EntitySetMapping Name="UsuarioActorCategoria">
             <EntityTypeMapping TypeName="ProyectoModel.UsuarioActorCategoria">
               <MappingFragment StoreEntitySet="UsuarioActorCategoria">
+                <ScalarProperty Name="experiencia_i" ColumnName="experiencia_i" />
                 <ScalarProperty Name="fechaFin_dt" ColumnName="fechaFin_dt" />
                 <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
                 <ScalarProperty Name="categoria_xref" ColumnName="categoria_xref" />
@@ -2102,6 +2117,7 @@
           <EntitySetMapping Name="UsuarioProductoraCategoria">
             <EntityTypeMapping TypeName="ProyectoModel.UsuarioProductoraCategoria">
               <MappingFragment StoreEntitySet="UsuarioProductoraCategoria">
+                <ScalarProperty Name="expeciencia_i" ColumnName="expeciencia_i" />
                 <ScalarProperty Name="fechaFin_dt" ColumnName="fechaFin_dt" />
                 <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
                 <ScalarProperty Name="categoria_xref" ColumnName="categoria_xref" />
@@ -2113,6 +2129,7 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="ProyectoModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="definido_b" ColumnName="definido_b" />
                 <ScalarProperty Name="tipo_xref" ColumnName="tipo_xref" />
                 <ScalarProperty Name="ciudad_xref" ColumnName="ciudad_xref" />
                 <ScalarProperty Name="activo_b" ColumnName="activo_b" />
@@ -2203,10 +2220,11 @@
           <EntitySetMapping Name="UsuariosTecnicosSubcategorias">
             <EntityTypeMapping TypeName="ProyectoModel.UsuariosTecnicosSubcategorias">
               <MappingFragment StoreEntitySet="UsuariosTecnicosSubcategorias">
+                <ScalarProperty Name="subcategoria_xref" ColumnName="subcategoria_xref" />
+                <ScalarProperty Name="usuarioTecnico_xref" ColumnName="usuarioTecnico_xref" />
+                <ScalarProperty Name="experiencia_i" ColumnName="experiencia_i" />
                 <ScalarProperty Name="fechaFin_dt" ColumnName="fechaFin_dt" />
                 <ScalarProperty Name="fechaIni_dt" ColumnName="fechaIni_dt" />
-                <ScalarProperty Name="subcategoria_xref" ColumnName="subcategoria_xref" />
-                <ScalarProperty Name="usuario_xref" ColumnName="usuario_xref" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2214,6 +2232,7 @@
           <EntitySetMapping Name="UsuariosTipos">
             <EntityTypeMapping TypeName="ProyectoModel.UsuariosTipos">
               <MappingFragment StoreEntitySet="UsuariosTipos">
+                <ScalarProperty Name="icono_c" ColumnName="icono_c" />
                 <ScalarProperty Name="activo_b" ColumnName="activo_b" />
                 <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
                 <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
@@ -2224,6 +2243,7 @@
           <EntitySetMapping Name="UsuariosTiposCategorias">
             <EntityTypeMapping TypeName="ProyectoModel.UsuariosTiposCategorias">
               <MappingFragment StoreEntitySet="UsuariosTiposCategorias">
+                <ScalarProperty Name="icono_c" ColumnName="icono_c" />
                 <ScalarProperty Name="tipoUsuario_xref" ColumnName="tipoUsuario_xref" />
                 <ScalarProperty Name="activo_b" ColumnName="activo_b" />
                 <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />
@@ -2235,6 +2255,7 @@
           <EntitySetMapping Name="UsuariosTiposSubcategorias">
             <EntityTypeMapping TypeName="ProyectoModel.UsuariosTiposSubcategorias">
               <MappingFragment StoreEntitySet="UsuariosTiposSubcategorias">
+                <ScalarProperty Name="icono_c" ColumnName="icono_c" />
                 <ScalarProperty Name="categoria_xref" ColumnName="categoria_xref" />
                 <ScalarProperty Name="activo_b" ColumnName="activo_b" />
                 <ScalarProperty Name="descripcion_c" ColumnName="descripcion_c" />

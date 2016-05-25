@@ -1,3 +1,8 @@
-﻿@model Productoras.Models.frmUsuariosDefineTecnico
+﻿@*Se usará para poder añadir más de una subcategoria al mismo tecnico*@
+@model Productoras.Models.frmUsuariosDefineTecnico
 
 @Html.DropDownListFor(u => u.subcategoria, ViewBag.lstSubcategorias as IEnumerable<SelectListItem>)
+
+@Html.LabelFor(u => u.experiencia)
+
+@Html.TextBoxFor(u => u.experiencia)

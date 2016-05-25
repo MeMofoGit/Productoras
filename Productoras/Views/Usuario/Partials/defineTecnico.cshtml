@@ -1,6 +1,6 @@
 ﻿@model Productoras.Models.frmUsuariosDefineTecnico
 
-@using (Html.BeginForm("DefineTecnicoEnviar", "Usuario"))
+@using (Html.BeginForm("DefineTecnico", "Usuario"))
 {
     @*@Html.ValidationSummary(true) Se puede pasar como segundo parametro el error de validación aqui mismo*@ 
 
@@ -36,17 +36,12 @@
             @Html.TextBoxFor(u => u.telefono_c)
             @Html.ValidationMessageFor(u => u.telefono_c)
         </div>
-        @Ajax.ActionLink("Añadir categoría", "GetCategorias", new { id = 1, argNumeroSubcategoria = (int)ViewBag.numero_subcategoria }, new AjaxOptions { UpdateTargetId = "categorias_tecnico", InsertionMode = InsertionMode.InsertAfter, HttpMethod = "GET" })
+
+        @*@Ajax.ActionLink("Añadir categoría", "GetCategorias", new { id = 1 }, new AjaxOptions { UpdateTargetId = "categorias_tecnico", InsertionMode = InsertionMode.InsertAfter, HttpMethod = "GET" })*@
+
         <div id="categorias_tecnico">
-            @Html.Action("GetCategorias", new { id = 1, argNumeroSubcategoria = ViewBag.numero_subcategoria })
+            @Html.Action("GetCategorias", new { id = 1 })
         </div>
-        @*<div>
-            @Html.LabelFor(u => u.tipoProfesional_xref)
-        </div>
-        <div>
-            @Html.DropDownListFor(u => u.tipoProfesional_xref, ViewBag.lstTipoProfesional as IEnumerable<SelectListItem>)
-            @Html.ValidationMessageFor(u => u.tipoProfesional_xref)
-        </div>*@
 
         <input style="margin-top: 10px;" type="submit" value="Registrar usuario" />
     </fieldset>

@@ -46,6 +46,7 @@ namespace Productoras.Models
 
         public int categoria { get; set; }
         public int subcategoria { get; set; }
+        public int experiencia { get; set; }
 
     }
 }

@@ -25,6 +25,7 @@ namespace Productoras.Models
         public string descripcion_c { get; set; }
         public bool activo_b { get; set; }
         public int categoria_xref { get; set; }
+        public string icono_c { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuariosTecnicosSubcategorias> UsuariosTecnicosSubcategorias { get; set; }

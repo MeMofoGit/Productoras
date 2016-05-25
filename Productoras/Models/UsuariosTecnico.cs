@@ -14,6 +14,12 @@ namespace Productoras.Models
     
     public partial class UsuariosTecnico
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UsuariosTecnico()
+        {
+            this.UsuariosTecnicosSubcategorias = new HashSet<UsuariosTecnicosSubcategorias>();
+        }
+    
         public int id { get; set; }
         public string nombre_c { get; set; }
         public string apellidos_c { get; set; }
@@ -22,5 +28,7 @@ namespace Productoras.Models
         public int usuario_xref { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsuariosTecnicosSubcategorias> UsuariosTecnicosSubcategorias { get; set; }
     }
 }

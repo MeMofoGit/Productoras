@@ -19,6 +19,7 @@ namespace Productoras.Models
         public int categoria_xref { get; set; }
         public Nullable<System.DateTime> fechaIni_dt { get; set; }
         public Nullable<System.DateTime> fechaFin_dt { get; set; }
+        public Nullable<int> expeciencia_i { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }
         public virtual UsuariosTiposCategorias UsuariosTiposCategorias { get; set; }

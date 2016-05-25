@@ -1,18 +1,17 @@
 ﻿@model Productoras.Models.frmUsuariosDefineTecnico
 
-@*<div>
-    @Html.LabelFor(u => u.categoria)
+<div class="categorias">
+    @foreach (var categoria in ViewBag.lstCategorias)
+    {
+        @Ajax.ActionLink((string)categoria.nombre_c + " ", "GetSubcategorias", new { id = categoria.id }, new AjaxOptions { UpdateTargetId = "subcategoria", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+    }
 </div>
-<div>
-    @Html.DropDownListFor(u => u.categoria, ViewBag.lstTipoProfesional as IEnumerable<SelectListItem>)
-    @Html.ValidationMessageFor(u => u.subcategoria)
-</div>*@
-@foreach (var categoria in ViewBag.lstCategorias)
-{
-    @Ajax.ActionLink((string)categoria.nombre_c, "GetSubcategorias", new { id = categoria.id }, new AjaxOptions { UpdateTargetId = "subcategoria_"+ViewBag.numero_subcategoria, InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
-    @*@Ajax.ActionLink(categoria.nombre_c, "GetSubcategorias", null, new AjaxOptions { UpdateTargetId = "contenido_subcategoria", OnSuccess = "anadirLineaSubcategoria();", InsertionMode = InsertionMode.InsertAfter, HttpMethod = "GET" }, new { @id = "GetSubcategorias", @class = "display_none" })*@
-}
 
-<div id="subcategoria_@ViewBag.numero_subcategoria">
+<div id="subcategoria">
     
 </div>
+<script>
+    function actualizarSubcategoria(data) {
+        $('.subcategoria').html('doss');
+    }
+</script>

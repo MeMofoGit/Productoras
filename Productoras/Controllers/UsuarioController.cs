@@ -95,12 +95,6 @@ namespace Proyecto.Controllers
         }
         public ActionResult DefineUsuario()
         {
-
-            if (ViewBag.numero_subcategoria == null)
-            {
-                ViewBag.numero_subcategoria = 1;
-            }
-
             return View();
         }
         // Login que redirecciona a formulario de login
@@ -118,27 +112,57 @@ namespace Proyecto.Controllers
             return PartialView("Partials/defineProductora");
         }
         [HttpGet]
-        public PartialViewResult DefineTecnico()
+        public ActionResult DefineTecnico()
         {
-            return PartialView("Partials/defineTecnico");
+            var idUsuario = (int)Session["id_usuario"];
+            var definido = db.Usuarios.Where(u => u.id == idUsuario).Select(u => u.definido_b).FirstOrDefault();
+
+            if (definido == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else {
+                return PartialView("Partials/defineTecnico");
+            }
         }
         [HttpPost]
         public ActionResult DefineTecnico(frmUsuariosDefineTecnico argTecnico)
         {
+            var idUsuario = (int)Session["id_usuario"];
+            var definido = db.Usuarios.Where(u => u.id == idUsuario).Select(u => u.definido_b).FirstOrDefault();
+
+            if (definido == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     UsuariosTecnico clsUsuarioTecnico = new UsuariosTecnico();
+                    Usuarios clsUsuario = new Usuarios();
+                    clsUsuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
+                    clsUsuario.definido_b = true;
+
+                    clsUsuarioTecnico.Usuarios = clsUsuario;
                     clsUsuarioTecnico.nombre_c = argTecnico.nombre_c;
                     clsUsuarioTecnico.apellidos_c = argTecnico.apellidos_c;
                     clsUsuarioTecnico.dni_c = argTecnico.dni_c;
                     clsUsuarioTecnico.telefono_c = argTecnico.telefono_c;
-                    clsUsuarioTecnico.usuario_xref = (int)Session["id_usuario"];
+                    //clsUsuarioTecnico.usuario_xref = (int)Session["id_usuario"];
+
+                    //Defino la subcategoría del usuario
+                    UsuariosTecnicosSubcategorias clsTecnicoSubcategoria = new UsuariosTecnicosSubcategorias();
+                    clsTecnicoSubcategoria.experiencia_i = argTecnico.experiencia;
+                    clsTecnicoSubcategoria.UsuariosTiposSubcategorias = db.UsuariosTiposSubcategorias.Where(s => s.id == argTecnico.subcategoria).FirstOrDefault();
+
+                    clsUsuarioTecnico.UsuariosTecnicosSubcategorias.Add(clsTecnicoSubcategoria);
+
+                    db.UsuariosTecnico.Add(clsUsuarioTecnico);
                     //ATENCION !!! FALTAN DEFINIR LAS SUBCATEGORIAS DEL TECNICO, QUE PUEDEN SER MÁS DE UNA DESDE LA VISTA
                     //clsUsuarioTecnico.Usuarios.UsuariosTecnicosSubcategorias = argTecnico.tipoProfesional_xref;
 
-                    db.UsuariosTecnico.Add(clsUsuarioTecnico);
                     db.SaveChanges();
                     return Redirect("Index");
                 }
@@ -160,7 +184,7 @@ namespace Proyecto.Controllers
             }
             return PartialView();
         }
-        public PartialViewResult GetCategorias(int id, int? argNumeroSubcategoria)
+        public PartialViewResult GetCategorias(int id)
         {
             var lstCategorias = db.UsuariosTiposCategorias.Where(c => c.activo_b == true && c.tipoUsuario_xref == id).ToList();
             var lstSubcategorias = db.UsuariosTiposSubcategorias.Where(s => s.activo_b == true && s.UsuariosTiposCategorias.tipoUsuario_xref == id).ToList();
@@ -327,11 +351,11 @@ namespace Proyecto.Controllers
             }
             if (ModelState.IsValid)
             {
-                var usuario = db.Usuarios.Where(u => u.email_c == argUsuario.username_c || u.username_c == argUsuario.username_c).FirstOrDefault();
+                var usuario = db.Usuarios.Where(u => u.email_c == argUsuario.username_c || u.username_c == argUsuario.username_c && u.activo_b == true).FirstOrDefault();
 
                 if (validLogin(argUsuario.username_c, argUsuario.password, usuario))
                 {
-                    if (usuario.activo_b)
+                    if (usuario.definido_b)
                     {
                         //FormsAuthentication.SetAuthCookie(argUsuario.email_c, false);
                         return RedirectToAction("index", "Home");

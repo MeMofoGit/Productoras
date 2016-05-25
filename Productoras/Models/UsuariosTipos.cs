@@ -24,6 +24,7 @@ namespace Productoras.Models
         public string nombre_c { get; set; }
         public string descripcion_c { get; set; }
         public bool activo_b { get; set; }
+        public string icono_c { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuarios> Usuarios { get; set; }
