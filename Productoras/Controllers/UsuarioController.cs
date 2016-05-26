@@ -19,34 +19,58 @@ namespace Proyecto.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
+            var idUsuario = (int)Session["id_usuario"];
+
             if(Session["id_usuario"] == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Usuario");
             }
-            return View();
+            else
+            {
+                var usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
+                if (usuario.definido_b == false)
+                {
+                    return RedirectToAction("DefineUsuario", "Usuario");
+                }
+                else
+                {
+                    return View();
+                }
+            }
         }
         // Registro de un nuevo usuario
         [HttpGet]
         [Route("Registrarme")]
         public ActionResult Registro()
         {
+            if (Session["id_usuario"] != null)
+            {
+                return RedirectToAction("Index");
+            }
+            var lstCiudades = db.Ciudades.Where(s => s.activo_b).ToList();
 
-            //    var ciudades = db.Ciudades.ToList();
-            //    IEnumerable<SelectListItem> lstCiudades =
-            //        from c in ciudades
-            //        select new SelectListItem
-            //        {
-            //            Text = c.nombre_c,
-            //            Value = c.id.ToString()
-            //        };
+            // Subcategorias para enviar por ViewBag a la vista
+            IEnumerable<SelectListItem> ciudades =
+                   from c in lstCiudades
+                   select new SelectListItem
+                   {
+                       Text = c.nombre_c,
+                       Value = c.id.ToString()
+                   };
 
-            //    ViewBag.lstCiudades = lstCiudades;
+            ViewBag.lstCiudades = ciudades;
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Registro(frmUsuariosRegistroModel argUsuario)
         {
+            if(Session["id_usuario"] != null)
+            {
+                RedirectToAction("Index");
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -74,7 +98,8 @@ namespace Proyecto.Controllers
                     //db.UsuariosLocation.Add(usrLocation);
                     db.SaveChanges();
                     Session["id_usuario"] = usr.id;
-                    return RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("DefineUsuario", "Usuario");
                 }
                 catch (System.Data.Entity.Validation.DbEntityValidationException e)
                 {
@@ -89,12 +114,30 @@ namespace Proyecto.Controllers
             else
             {
                 ModelState.AddModelError("", "Error en el registro, datos incorrectos");
+                var lstCiudades = db.Ciudades.Where(s => s.activo_b).ToList();
+
+                // Subcategorias para enviar por ViewBag a la vista
+                IEnumerable<SelectListItem> ciudades =
+                       from c in lstCiudades
+                       select new SelectListItem
+                       {
+                           Text = c.nombre_c,
+                           Value = c.id.ToString()
+                       };
+
+                ViewBag.lstCiudades = ciudades;
+
                 return View(argUsuario);
             }
             return View();
         }
         public ActionResult DefineUsuario()
         {
+            if (Session["id_usuario"] == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
             return View();
         }
         // Login que redirecciona a formulario de login
@@ -114,6 +157,11 @@ namespace Proyecto.Controllers
         [HttpGet]
         public ActionResult DefineTecnico()
         {
+            if(Session["id_usuario"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
             var idUsuario = (int)Session["id_usuario"];
             var definido = db.Usuarios.Where(u => u.id == idUsuario).Select(u => u.definido_b).FirstOrDefault();
 

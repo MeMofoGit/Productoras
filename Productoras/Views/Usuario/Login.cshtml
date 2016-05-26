@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Login";
 }
-
+<link rel="stylesheet" href="~/Content/css/login2.css" />
 @using (Html.BeginForm("Login", "Usuario"))
 {
     <fieldset>
@@ -38,3 +38,31 @@
         </div>
     </fieldset>
 }
+
+<style>
+ 
+.form_error span {
+    color: brown;
+    font-weight: bold;
+}
+.input_error {
+    color: brown;
+    margin-left: 10px;
+}
+.validation-summary-errors {
+    border-radius: 5px;
+    min-height: 50px;
+    padding: 10px;
+    background-color: rgba(255, 30, 8, 0.1);
+}
+.validation-summary-errors ul {
+    list-style: none;
+    text-align: center;
+    position: relative;
+}
+.validation-summary-errors ul li {
+    width: 100%;
+    position: absolute;
+    left: 0;
+}
+</style>

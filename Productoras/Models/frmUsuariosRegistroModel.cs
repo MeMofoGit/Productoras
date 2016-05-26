@@ -9,10 +9,14 @@
 
 namespace Productoras.Models
 {
+    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Newtonsoft.Json.Linq;
+    using Newtonsoft.Json.Schema;
     using Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
     public partial class frmUsuariosRegistroModel : Usuarios
     {
 
@@ -32,9 +36,9 @@ namespace Productoras.Models
         [Display(Name = "password_lbl", ResourceType = typeof(ProductorasResources))]
         public new string password { get; set; }
         /* Ciudad */
-        //[Required(ErrorMessageResourceName = "error_vacio", ErrorMessageResourceType = typeof(ProyectoResources))]
-        //[Display(Name = "ciudad_lbl", ResourceType = typeof(ProyectoResources))]
-        //public new int ciudad_xref { get; set; }
+        [Required(ErrorMessageResourceName = "error_vacio", ErrorMessageResourceType = typeof(ProductorasResources))]
+        [Display(Name = "ciudad_lbl", ResourceType = typeof(ProductorasResources))]
+        public new int ciudad_xref { get; set; }
         /* Salt */
         public new string salt_c { get; set; }
         
@@ -57,7 +61,8 @@ namespace Productoras.Models
         /* activo */
         public new bool activo_b { get; set; }
         /* fotoPerfil */
+        [Required, FileExtensions(Extensions = "jpg,jpeg,png", ErrorMessageResourceName = "foto_error_extension", ErrorMessageResourceType = typeof(ProductorasResources))]
         [Display(Name = "fotoPerfil_lbl", ResourceType = typeof(ProductorasResources))]
-        public new string fotoPerfil_c { get; set; }
+        public HttpPostedFileBase Foto { get; set; }
     }
 }

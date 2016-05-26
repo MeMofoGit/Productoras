@@ -156,6 +156,9 @@
   <data name="fotoPerfil_lbl" xml:space="preserve">
     <value>Imagen de perfil:</value>
   </data>
+  <data name="foto_error_extension" xml:space="preserve">
+    <value>El archivo debe ser una imagen JPG o PNG.</value>
+  </data>
   <data name="nombre_error_minmax" xml:space="preserve">
     <value>El nombre debe tener entre 10 y 60 caracteres.</value>
   </data>

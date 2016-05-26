@@ -169,6 +169,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El archivo debe ser una imagen JPG o PNG..
+        /// </summary>
+        public static string foto_error_extension {
+            get {
+                return ResourceManager.GetString("foto_error_extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Imagen de perfil:.
         /// </summary>
         public static string fotoPerfil_lbl {

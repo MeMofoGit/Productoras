@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Registrar un nuevo usuario";
 }
+<link rel="stylesheet" href="~/Content/css/login2.css" />
 
 @using (Html.BeginForm("Registro", "Usuario"))
 {
@@ -30,17 +31,17 @@
                     </div>
                 </div>
                 
-                @*<div class="row">
+                <div class="row">
                     <div class="col-sm-12">
                         @Html.LabelFor(u => u.ciudad_xref)<span class="input_error">@Html.ValidationMessageFor(u => u.ciudad_xref)</span>
                         @Html.DropDownListFor(u => u.ciudad_xref, ViewBag.lstCiudades as IEnumerable<SelectListItem>)
                     </div>
-                </div>*@
+                </div>
 
                 <div class="row">
                     <div class="col-sm-12">
-                        @Html.LabelFor(u => u.fotoPerfil_c)<span class="input_error">@Html.ValidationMessageFor(u => u.fotoPerfil_c)</span>
-                        Foto
+                        @Html.LabelFor(u => u.Foto)<span class="input_error">@Html.ValidationMessageFor(u => u.fotoPerfil_c)</span>
+                        @Html.TextBoxFor(u => u.Foto, new { type = "file" })
                     </div>
                 </div>
 
