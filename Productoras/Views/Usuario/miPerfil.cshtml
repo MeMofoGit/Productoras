@@ -1,16 +1,16 @@
 ﻿@model Productoras.Models.Usuarios
+@using Productoras.Helpers
 
-@{
-    ViewBag.Title = "View";
-}
-
-
+<link rel="stylesheet" href="~/Content/css/font-awesome.css" />
 <div id="main" class="container-fluid">
     <div class="bg"></div>
     <div class="jumbotron perfil_jumbotron">
-        <h1>Nombre usuario</h1>
+        <h1>@Model.username_c</h1>
         <!--        <p class="lead">+Pequeña biografia</p>-->
-        <div class="perfil_imagenPerfil" style="background-image:url('../../Content/img/perfil.jpg')"></div>
+        <div id="fotoPerfil_jumbotron" class="perfil_imagenPerfil" style="background-image:url('../../Fotos/@Model.fotoPerfil_c'); position: absolute; z-index: 1;"></div>
+        @*<div id="fotoPerfilActualizar_jumbotron" class="perfil_imagenPerfil" style="background-color: rgba(255, 255, 255, 0.5); position: relative; z-index: 3; padding: 10px; text-align: center; display: none;">Cambiar</div>*@
+        @Ajax.RawActionLink("<div id='fotoPerfilActualizar_jumbotron' class='perfil_imagenPerfil' style='background-color: rgba(255, 255, 255, 0.5); position: relative; z-index: 2; padding: 10px; text-align: center; display: none;'>Cambiar</div>", "ActualizarFotoPerfil", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "fotoPerfil_popup()" }, null)
+
     </div>
 
     <div class="container">
@@ -24,33 +24,38 @@
                 <div class="panel-group">
 
                     <div class="panel panel-default perfil_panel_md">
-                        <div class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Bio</div>
-                        <div class="panel-body">
-                            Ejemplo de diseño en el que se incluye en este caso concreto una pequeña biografía que el usuario puede
-                            añadir y hacer visible en este apartado dedicado a tal fin, apartado de información profesional y trayectoria.
-                        </div>
+                        <div class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Bio <a onclick="editarDescripcion()" class="pull-right">Editar <i class="fa fa-pencil" aria-hidden="true"></i></a></div>
+                        <div id="perfil_descripcion" class="panel-body">@Model.UsuariosTecnico.Select(u => u.descripcion_c).First()</div>
                     </div>
 
                     <div class="panel panel-default perfil_panel_md">
-                        <div class="panel-heading"><i class="fa fa-briefcase" aria-hidden="true"></i> Perfil técnico</div>
+                        <div class="panel-heading"><i class="fa fa-briefcase" aria-hidden="true"></i> Perfil técnico<button class="btn btn-success btn-xs pull-right"><i class="fa fa-plus"></i> Añadir</button></div>
                         <div class="panel-body">
                             <ul>
-                                <li>
-                                    Camara
-                                </li>
-                                <li>
-                                    Realizador
-                                </li>
-                                <li>
-                                    Sonido
-                                </li>
+                              @foreach (var tecnico in Model.UsuariosTecnico)
+                              {
+                                  foreach (var subcategoria in tecnico.UsuariosTecnicosSubcategorias)
+                                  {
+                                      <li>@subcategoria.UsuariosTiposSubcategorias.nombre_c <i class="fa fa-trash pull-right"></i><a onclick="editarSubcategoria()"><i class="fa fa-pencil pull-right"></i></a></li> 
+                                  }
+                              }
+                                
                             </ul>
                         </div>
                     </div>
 
                     <div class="panel panel-default perfil_panel_md">
-                        <div class="panel-heading">Otro panel</div>
+                        <div class="panel-heading">Funciones</div>
                         <div class="panel-body">
+                            @*@Html.ActionLink("<button class='btn btn-lg'>Nuevo video <i class='fa fa-video-camera'></i></button>", "NuevoVideo", "Usuario", new { id = Model.id })*@
+                            @*@Ajax.RawActionLink("<button class='btn btn-lg'>Nuevo video <i class='fa fa-video-camera'></i></button>", "NuevoVideo", "BackEnd", new { @id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popups()" }, null)*@
+                            @*@Ajax.ActionLink("Nuevo video", "NuevoVideo", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, new { @class = "btn btn-default" })
+
+                            @Ajax.ActionLink("Nueva foto", "NuevaFoto", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, new { @class = "btn btn-default" })*@
+                            @Ajax.RawActionLink("<button class='btn btn-lg'>Nueva foto <i class='fa fa-camera'></i></button>", "NuevaFoto", "Usuario", new { id = Model.id }, new AjaxOptions { LoadingElementDuration = 2000, UpdateTargetId = "funcion_result", OnBegin = "load_cargando()", OnSuccess = "cerrar_cargando(); load_popup()" }, null)
+                            @Ajax.RawActionLink("<button class='btn btn-lg'>Nuevo video <i class='fa fa-video-camera'></i></button>", "NuevoVideo", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, null )
+
+                            @*<button class="btn btn-lg">Nueva foto <i class="fa fa-camera"></i></button>*@
                         </div>
                     </div>
 
@@ -460,6 +465,10 @@
 
                         <div class="tab-pane active" id="comentarios">
                             <div class="clearfix margen_arriba_40"
+                                 <!-- COMENTARIOS -->
+                                @foreach (var comentario in Model.ComentariosUsuario)
+                                    {
+
                                 <!-- Comentario para PCS y tablets-->
                                 <div class="row hidden-xs comentario_perfil">
 
@@ -473,7 +482,7 @@
                                         </div>
                                         <!-- Nombre usuario autor comentario -->
                                         <div class="row margen_arriba_5">
-                                            <span>Zacariasgarcia</span>
+                                            <span>@comentario.Usuarios1.username_c</span>
                                         </div>
                                         <hr>
                                     </div> <!-- Fin Autor BOX IZQUIERDA
@@ -482,12 +491,12 @@
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-sm-12 comentario_contenido">
-                                                Comentario realizado por otro usuario respecte a este usuario, que será mostrado en este apartado de comentarios dirigidos a este usuario en concreto.
+                                                @comentario.Comentarios.comentario_c
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-2 comentario_fecha">
-                                                    <span class="text-muted">Fecha</span>
+                                            <div class="col-sm-3 comentario_fecha">
+                                                    <span class="text-muted">@comentario.Comentarios.fechaFirst_dt</span>
                                                 </div>
                                             <div class="col-sm-4 col-sm-offset-6 comentario_botones">
                                                 <button class="pull-right">Accion</button>
@@ -512,7 +521,8 @@
                                         </div>
                                     </div><!-- Comentario BOX DERECHA -->
                                 </div> <!----------------------- FIN comentario para XS -->
-
+                                }
+                            <!-- FIN COMENTARIOS -->
                         </div>
 
                         </div>
@@ -529,8 +539,90 @@
     </div>
 
     <script>
+        //Cambiar foto de perfil mouseOver
+        $('#fotoPerfil_jumbotron').hover(function () {
+            $('#fotoPerfilActualizar_jumbotron').css("cursor", "pointer");
+            $('#fotoPerfilActualizar_jumbotron').fadeIn(500);
+        });
+        $('#fotoPerfilActualizar_jumbotron').mouseout(function () {
+            $('#fotoPerfilActualizar_jumbotron').fadeOut(500);
+        });
+        @*@Ajax.ActionLink("PerfilActualiza", "Usuario", new { id = Model.id, descripcion =  }, new AjaxOptions { OnSuccess="descripcionEditada()" }  );*@
+        function editarDescripcion() {
+            var divDescripcion = $('#perfil_descripcion');
+            var descripcion_c = divDescripcion.text();
+            $('#perfil_descripcion').empty();
+            @*$('#perfil_descripcion').html('@Ajax.BeginForm("PerfilActualizar", "Usuario", new AjaxOptions { OnSuccess = "descripcionEditada()" }){');*@
+            $('#perfil_descripcion').html('@Ajax.BeginForm("PerfilActualizar", "Usuario", new AjaxOptions { OnSuccess = "descripcionEditada()" })<input type="hidden" value="@Model.id" name="id" /><textarea name="descripcion_c" class="form-control" name="descripcion_c" style="height: 120px">' + descripcion_c + '</textarea><button type="submit" class="btn btn-success">Guardar</button>');
 
-jQuery(document).ready(function($) {
+        }
+
+        function cerrar_fotoPerfil() {
+            $(".opaca-gris").on("click", function () {
+                $(".detalles_popups").removeClass("animated zoomIn");
+                $(".detalles_popups").addClass("animated zoomOut");
+                $(".detalles_popups").fadeOut(300);
+                $(".opaca-gris").fadeOut(300);
+            });
+        }
+
+        function fotoPerfil_popup() {
+            $(".detalles_popups").removeClass("animated zoomOut");
+            $(".detalles_popups").addClass("animated zoomIn");
+            $(".detalles_popups").fadeIn(300);
+            $(".opaca-gris").fadeIn(300);
+
+            $('html,body').animate({
+                scrollTop: 0
+            }, 1000, "easeInOutExpo");
+
+            cerrar_fotoPerfil();
+        }
+
+        function cerrar_popup() {
+            $(".opaca-gris").on("click", function () {
+                $(".detalles_popups").removeClass("animated zoomIn");
+                $(".detalles_popups").addClass("animated zoomOut");
+                $(".detalles_popups").fadeOut(300);
+                $(".opaca-gris").fadeOut(300);
+            });
+        }
+
+        function load_popup() {
+            $(".detalles_popups").removeClass("animated zoomOut");
+            $(".detalles_popups").addClass("animated zoomIn");
+            $(".detalles_popups").fadeIn(300);
+            $(".opaca-gris").fadeIn(300);
+
+            $('html,body').animate({
+                scrollTop: 0
+            }, 1000, "easeInOutExpo");
+
+            cerrar_popup();
+        }
+        function cerrar_cargando() {
+            $(".opaca-gris").on("click", function () {
+                $(".cargando_popup").removeClass("animated zoomIn");
+                $(".cargando_popup").addClass("animated zoomOut");
+                $(".cargando_popup").fadeOut(300);
+                $(".opaca-gris").fadeOut(300);
+            });
+        }
+        function load_cargando() {
+            $(".cargando_popup").removeClass("animated zoomOut");
+            $(".cargando_popup").addClass("animated zoomIn");
+            $(".cargando_popup").fadeIn(300);
+            $(".opaca-gris").fadeIn(300);
+
+            $('html,body').animate({
+                scrollTop: 0
+            }, 1000, "easeInOutExpo");
+
+            cerrar_cargando();
+        }
+        
+        jQuery(document).ready(function ($) {
+
     $('#myCarousel').carousel({
         interval: 5000
     });
@@ -594,5 +686,4 @@ function parallax(){
 $(window).scroll(function(e){
     parallax();
 });
-
-    </script>
+</script>

@@ -1,0 +1,67 @@
+﻿<div class="detalles_popups col-xs-12 col-sm-8 col-md-10 col-lg-5">
+    <h2>Añadir foto</h2>
+
+    <form id="form1" runat="server">
+        <input type="file" id="FileUpload1" />
+        <input type="button" id="btnUpload" value="Upload Files" />
+        <div id="blah" class="perfil_imagenPerfil" style="background-image:url('../../Fotos/31bolsa.jpg')"></div>
+    </form>
+</div>
+<script>
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                //$('#blah').attr('', e.target.result);
+                $('#blah').css({ 'background-image': 'url('+e.target.result+')' });
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#FileUpload1").change(function () {
+        readURL(this);
+    });
+
+$(document).ready(function(){
+    $('#btnUpload').click(function () {
+
+        // Checking whether FormData is available in browser
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#FileUpload1").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding one more key to FormData object
+            fileData.append('username', 'Manas');
+
+            $.ajax({
+                url: '/Usuario/UploadFiles',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        } else {
+            alert("FormData is not supported.");
+        }
+    });
+});
+</script>

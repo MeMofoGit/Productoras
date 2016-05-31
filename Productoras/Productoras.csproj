@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=16.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.16.1.0.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -88,6 +92,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -131,6 +136,10 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -203,6 +212,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArchivosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
@@ -210,6 +220,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlAjaxRawActionLink.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ciudades.cs">
       <DependentUpon>ProyectoEntities.tt</DependentUpon>
@@ -275,6 +286,9 @@
     <Compile Include="Models\ProyectosTipo.cs">
       <DependentUpon>ProyectoEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>ProyectoEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UsuarioActorCategoria.cs">
       <DependentUpon>ProyectoEntities.tt</DependentUpon>
     </Compile>
@@ -320,10 +334,16 @@
     <Compile Include="Models\Validaciones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\Usuario\hn_SimpeFileUploader.ashx.cs">
+      <DependentUpon>hn_SimpeFileUploader.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\animate.css" />
     <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\dropzone.css" />
     <Content Include="Content\css\estilo.css" />
+    <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\login2.css" />
     <Content Include="Content\css\reset.css" />
     <Content Include="Content\img\cd-icon-close.svg" />
@@ -376,9 +396,11 @@
       <DependentUpon>ProyectoEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <Content Include="Scripts\dropzone.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.easing.1.3.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -396,7 +418,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -434,9 +458,22 @@
     <Content Include="Views\Usuario\Partials\listaCategoriasActor.cshtml" />
     <Content Include="Views\Usuario\Partials\listaCategoriasProductora.cshtml" />
     <Content Include="Views\Home\Partials\nav_top.cshtml" />
+    <Content Include="Views\Usuario\miPerfil.cshtml" />
+    <Content Include="Views\Usuario\Partials\formNuevoVideo.cshtml" />
+    <Content Include="Views\Usuario\Partials\formNuevaFoto.cshtml" />
+    <Content Include="Views\Usuario\Partials\formLogin.cshtml" />
+    <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Partials\_Layout.cshtml" />
+    <Content Include="Views\Usuario\hn_SimpeFileUploader.ashx" />
+    <Content Include="Views\Usuario\Partials\formFotoPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\fonts\" />
+    <Folder Include="Fotos\Perfil\" />
+    <Folder Include="Fotos\Proyecto\" />
+    <Folder Include="Fotos\Usuario\" />
+    <Folder Include="Views\Archivos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

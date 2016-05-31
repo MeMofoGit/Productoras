@@ -1,7 +1,7 @@
 ﻿@model Productoras.Models.frmUsuariosLoginModel
 
-<link rel="stylesheet" href="~/Content/css/login2.css" />
-    @using (Html.BeginForm("Login", "Usuario"))
+<div class="login_popup col-xs-12 col-sm-6 col-md-6 col-lg-5">
+    @using (Html.BeginForm("getLogin", "Usuario"))
     {
         <fieldset class="form-group">
             <div class="login">
@@ -20,15 +20,15 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row margen_arriba_30">
                         <div class="col-sm-12">
                             @Html.LabelFor(u => u.password)<span class="input_error">@Html.ValidationMessageFor(u => u.password)</span>
                             @Html.PasswordFor(u => u.password, new { @class = "form-control" })
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row margen_arriba_30">
                         <div class="col-sm-12">
-                            <input type="submit" value="Login">
+                            <input type="submit" value="Login" class="form-control">
                         </div>
                     </div>
 
@@ -36,31 +36,49 @@
             </div>
         </fieldset>
     }
+</div>
 
 <style>
- 
-.form_error span {
-    color: brown;
-    font-weight: bold;
-}
-.input_error {
-    color: brown;
-    margin-left: 10px;
-}
-.validation-summary-errors {
-    border-radius: 5px;
-    min-height: 50px;
-    padding: 10px;
-    background-color: rgba(255, 30, 8, 0.1);
-}
-.validation-summary-errors ul {
-    list-style: none;
-    text-align: center;
-    position: relative;
-}
-.validation-summary-errors ul li {
-    width: 100%;
-    position: absolute;
-    left: 0;
-}
+    .form_error span {
+        color: brown;
+        font-weight: bold;
+    }
+
+    .input_error {
+        color: brown;
+        margin-left: 10px;
+    }
+
+    .validation-summary-errors {
+        border-radius: 5px;
+        min-height: 50px;
+        padding: 10px;
+        background-color: rgba(255, 30, 8, 0.1);
+    }
+
+    .validation-summary-errors ul {
+        list-style: none;
+        text-align: center;
+        position: relative;
+     }
+    .validation-summary-errors ul li {
+        width: 100%;
+        position: absolute;
+        left: 0;
+      }
+
+    .login_popup {
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 25px #000;
+        display: none;
+        left: 0px;
+        margin: 0px auto 0px auto;
+        padding: 20px;
+        position: absolute;
+        right: 0px;
+        top: 10.568776767%;
+        width: 50%;
+        z-index: 2;
+    }
 </style>

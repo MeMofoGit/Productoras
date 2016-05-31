@@ -11,7 +11,7 @@ namespace Productoras.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Usuarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,6 +19,7 @@ namespace Productoras.Models
         {
             this.Comentarios = new HashSet<Comentarios>();
             this.ComentariosUsuario = new HashSet<ComentariosUsuario>();
+            this.ComentariosUsuario1 = new HashSet<ComentariosUsuario>();
             this.Mensajes = new HashSet<Mensajes>();
             this.MensajesProyectoLeido = new HashSet<MensajesProyectoLeido>();
             this.MensajesUsuario = new HashSet<MensajesUsuario>();
@@ -56,6 +57,8 @@ namespace Productoras.Models
         public virtual ICollection<Comentarios> Comentarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComentariosUsuario> ComentariosUsuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ComentariosUsuario> ComentariosUsuario1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mensajes> Mensajes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -26,6 +26,7 @@ namespace Productoras.Models
         public string dni_c { get; set; }
         public string telefono_c { get; set; }
         public int usuario_xref { get; set; }
+        public string descripcion_c { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

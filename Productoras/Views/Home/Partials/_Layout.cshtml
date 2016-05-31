@@ -16,23 +16,20 @@
     </div>
 
     <div id="funcion_result"></div>
-    <div class="page-header">
+
         @Html.Action("navTop", "Home")
-    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <div class="container-fluid">
         @RenderBody()
 
 
         <footer>
             <p>&copy; @DateTime.Now.Year - Pie</p>
         </footer>
-    </div>
 
 
 </body>

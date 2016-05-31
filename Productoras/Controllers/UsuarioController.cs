@@ -7,9 +7,13 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using Productoras.Models;
+using System.Web.Mvc.Ajax;
+using System.IO;
+using System.Drawing;
 
 //using System.Device.Location;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Proyecto.Controllers
 {
@@ -19,14 +23,14 @@ namespace Proyecto.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-            var idUsuario = (int)Session["id_usuario"];
 
-            if(Session["id_usuario"] == null)
+            if (Session["id_usuario"] == null)
             {
                 return RedirectToAction("Login", "Usuario");
             }
             else
             {
+                var idUsuario = (int)Session["id_usuario"];
                 var usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
                 if (usuario.definido_b == false)
                 {
@@ -66,7 +70,7 @@ namespace Proyecto.Controllers
         [HttpPost]
         public ActionResult Registro(frmUsuariosRegistroModel argUsuario)
         {
-            if(Session["id_usuario"] != null)
+            if (Session["id_usuario"] != null)
             {
                 RedirectToAction("Index");
             }
@@ -150,6 +154,82 @@ namespace Proyecto.Controllers
             }
             return View();
         }
+        [HttpPost]
+        public ActionResult Login(frmUsuariosLoginModel argUsuario)
+        {
+            if (Session["id_usuario"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (ModelState.IsValid)
+            {
+                var usuario = db.Usuarios.Where(u => u.email_c == argUsuario.username_c || u.username_c == argUsuario.username_c && u.activo_b == true).FirstOrDefault();
+
+                if (validLogin(argUsuario.username_c, argUsuario.password, usuario))
+                {
+                    if (usuario.definido_b)
+                    {
+                        //FormsAuthentication.SetAuthCookie(argUsuario.email_c, false);
+                        return RedirectToAction("Perfil", "Usuario");
+                    }
+                    else
+                    {
+                        return RedirectToAction("DefineUsuario", "Usuario");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Fallo en el login");
+                    return View(argUsuario);
+                }
+            }
+            //System.Web.HttpContext.Current.Request.Url.AbsolutePath
+            return View(argUsuario);
+        }
+        //public PartialViewResult getLogin()
+        //{
+        //    return PartialView("Partials/formLogin");
+        //}
+        //[HttpPost]
+        //public ActionResult getLogin(frmUsuariosLoginModel argUsuario)
+        //{
+        //    if (Session["id_usuario"] != null)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+        //        var usuario = db.Usuarios.Where(u => u.email_c == argUsuario.username_c || u.username_c == argUsuario.username_c).FirstOrDefault();
+
+        //        // COMPROBAR QUE EL USUIARIO ESTA ACTIVO_B !!!!!!!!!!!
+        //        if (validLogin(argUsuario.username_c, argUsuario.password, usuario))
+        //        {
+        //            if (usuario.definido_b)
+        //            {
+        //                //FormsAuthentication.SetAuthCookie(argUsuario.email_c, false);
+        //                return RedirectToAction("Perfil", "Usuario");
+        //            }
+        //            else
+        //            {
+        //                return RedirectToAction("DefineUsuario", "Usuario");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("", "Fallo en el login");
+        //            return PartialView("Partials/formLogin", argUsuario);
+        //        }
+        //    }
+        //    //System.Web.HttpContext.Current.Request.Url.AbsolutePath
+        //    return PartialView("Partials/formLogin", argUsuario);
+        //}
+        // Logout de la sesion
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+        }
         public PartialViewResult DefineProductora()
         {
             return PartialView("Partials/defineProductora");
@@ -157,7 +237,7 @@ namespace Proyecto.Controllers
         [HttpGet]
         public ActionResult DefineTecnico()
         {
-            if(Session["id_usuario"] == null)
+            if (Session["id_usuario"] == null)
             {
                 return RedirectToAction("Login");
             }
@@ -390,80 +470,270 @@ namespace Proyecto.Controllers
         //}
 
         // Login de usuario con comprobación con POST
-        [HttpPost]
-        public ActionResult Login(Usuarios argUsuario)
-        {
-            if (Session["id_usuario"] != null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            if (ModelState.IsValid)
-            {
-                var usuario = db.Usuarios.Where(u => u.email_c == argUsuario.username_c || u.username_c == argUsuario.username_c && u.activo_b == true).FirstOrDefault();
 
-                if (validLogin(argUsuario.username_c, argUsuario.password, usuario))
+        [HttpGet]
+        public ActionResult Perfil(int? id = null)
+        {
+            if (id == null)
+            {
+                if (Session["id_usuario"] != null)
                 {
-                    if (usuario.definido_b)
-                    {
-                        //FormsAuthentication.SetAuthCookie(argUsuario.email_c, false);
-                        return RedirectToAction("index", "Home");
-                    }
-                    else
-                    {
-                        return RedirectToAction("DefineUsuario", "Usuario");
-                    }
+                    var idUsuario = (int)Session["id_usuario"];
+                    var usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
+                    return View("miPerfil", usuario);
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Fallo en el login");
-                    return View(argUsuario);
+                    return RedirectToAction("Login", "Usuario");
                 }
-            }
-            //System.Web.HttpContext.Current.Request.Url.AbsolutePath
-            return View(argUsuario);
-        }
-        // Logout de la sesion
-        public ActionResult LogOut()
-        {
-            FormsAuthentication.SignOut();
-            Session.Abandon();
-            return RedirectToAction("Index", "Home");
-        }
 
-        [HttpGet]
-        public ActionResult Perfil(int? id)
-        {
+            }
             Usuarios clsUsuario = new Usuarios();
 
             clsUsuario = db.Usuarios.Where(u => u.id == id).FirstOrDefault();
-            clsUsuario.UsuariosGaleria = db.UsuariosGaleria.Where(g => g.usuario_xref == id).ToList();
+            //clsUsuario.UsuariosGaleria = db.UsuariosGaleria.Where(g => g.usuario_xref == id).ToList();
             clsUsuario.ComentariosUsuario = db.ComentariosUsuario.Where(c => c.destinatario_xref == id).ToList();
             clsUsuario.ProyectoParticipantes = db.ProyectoParticipantes.Where(p => p.participante_xref == id).ToList();
             clsUsuario.UsuariosFotos = db.UsuariosFotos.Where(f => f.usuario_xref == id).ToList();
             clsUsuario.UsuariosVideos = db.UsuariosVideos.Where(v => v.usuario_xref == id).ToList();
 
-            //var lstComentariosUsuario = db.ComentariosUsuario.Where(c => c.destinatario_xref == id).ToList();
-            //List<Comentarios> lstComentarios = new List<Comentarios>();
-            //foreach (var comentario in lstComentariosUsuario)
-            //{
-            //    lstComentarios.Add(comentario.Comentarios);
-            //}
-            //clsUsuario.comentarios = lstComentarios;
-
-            //var lstProyectosParticipantes = db.ProyectoParticipantes.Where(p => p.participante_xref == id).ToList();
-            //List<Proyectos> lstProyectos = new List<Proyectos>();
-            //foreach (var proyecto in lstProyectosParticipantes)
-            //{
-            //    lstProyectos.Add(proyecto.Proyectos);
-            //}
-            //clsUsuario.proyectos = lstProyectos;
-
-            //var fotos = db.UsuariosFotos.Where(f => f.usuario_xref == id).ToList();
-            //var videos = db.UsuariosVideos.Where(v => v.usuario_xref == id).ToList();
-
             return View(clsUsuario);
         }
+        [HttpPost]
+        public PartialViewResult PerfilActualizar(int id, string argDescripcion)
+        {
+            return PartialView();
+        }
+        public PartialViewResult NuevoVideo()
+        {
+            return PartialView("Partials/formNuevoVideo");
+        }
+        [HttpPost]
+        public PartialViewResult NuevoVideo(UsuariosVideos argVideo)
+        {
+            return PartialView("Partials/formNuevoVideo");
+        }
+        public PartialViewResult NuevaFoto()
+        {
+            return PartialView("Partials/formNuevaFoto");
+        }
+        //[HttpPost]
+        //public PartialViewResult NuevaFoto(HttpContext context)
+        //{
+        //    context.Response.ContentType = "text/plain";
 
+        //    string dirFullPath = System.Web.HttpContext.Current.Server.MapPath("~/Fotos/");
+        //    string[] files;
+        //    int numFiles;
+        //    files = System.IO.Directory.GetFiles(dirFullPath);
+        //    numFiles = files.Length;
+        //    numFiles = numFiles + 1;
+
+        //    string str_image = "";
+        //    foreach (string s in context.Request.Files)
+        //    {
+        //        HttpPostedFile file = context.Request.Files[s];
+
+        //        string fileName = file.FileName;
+        //        string fileExtension = file.ContentType;
+
+        //        if(!string.IsNullOrEmpty(fileName))
+        //        {
+        //            fileExtension = Path.GetExtension(fileName);
+        //            str_image = "foto_" + numFiles.ToString() + fileExtension;
+        //            string pathToSave_100 = System.Web.HttpContext.Current.Server.MapPath("~/Fotos/") + str_image;
+        //            file.SaveAs(pathToSave_100);
+        //        }
+        //    }
+        //    context.Response.Write(str_image);
+        //    return PartialView("Partials/formNuevaFoto");
+        //}
+        public PartialViewResult ActualizarFotoPerfil()
+        {
+
+            return PartialView("Partials/formFotoPerfil");
+        }
+        [HttpPost]
+        public ActionResult sendFotoPerfil()
+        {
+
+            var idUsuario = (int)Session["id_usuario"];
+            var fotoPerfil_c = "";
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+
+
+                        fname = Path.Combine(Server.MapPath("~/Fotos/"), fname);
+                        //Bitmap img1 = new Bitmap(fname);
+                        //Bitmap img2 = new Bitmap(fname);
+                        //var diferencia = compararImagenes(img1, img2);
+                        file.SaveAs(fname);
+
+                        var usuario = db.Usuarios.Where(u => u.id == idUsuario).First();
+
+                        usuario.fotoPerfil_c = file.FileName;
+                        fotoPerfil_c = file.FileName;
+                        db.SaveChanges();
+
+                    }
+                    // Returns message that successfully uploaded  
+                    return Json(fotoPerfil_c);
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+
+        }
+        private float compararImagenes(Bitmap argImg1, Bitmap argImg2)
+        {
+            //Bitmap img1 = new Bitmap("Lenna50.jpg");
+            //Bitmap img2 = new Bitmap("Lenna100.jpg");
+
+            if (argImg1.Size != argImg2.Size)
+            {
+                Console.Error.WriteLine("Images are of different sizes");
+                return 0;
+            }
+
+            float diff = 0;
+
+            for (int y = 0; y < argImg1.Height; y++)
+            {
+                for (int x = 0; x < argImg1.Width; x++)
+                {
+                    diff += (float)Math.Abs(argImg1.GetPixel(x, y).R - argImg2.GetPixel(x, y).R) / 255;
+                    diff += (float)Math.Abs(argImg1.GetPixel(x, y).G - argImg2.GetPixel(x, y).G) / 255;
+                    diff += (float)Math.Abs(argImg1.GetPixel(x, y).B - argImg2.GetPixel(x, y).B) / 255;
+                }
+            }
+
+            return 100 * diff / (argImg1.Width * argImg1.Height * 3);
+
+        }
+
+        [HttpPost]
+        public ActionResult UploadFiles()
+        {
+            var idUsuario = (int)Session["id_usuario"];
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName + Session["id_usuario"];
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/Fotos/"), fname);
+                        file.SaveAs(fname);
+                        var usuario = db.Usuarios.Where(u => u.id == idUsuario).First();
+
+                        usuario.fotoPerfil_c = idUsuario + file.FileName;
+
+                        db.SaveChanges();
+
+                    }
+                    // Returns message that successfully uploaded  
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
+        //[HttpPost]
+        //public async Task<JsonResult> UploadHomeReport()
+        //{
+        //    try
+        //    {
+        //        foreach (string file in Request.Files)
+        //        {
+        //            var fileContent = Request.Files[file];
+        //            if (fileContent != null && fileContent.ContentLength > 0)
+        //            {
+        //                // get a stream
+        //                var stream = fileContent.InputStream;
+        //                // and optionally write the file to disk
+        //                var fileName = Path.GetFileName(file);
+        //                var path = Path.Combine(Server.MapPath("~/App_Data/Images"), fileName);
+        //                using (var fileStream = System.IO.File.Create(path))
+        //                {
+        //                    stream.CopyTo(fileStream);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        //        return Json("Upload failed");
+        //    }
+
+        //    return Json("File uploaded successfully");
+        //}
+
+        //[HttpPost]
+        //public void sendNuevaFoto()
+        //{
+        //    if(System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+        //    {
+        //        var archivoPost = System.Web.HttpContext.Current.Request.Files["imagenPost"];
+
+        //        if(archivoPost != null)
+        //        {
+        //            var directorioPost = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Fotos"), archivoPost.FileName);
+        //            archivoPost.SaveAs(directorioPost);
+        //        }
+        //    }
+        //}
         // Obtener geolocalización
         //private UsuariosLocation getUsuarioLocation()
         //{
