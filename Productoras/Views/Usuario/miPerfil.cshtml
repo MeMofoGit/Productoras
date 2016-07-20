@@ -24,22 +24,45 @@
                 <div class="panel-group">
 
                     <div class="panel panel-default perfil_panel_md">
-                        <div class="panel-heading"><i class="fa fa-book" aria-hidden="true"></i> Bio <a onclick="editarDescripcion()" class="pull-right">Editar <i class="fa fa-pencil" aria-hidden="true"></i></a></div>
-                        <div id="perfil_descripcion" class="panel-body">@Model.UsuariosTecnico.Select(u => u.descripcion_c).First()</div>
+                        <div class="panel-heading">
+                            <i class="fa fa-book" aria-hidden="true"></i> Bio
+                            <a id="perfilEditarBio" onclick="editarBio()" class="pull-right">Editar <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            @*@Ajax.RawActionLink("<a id='perfilGuardarBio' class='pull-right'>Editar <i class='fa fa-pencil' aria-hidden='true'></i></a>", "perfilGuardarBio", "Usuario", null, new AjaxOptions { UpdateTargetId = "perfilBios" }, null)*@
+                        </div>
+                        <div id="perfilBio" class="panel-body">
+                            @*Si no hay una descripcion se le avisa y sugiere que la añada*@
+                            @if (Model.UsuariosTecnico.Select(u => u.descripcion_c).First().Trim() == "" || Model.UsuariosTecnico.Select(u => u.descripcion_c).First() == null)
+                            {
+                                <span class="perfilAvisoSpan">Aun no has añadido una descripción sobre ti, puedes hacerlo haciendo click en el botón "Editar".</span>
+                            }
+                            else
+                            {
+                                @Model.UsuariosTecnico.Select(u => u.descripcion_c).First()
+                            }
+                        </div>
+                        @*Div oculto con textarea para editar la descripcion*@
+                        <div id="perfilBioEdit" class="panel-body" style="display:none;">
+                            <textarea id="txtPerfilBio" name="descripcion_c" class="form-control" style="height: 120px"></textarea>
+                            <button id="btnGuardarBio" type="submit" class="btn btn-success margen_arriba_10">Guardar</button>
+                        </div>
                     </div>
 
                     <div class="panel panel-default perfil_panel_md">
-                        <div class="panel-heading"><i class="fa fa-briefcase" aria-hidden="true"></i> Perfil técnico<button class="btn btn-success btn-xs pull-right"><i class="fa fa-plus"></i> Añadir</button></div>
+                        <div class="panel-heading">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i> Perfil técnico
+                            @Ajax.RawActionLink("<button class='btn btn-success btn-xs pull- right'><i class='fa fa-plus'></i> Añadir</button>", "PerfilAddCompetencia", "Usuario", new { id = Model.id }, new AjaxOptions { LoadingElementDuration = 2000, UpdateTargetId = "funcion_result", OnBegin = "load_cargando()", OnSuccess = "cerrar_cargando(); load_popup()" }, null)
+                            @*<button class="btn btn-success btn-xs pull-right"><i class="fa fa-plus"></i> Añadir</button>*@
+                        </div>
                         <div class="panel-body">
                             <ul>
-                              @foreach (var tecnico in Model.UsuariosTecnico)
-                              {
-                                  foreach (var subcategoria in tecnico.UsuariosTecnicosSubcategorias)
-                                  {
-                                      <li>@subcategoria.UsuariosTiposSubcategorias.nombre_c <i class="fa fa-trash pull-right"></i><a onclick="editarSubcategoria()"><i class="fa fa-pencil pull-right"></i></a></li> 
-                                  }
-                              }
-                                
+                                @foreach (var tecnico in Model.UsuariosTecnico)
+                                {
+                                    foreach (var subcategoria in tecnico.UsuariosTecnicosSubcategorias)
+                                    {
+                                        <li>@subcategoria.UsuariosTiposSubcategorias.nombre_c <i class="fa fa-trash pull-right"></i><a onclick="editarSubcategoria()"><i class="fa fa-pencil pull-right"></i></a></li>
+                                    }
+                                }
+
                             </ul>
                         </div>
                     </div>
@@ -51,9 +74,9 @@
                             @*@Ajax.RawActionLink("<button class='btn btn-lg'>Nuevo video <i class='fa fa-video-camera'></i></button>", "NuevoVideo", "BackEnd", new { @id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popups()" }, null)*@
                             @*@Ajax.ActionLink("Nuevo video", "NuevoVideo", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, new { @class = "btn btn-default" })
 
-                            @Ajax.ActionLink("Nueva foto", "NuevaFoto", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, new { @class = "btn btn-default" })*@
+                                @Ajax.ActionLink("Nueva foto", "NuevaFoto", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, new { @class = "btn btn-default" })*@
                             @Ajax.RawActionLink("<button class='btn btn-lg'>Nueva foto <i class='fa fa-camera'></i></button>", "NuevaFoto", "Usuario", new { id = Model.id }, new AjaxOptions { LoadingElementDuration = 2000, UpdateTargetId = "funcion_result", OnBegin = "load_cargando()", OnSuccess = "cerrar_cargando(); load_popup()" }, null)
-                            @Ajax.RawActionLink("<button class='btn btn-lg'>Nuevo video <i class='fa fa-video-camera'></i></button>", "NuevoVideo", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, null )
+                            @Ajax.RawActionLink("<button class='btn btn-lg'>Nuevo video <i class='fa fa-video-camera'></i></button>", "NuevoVideo", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, null)
 
                             @*<button class="btn btn-lg">Nueva foto <i class="fa fa-camera"></i></button>*@
                         </div>
@@ -536,154 +559,176 @@
 
         <hr />
     </div>
-    </div>
+</div>
 
-    <script>
-        //Cambiar foto de perfil mouseOver
-        $('#fotoPerfil_jumbotron').hover(function () {
-            $('#fotoPerfilActualizar_jumbotron').css("cursor", "pointer");
-            $('#fotoPerfilActualizar_jumbotron').fadeIn(500);
-        });
-        $('#fotoPerfilActualizar_jumbotron').mouseout(function () {
-            $('#fotoPerfilActualizar_jumbotron').fadeOut(500);
-        });
-        @*@Ajax.ActionLink("PerfilActualiza", "Usuario", new { id = Model.id, descripcion =  }, new AjaxOptions { OnSuccess="descripcionEditada()" }  );*@
-        function editarDescripcion() {
-            var divDescripcion = $('#perfil_descripcion');
-            var descripcion_c = divDescripcion.text();
-            $('#perfil_descripcion').empty();
-            @*$('#perfil_descripcion').html('@Ajax.BeginForm("PerfilActualizar", "Usuario", new AjaxOptions { OnSuccess = "descripcionEditada()" }){');*@
-            $('#perfil_descripcion').html('@Ajax.BeginForm("PerfilActualizar", "Usuario", new AjaxOptions { OnSuccess = "descripcionEditada()" })<input type="hidden" value="@Model.id" name="id" /><textarea name="descripcion_c" class="form-control" name="descripcion_c" style="height: 120px">' + descripcion_c + '</textarea><button type="submit" class="btn btn-success">Guardar</button>');
-
-        }
-
-        function cerrar_fotoPerfil() {
-            $(".opaca-gris").on("click", function () {
-                $(".detalles_popups").removeClass("animated zoomIn");
-                $(".detalles_popups").addClass("animated zoomOut");
-                $(".detalles_popups").fadeOut(300);
-                $(".opaca-gris").fadeOut(300);
-            });
-        }
-
-        function fotoPerfil_popup() {
-            $(".detalles_popups").removeClass("animated zoomOut");
-            $(".detalles_popups").addClass("animated zoomIn");
-            $(".detalles_popups").fadeIn(300);
-            $(".opaca-gris").fadeIn(300);
-
-            $('html,body').animate({
-                scrollTop: 0
-            }, 1000, "easeInOutExpo");
-
-            cerrar_fotoPerfil();
-        }
-
-        function cerrar_popup() {
-            $(".opaca-gris").on("click", function () {
-                $(".detalles_popups").removeClass("animated zoomIn");
-                $(".detalles_popups").addClass("animated zoomOut");
-                $(".detalles_popups").fadeOut(300);
-                $(".opaca-gris").fadeOut(300);
-            });
-        }
-
-        function load_popup() {
-            $(".detalles_popups").removeClass("animated zoomOut");
-            $(".detalles_popups").addClass("animated zoomIn");
-            $(".detalles_popups").fadeIn(300);
-            $(".opaca-gris").fadeIn(300);
-
-            $('html,body').animate({
-                scrollTop: 0
-            }, 1000, "easeInOutExpo");
-
-            cerrar_popup();
-        }
-        function cerrar_cargando() {
-            $(".opaca-gris").on("click", function () {
-                $(".cargando_popup").removeClass("animated zoomIn");
-                $(".cargando_popup").addClass("animated zoomOut");
-                $(".cargando_popup").fadeOut(300);
-                $(".opaca-gris").fadeOut(300);
-            });
-        }
-        function load_cargando() {
-            $(".cargando_popup").removeClass("animated zoomOut");
-            $(".cargando_popup").addClass("animated zoomIn");
-            $(".cargando_popup").fadeIn(300);
-            $(".opaca-gris").fadeIn(300);
-
-            $('html,body').animate({
-                scrollTop: 0
-            }, 1000, "easeInOutExpo");
-
-            cerrar_cargando();
-        }
-        
-        jQuery(document).ready(function ($) {
-
-    $('#myCarousel').carousel({
-        interval: 5000
+<script>
+    //Cambiar foto de perfil mouseOver
+    $('#fotoPerfil_jumbotron').hover(function () {
+        $('#fotoPerfilActualizar_jumbotron').css("cursor", "pointer");
+        $('#fotoPerfilActualizar_jumbotron').fadeIn(500);
     });
-    $('[id^=carousel-selector-]').click(function () {
-        var id_selector = $(this).attr("id");
-        try {
-            var id = /-(\d+)$/.exec(id_selector)[1];
-            console.log(id_selector, id);
-            jQuery('#myCarousel').carousel(parseInt(id));
-        } catch (e) {
-            console.log('Regex failed!', e);
-        }
+    $('#fotoPerfilActualizar_jumbotron').mouseout(function () {
+        $('#fotoPerfilActualizar_jumbotron').fadeOut(500);
     });
+    @*@Ajax.ActionLink("PerfilActualiza", "Usuario", new { id = Model.id, descripcion =  }, new AjaxOptions { OnSuccess="descripcionEditada()" }  );*@
+    function editarDescripcion() {
+        var divDescripcion = $('#perfilBio');
+        var descripcion_c = divDescripcion.text();
+        $('#perfilBio').empty();
+        @*$('#perfilBio').html('@Ajax.BeginForm("PerfilActualizar", "Usuario", new AjaxOptions { OnSuccess = "descripcionEditada()" }){');*@
+        $('#perfilBio').html('@Ajax.BeginForm("PerfilActualizar", "Usuario", new AjaxOptions { OnSuccess = "descripcionEditada()" })<input type="hidden" value="@Model.id" name="id" /><textarea name="descripcion_c" class="form-control" name="descripcion_c" style="height: 120px">' + descripcion_c + '</textarea><button type="submit" class="btn btn-success">Guardar</button>');
+
+    }
+    // Función para mostrar el textarea y editar el texto de la bio
+    function editarBio() {
+        $('#txtPerfilBio').val($('#perfilBio').text());
+        $('#perfilBio').hide();
+        $('#perfilBioEdit').show();
+    }
+
+    $('#btnGuardarBio').click(function () {
+
+        var descripcion = $('#txtPerfilBio').val();
+
+        $.ajax({
+            method: "POST",
+            url: "/Usuario/PerfilActualizar",
+            type: "txt/plain",
+            data: { argDescripcion: descripcion },
+            success: function (resultado) {
+                $('#perfilBio').text(descripcion);
+                $('#perfilBioEdit').hide();
+                $('#perfilBio').show();
+            }
+        });
+    });
+    function cerrar_fotoPerfil() {
+        $(".opaca-gris").on("click", function () {
+            $(".detalles_popups").removeClass("animated zoomIn");
+            $(".detalles_popups").addClass("animated zoomOut");
+            $(".detalles_popups").fadeOut(300);
+            $(".opaca-gris").fadeOut(300);
+        });
+    }
+
+    function fotoPerfil_popup() {
+        $(".detalles_popups").removeClass("animated zoomOut");
+        $(".detalles_popups").addClass("animated zoomIn");
+        $(".detalles_popups").fadeIn(300);
+        $(".opaca-gris").fadeIn(300);
+
+        $('html,body').animate({
+            scrollTop: 0
+        }, 1000, "easeInOutExpo");
+
+        cerrar_fotoPerfil();
+    }
+
+    function cerrar_popup() {
+        $(".opaca-gris").on("click", function () {
+            $(".detalles_popups").removeClass("animated zoomIn");
+            $(".detalles_popups").addClass("animated zoomOut");
+            $(".detalles_popups").fadeOut(300);
+            $(".opaca-gris").fadeOut(300);
+        });
+    }
+
+    function load_popup() {
+        $(".detalles_popups").removeClass("animated zoomOut");
+        $(".detalles_popups").addClass("animated zoomIn");
+        $(".detalles_popups").fadeIn(300);
+        $(".opaca-gris").fadeIn(300);
+
+        $('html,body').animate({
+            scrollTop: 0
+        }, 1000, "easeInOutExpo");
+
+        cerrar_popup();
+    }
+    function cerrar_cargando() {
+        $(".opaca-gris").on("click", function () {
+            $(".cargando_popup").removeClass("animated zoomIn");
+            $(".cargando_popup").addClass("animated zoomOut");
+            $(".cargando_popup").fadeOut(300);
+            $(".opaca-gris").fadeOut(300);
+        });
+    }
+    function load_cargando() {
+        $(".cargando_popup").removeClass("animated zoomOut");
+        $(".cargando_popup").addClass("animated zoomIn");
+        $(".cargando_popup").fadeIn(300);
+        $(".opaca-gris").fadeIn(300);
+
+        $('html,body').animate({
+            scrollTop: 0
+        }, 1000, "easeInOutExpo");
+
+        cerrar_cargando();
+    }
+
+    jQuery(document).ready(function ($) {
+
+        $('#myCarousel').carousel({
+            interval: 5000
+        });
+        $('[id^=carousel-selector-]').click(function () {
+            var id_selector = $(this).attr("id");
+            try {
+                var id = /-(\d+)$/.exec(id_selector)[1];
+                console.log(id_selector, id);
+                jQuery('#myCarousel').carousel(parseInt(id));
+            } catch (e) {
+                console.log('Regex failed!', e);
+            }
+        });
         // When the carousel slides, auto update the text
-    $('#myCarousel').on('slid.bs.carousel', function (e) {
-        var id = $('.item.active').data('slide-number');
-        $('#carousel-text').html($('#slide-content-'+id).html());
+        $('#myCarousel').on('slid.bs.carousel', function (e) {
+            var id = $('.item.active').data('slide-number');
+            $('#carousel-text').html($('#slide-content-' + id).html());
+        });
     });
-});
 
-$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-    event.preventDefault();
-    $(this).ekkoLightbox();
-});
-
-
-    $('#leerMas').click(function(){
-       $("#video_principal_infoBox").toggleClass("width100", 1000);
+    $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
     });
-    $('#perfil_panel_bio').click(function() {
-        if($('#cuerpo_bio').css('display') == 'none') {
+
+
+    $('#leerMas').click(function () {
+        $("#video_principal_infoBox").toggleClass("width100", 1000);
+    });
+    $('#perfil_panel_bio').click(function () {
+        if ($('#cuerpo_bio').css('display') == 'none') {
             $('#cuerpo_bio').css("display", "block");
         }
         else {
-           $('#cuerpo_bio').css("display", "none");
+            $('#cuerpo_bio').css("display", "none");
         }
     });
-    $('#perfil_panel_tecnico').click(function() {
-        if($('#cuerpo_tecnico').css('display') == 'none') {
+    $('#perfil_panel_tecnico').click(function () {
+        if ($('#cuerpo_tecnico').css('display') == 'none') {
             $('#cuerpo_tecnico').css("display", "block");
         }
         else {
-           $('#cuerpo_tecnico').css("display", "none");
+            $('#cuerpo_tecnico').css("display", "none");
         }
     });
-    $('#perfil_panel_otro').click(function() {
-        if($('#cuerpo_otro').css('display') == 'none') {
+    $('#perfil_panel_otro').click(function () {
+        if ($('#cuerpo_otro').css('display') == 'none') {
             $('#cuerpo_otro').css("display", "block");
         }
         else {
-           $('#cuerpo_otro').css("display", "none");
+            $('#cuerpo_otro').css("display", "none");
         }
     });
 
-var jumboHeight = $('.jumbotron').outerHeight();
-function parallax(){
-    var scrolled = $(window).scrollTop();
-    $('.bg').css('height', (jumboHeight-scrolled) + 'px');
-}
+    var jumboHeight = $('.jumbotron').outerHeight();
+    function parallax() {
+        var scrolled = $(window).scrollTop();
+        $('.bg').css('height', (jumboHeight - scrolled) + 'px');
+    }
 
-$(window).scroll(function(e){
-    parallax();
-});
+    $(window).scroll(function (e) {
+        parallax();
+    });
 </script>

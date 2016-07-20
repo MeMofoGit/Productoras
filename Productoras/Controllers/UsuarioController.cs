@@ -500,9 +500,31 @@ namespace Proyecto.Controllers
             return View(clsUsuario);
         }
         [HttpPost]
-        public PartialViewResult PerfilActualizar(int id, string argDescripcion)
+        public ActionResult PerfilActualizar(int? id, string argDescripcion)
+        {
+            var idUsuario = (int)Session["id_usuario"];
+
+            var usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
+            if(usuario.tipo_xref == 1)
+            {
+                usuario.UsuariosTecnico.First().descripcion_c = argDescripcion;
+                db.SaveChanges();
+            }
+            else
+            {
+                //usuario.UsuariosProductora.First().telefono_c = argTelefono;
+            }
+            return Json("Actualizado");
+        }
+        [HttpGet]
+        public PartialViewResult PerfilAddCompetencia()
         {
             return PartialView();
+        }
+        [HttpPost]
+        public ActionResult PerfilAddCompetencia(int argCompetencia)
+        {
+            return null;
         }
         public PartialViewResult NuevoVideo()
         {
@@ -517,37 +539,70 @@ namespace Proyecto.Controllers
         {
             return PartialView("Partials/formNuevaFoto");
         }
-        //[HttpPost]
-        //public PartialViewResult NuevaFoto(HttpContext context)
-        //{
-        //    context.Response.ContentType = "text/plain";
+        [HttpPost]
+        public ActionResult getNuevaFoto()
+        {
+            var idUsuario = (int)Session["id_usuario"];
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
 
-        //    string dirFullPath = System.Web.HttpContext.Current.Server.MapPath("~/Fotos/");
-        //    string[] files;
-        //    int numFiles;
-        //    files = System.IO.Directory.GetFiles(dirFullPath);
-        //    numFiles = files.Length;
-        //    numFiles = numFiles + 1;
+                        HttpPostedFileBase file = files[i];
+                        string fname;
 
-        //    string str_image = "";
-        //    foreach (string s in context.Request.Files)
-        //    {
-        //        HttpPostedFile file = context.Request.Files[s];
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+                        var extension = Path.GetExtension(file.FileName);
+                        var fnameEnc = idUsuario + "_" + Path.GetFileNameWithoutExtension(file.FileName);
+                        var fnameCompleto = fnameEnc + extension;
 
-        //        string fileName = file.FileName;
-        //        string fileExtension = file.ContentType;
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/Fotos/"), fnameCompleto);
 
-        //        if(!string.IsNullOrEmpty(fileName))
-        //        {
-        //            fileExtension = Path.GetExtension(fileName);
-        //            str_image = "foto_" + numFiles.ToString() + fileExtension;
-        //            string pathToSave_100 = System.Web.HttpContext.Current.Server.MapPath("~/Fotos/") + str_image;
-        //            file.SaveAs(pathToSave_100);
-        //        }
-        //    }
-        //    context.Response.Write(str_image);
-        //    return PartialView("Partials/formNuevaFoto");
-        //}
+                        file.SaveAs(fname);
+
+                        UsuariosFotos foto = new UsuariosFotos();
+
+                        foto.enlace_c = fnameCompleto;
+                        foto.fechaIni_dt = DateTime.Now;
+                        foto.nombre_c = System.Web.HttpContext.Current.Request.Form["nombre_c"];
+                        foto.descripcion_c = System.Web.HttpContext.Current.Request.Form["descripcion_c"];
+                        var usuario = db.Usuarios.Where(u => u.id == idUsuario).First();
+
+                        usuario.UsuariosFotos.Add(foto);
+
+                        db.SaveChanges();
+
+                    }
+                    // Returns message that successfully uploaded  
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
         public PartialViewResult ActualizarFotoPerfil()
         {
 
@@ -636,59 +691,7 @@ namespace Proyecto.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult UploadFiles()
-        {
-            var idUsuario = (int)Session["id_usuario"];
-            // Checking no of files injected in Request object  
-            if (Request.Files.Count > 0)
-            {
-                try
-                {
-                    //  Get all files from Request object  
-                    HttpFileCollectionBase files = Request.Files;
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
-                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
 
-                        HttpPostedFileBase file = files[i];
-                        string fname;
-
-                        // Checking for Internet Explorer  
-                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-                        {
-                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
-                            fname = testfiles[testfiles.Length - 1];
-                        }
-                        else
-                        {
-                            fname = file.FileName + Session["id_usuario"];
-                        }
-
-                        // Get the complete folder path and store the file inside it.  
-                        fname = Path.Combine(Server.MapPath("~/Fotos/"), fname);
-                        file.SaveAs(fname);
-                        var usuario = db.Usuarios.Where(u => u.id == idUsuario).First();
-
-                        usuario.fotoPerfil_c = idUsuario + file.FileName;
-
-                        db.SaveChanges();
-
-                    }
-                    // Returns message that successfully uploaded  
-                    return Json("File Uploaded Successfully!");
-                }
-                catch (Exception ex)
-                {
-                    return Json("Error occurred. Error details: " + ex.Message);
-                }
-            }
-            else
-            {
-                return Json("No files selected.");
-            }
-        }
         //[HttpPost]
         //public async Task<JsonResult> UploadHomeReport()
         //{

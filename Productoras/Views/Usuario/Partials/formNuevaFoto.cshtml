@@ -1,21 +1,43 @@
 ﻿<div class="detalles_popups col-xs-12 col-sm-8 col-md-10 col-lg-5">
     <h2>Añadir foto</h2>
-
-    <form id="form1" runat="server">
-        <input type="file" id="FileUpload1" />
-        <input type="button" id="btnUpload" value="Upload Files" />
-        <div id="blah" class="perfil_imagenPerfil" style="background-image:url('../../Fotos/31bolsa.jpg')"></div>
-    </form>
+    <div class="col-sm-5">
+        <form id="form1" class="form-group" runat="server">
+            <label class="btn btn-default btn-file">
+                Imagen... <input type="file" id="FileUpload1" style="display: none;" />
+            </label>
+            <br />
+            <label>Nombre: </label>
+            <input type="text" name="nombre_c" id="nombre_c" class="form-control" />
+            <br />
+            <label>Descripcion: </label>
+            <input type="text" name="descripcion_c" id="descripcion_c" class="form-control" />
+            <br />
+            <input type="button" id="btnUpload" value="Subir imagen" class="form-control" />
+        </form>
+    </div>
+    <div class="col-sm-7">
+        <div id="blah" class="" style="">
+            <img id="previewPerfil" src="" style="width: 100%; height: 200px;"/>
+            <span id="previewNombre">Nombre</span><br />
+            <span id="previewDescripcion">Descripcion</span>
+        </div>
+    </div>
 </div>
 <script>
 
+    $("#nombre_c").on("change paste keyup", function () {
+        $("#previewNombre").text($(this).val());
+    });
+    $("#descripcion_c").on("change paste keyup", function () {
+        $("#previewDescripcion").text($(this).val());
+    });
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                //$('#blah').attr('', e.target.result);
-                $('#blah').css({ 'background-image': 'url('+e.target.result+')' });
+                $('#previewPerfil').attr('src', e.target.result);
+                //$('#blah').css({ 'background-image': 'url('+e.target.result+')' });
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -44,10 +66,11 @@ $(document).ready(function(){
             }
 
             // Adding one more key to FormData object
-            fileData.append('username', 'Manas');
+            fileData.append('nombre_c', $("#nombre_c").val());
+            fileData.append('descripcion_c', $("#descripcion_c").val());
 
             $.ajax({
-                url: '/Usuario/UploadFiles',
+                url: '/Usuario/getNuevaFoto',
                 type: "POST",
                 contentType: false, // Not to set any content header
                 processData: false, // Not to process data
