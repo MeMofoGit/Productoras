@@ -33,6 +33,7 @@ namespace Productoras.Models
         public virtual ICollection<UsuarioActorCategoria> UsuarioActorCategoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuarioProductoraCategoria> UsuarioProductoraCategoria { get; set; }
+        public virtual UsuariosTipos UsuariosTipos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuariosTiposSubcategorias> UsuariosTiposSubcategorias { get; set; }
     }

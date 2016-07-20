@@ -199,6 +199,7 @@
           <Property Name="ciudad_xref" Type="int" />
           <Property Name="tipo_xref" Type="int" />
           <Property Name="definido_b" Type="bit" Nullable="false" />
+          <Property Name="iteraciones_i" Type="int" />
         </EntityType>
         <EntityType Name="UsuariosActor">
           <Key>
@@ -217,7 +218,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre_c" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="descripcion_c" Type="text" Nullable="false" />
+          <Property Name="descripcion_c" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="enlace_c" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="fechaIni_dt" Type="datetime" Nullable="false" />
           <Property Name="fechaLast_dt" Type="datetime" />
@@ -743,6 +744,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UsuariosTiposCategorias_UsuariosTipos">
+          <End Role="UsuariosTipos" Type="Self.UsuariosTipos" Multiplicity="1" />
+          <End Role="UsuariosTiposCategorias" Type="Self.UsuariosTiposCategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTipos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTiposCategorias">
+              <PropertyRef Name="tipoUsuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias">
           <End Role="UsuariosTiposCategorias" Type="Self.UsuariosTiposCategorias" Multiplicity="1" />
           <End Role="UsuariosTiposSubcategorias" Type="Self.UsuariosTiposSubcategorias" Multiplicity="*" />
@@ -949,6 +962,10 @@
             <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
             <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
           </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTiposCategorias_UsuariosTipos" Association="Self.FK_UsuariosTiposCategorias_UsuariosTipos">
+            <End Role="UsuariosTipos" EntitySet="UsuariosTipos" />
+            <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
+          </AssociationSet>
           <AssociationSet Name="FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" Association="Self.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias">
             <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
             <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
@@ -1143,6 +1160,10 @@
           <AssociationSet Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" Association="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
             <End Role="UsuariosTiposSubcategorias" EntitySet="UsuariosTiposSubcategorias" />
             <End Role="UsuariosTecnicosSubcategorias" EntitySet="UsuariosTecnicosSubcategorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuariosTiposCategorias_UsuariosTipos" Association="ProyectoModel.FK_UsuariosTiposCategorias_UsuariosTipos">
+            <End Role="UsuariosTipos" EntitySet="UsuariosTipos" />
+            <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
           </AssociationSet>
           <AssociationSet Name="FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" Association="ProyectoModel.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias">
             <End Role="UsuariosTiposCategorias" EntitySet="UsuariosTiposCategorias" />
@@ -1379,6 +1400,7 @@
           <Property Name="ciudad_xref" Type="Int32" />
           <Property Name="tipo_xref" Type="Int32" />
           <Property Name="definido_b" Type="Boolean" Nullable="false" />
+          <Property Name="iteraciones_i" Type="Int32" />
           <NavigationProperty Name="Ciudades" Relationship="ProyectoModel.FK_Usuarios_Ciudad" FromRole="Usuarios" ToRole="Ciudades" />
           <NavigationProperty Name="Comentarios" Relationship="ProyectoModel.FK_Comentarios_Usuarios" FromRole="Usuarios" ToRole="Comentarios" />
           <NavigationProperty Name="ComentariosUsuario" Relationship="ProyectoModel.FK_ComentariosUsuario_Usuarios" FromRole="Usuarios" ToRole="ComentariosUsuario" />
@@ -1418,7 +1440,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre_c" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion_c" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_c" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="enlace_c" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="fechaIni_dt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fechaLast_dt" Type="DateTime" Precision="3" />
@@ -1499,6 +1521,7 @@
           <Property Name="activo_b" Type="Boolean" Nullable="false" />
           <Property Name="icono_c" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuarios" Relationship="ProyectoModel.FK_Usuarios_UsuariosTipos" FromRole="UsuariosTipos" ToRole="Usuarios" />
+          <NavigationProperty Name="UsuariosTiposCategorias" Relationship="ProyectoModel.FK_UsuariosTiposCategorias_UsuariosTipos" FromRole="UsuariosTipos" ToRole="UsuariosTiposCategorias" />
         </EntityType>
         <EntityType Name="UsuariosTiposCategorias">
           <Key>
@@ -1512,6 +1535,7 @@
           <Property Name="icono_c" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UsuarioActorCategoria" Relationship="ProyectoModel.FK_UsuarioActorCategoria_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuarioActorCategoria" />
           <NavigationProperty Name="UsuarioProductoraCategoria" Relationship="ProyectoModel.FK_UsuarioProductoraCategoria_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuarioProductoraCategoria" />
+          <NavigationProperty Name="UsuariosTipos" Relationship="ProyectoModel.FK_UsuariosTiposCategorias_UsuariosTipos" FromRole="UsuariosTiposCategorias" ToRole="UsuariosTipos" />
           <NavigationProperty Name="UsuariosTiposSubcategorias" Relationship="ProyectoModel.FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias" FromRole="UsuariosTiposCategorias" ToRole="UsuariosTiposSubcategorias" />
         </EntityType>
         <EntityType Name="UsuariosTiposSubcategorias">
@@ -1987,6 +2011,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UsuariosTiposCategorias_UsuariosTipos">
+          <End Type="ProyectoModel.UsuariosTipos" Role="UsuariosTipos" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosTiposCategorias" Role="UsuariosTiposCategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsuariosTipos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosTiposCategorias">
+              <PropertyRef Name="tipoUsuario_xref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UsuariosTiposSubcategorias_UsuariosTiposCategorias">
           <End Type="ProyectoModel.UsuariosTiposCategorias" Role="UsuariosTiposCategorias" Multiplicity="1" />
           <End Type="ProyectoModel.UsuariosTiposSubcategorias" Role="UsuariosTiposSubcategorias" Multiplicity="*" />
@@ -2201,6 +2237,7 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="ProyectoModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="iteraciones_i" ColumnName="iteraciones_i" />
                 <ScalarProperty Name="definido_b" ColumnName="definido_b" />
                 <ScalarProperty Name="tipo_xref" ColumnName="tipo_xref" />
                 <ScalarProperty Name="ciudad_xref" ColumnName="ciudad_xref" />

@@ -18,6 +18,7 @@ namespace Productoras.Models
         public UsuariosTipos()
         {
             this.Usuarios = new HashSet<Usuarios>();
+            this.UsuariosTiposCategorias = new HashSet<UsuariosTiposCategorias>();
         }
     
         public int id { get; set; }
@@ -28,5 +29,7 @@ namespace Productoras.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuarios> Usuarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsuariosTiposCategorias> UsuariosTiposCategorias { get; set; }
     }
 }
