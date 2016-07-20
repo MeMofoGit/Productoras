@@ -519,7 +519,20 @@ namespace Proyecto.Controllers
         [HttpGet]
         public PartialViewResult PerfilAddCompetencia()
         {
-            return PartialView();
+            int idUsuario = (int)Session["id_usuario"];
+            var usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
+
+            var clsTipo = db.UsuariosTipos.Where(t => t.id == usuario.tipo_xref).FirstOrDefault();
+            //UsuariosTiposSubcategorias subcategoria = new UsuariosTiposSubcategorias();
+
+            //foreach(var categoriaItem in clsTipo.UsuariosTiposCategorias)
+            //{
+            //    foreach(var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
+            //    {
+
+            //    }
+            //}
+            return PartialView("Partials/lstCompetencias", clsTipo);
         }
         [HttpPost]
         public ActionResult PerfilAddCompetencia(int argCompetencia)

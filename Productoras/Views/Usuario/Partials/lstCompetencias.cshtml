@@ -1,0 +1,68 @@
+﻿@model Productoras.Models.UsuariosTipos
+
+<div class="detalles_popups">
+    @{ var i = 0; }
+    @foreach (var categoriaItem in Model.UsuariosTiposCategorias)
+    {
+        i++;
+
+        if (categoriaItem.activo_b == true && categoriaItem.tipoUsuario_xref == 1)
+        {
+            <div class="col-md-4">
+                <div class="panel panel-default" style="min-height: 300px;">
+                    <div class="panel-heading">@categoriaItem.nombre_c</div>
+                    <div class="panel-body">
+                        @foreach (var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
+                        {
+                            if (subcategoriaItem.activo_b == true && subcategoriaItem.UsuariosTiposCategorias.tipoUsuario_xref == 1)
+                            {
+                                <div class="col-md-12 margen_arriba_5">
+                                    @if (categoriaItem.UsuariosTipos.Usuarios.First().UsuariosTecnico.First().UsuariosTecnicosSubcategorias.Where(s => s.subcategoria_xref == subcategoriaItem.id).Count() > 0)
+                                    {
+                                        <button id="btnCategoria" class="btn btn-info btnCategoria itemSeleccionado" style="width: 100%;">@subcategoriaItem.nombre_c</button>
+                                    }
+                                    else
+                                    {
+                                        <button id="btnCategoria" class="btn btn-default btnCategoria" style="width: 100%;">@subcategoriaItem.nombre_c</button>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+</div>
+<script>
+    $('.btnCategoria').click(function () {
+        var totalSeleccionados = 0;
+        if ($(this).hasClass('itemSeleccionado')) {
+            totalSeleccionados - 1;
+            $(this).removeClass('btn-info');
+            $(this).removeClass('itemSeleccionado')
+            $(this).addClass('btn-default');
+        }
+        else {
+            $('.itemSeleccionado').each(function () {
+                totalSeleccionados++;
+            });
+            if (totalSeleccionados <= 4) {
+                $(this).removeClass('btn-default');
+                $(this).addClass('btn-info');
+                $(this).addClass('itemSeleccionado')
+            }
+            else if(totalSeleccionados > 4) {
+                alert("Desmarca alguna categoría antes de selecionar otra.")
+            }
+        }
+    });
+    //$(document).ready(function () {
+    //    var contador = 0;
+    //    $('.itemSeleccionado').each(function () {
+    //        contador++;
+    //    });
+    //    alert(contador);
+    //});
+</script>

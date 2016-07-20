@@ -395,6 +395,10 @@
     <Content Include="Models\ProyectoEntities.edmx.diagram">
       <DependentUpon>ProyectoEntities.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\dropzone.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -466,10 +470,10 @@
     <Content Include="Views\Home\Partials\_Layout.cshtml" />
     <Content Include="Views\Usuario\hn_SimpeFileUploader.ashx" />
     <Content Include="Views\Usuario\Partials\formFotoPerfil.cshtml" />
+    <Content Include="Views\Usuario\Partials\lstCompetencias.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\fonts\" />
     <Folder Include="Fotos\Perfil\" />
     <Folder Include="Fotos\Proyecto\" />
     <Folder Include="Fotos\Usuario\" />
