@@ -1,31 +1,91 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@using Productoras.Helpers
+    
+<div class="jumbotron index_jumbotron">
+    <video id="index_video_background" preload muted autoplay loop>
+        <source src="http://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        <!--
+                    <source src="http://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+        -->
+    </video>
+    <div class="row text-center">
+        <div class="col-sm-12 index_jumbotron_slogan">
+            <div class="">
+                TITULO DEL ESLOGAN
+            </div>
+        </div>
+    </div>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <div class="row text-center">
+        <div class="col-sm-12 index_jumbotron_slogan_sub">
+            <small>
+                Subtitulo para el slogan principal que irá situado justo bajo el eslogan.
+            </small>
+        </div>
+    </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <div class="row text-center">
+        <div class="col-sm-12 index_jumbotron_botones main-nav">
+            <a href="/Usuario/Registro"><button class="btn">Registrarme</button></a>
+            <a href="/Usuario/Login"><button class="btn">Identificarme</button></a>
+                @*@Ajax.RawActionLink("<button class='btn'>Registrarme</button>", "Registro", "Usuario", null, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "cerrar_cargando(); load_registro()" }, null)
+            @Ajax.RawActionLink("<button class='btn'>Identificarme</button>", "getLogin", "Usuario", null, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_login()" }, null)*@
 </div>
+    </div>
+
+    <div class="index_jumbotron_buscador">
+        <div class="row text-center">
+            <div class="col-sm-12">
+
+                <div class="buscador_formulario hidden-xs">
+                    <form action="buscar" method="get">
+
+                        <div class="buscador_inputs">
+
+                            <div class="buscador_ciudad">
+                                <input type="text" name="ciudad">
+                            </div>
+
+                            <div class="buscador_profesional">
+                                <input type="text" name="profesionales">
+                            </div>
+
+                            <div class="buscador_submit">
+
+                                <button type="submit" class="btn btn-primary btn-large">
+                                    Buscar
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    function cerrar_login() {
+        $(".opaca-gris").on("click", function () {
+                $(".login_popup").removeClass("animated zoomIn");
+                $(".login_popup").addClass("animated zoomOut");
+                $(".login_popup").fadeOut(300);
+                $(".opaca-gris").fadeOut(300);
+            });
+    }
+
+    function load_login() {
+        $(".login_popup").removeClass("animated zoomOut");
+        $(".login_popup").addClass("animated zoomIn");
+        $(".login_popup").fadeIn(300);
+        $(".opaca-gris").fadeIn(300);
+        $('html,body').animate({
+                scrollTop: 0
+            }, 1000, "easeInOutExpo");
+        cerrar_login();
+    }
+</script>
