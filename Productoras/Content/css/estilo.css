@@ -164,12 +164,6 @@ video {
 	border-width:8px;
 }
 */
-.margen_arriba_5 {
-    margin-top: 5px;
-}
-.margen_arriba_50 {
-    margin-top: 50px;
-}
 .comentario_autor_fotoPerfil {
     width: 85px;
     height: 85px;
@@ -372,6 +366,9 @@ video {
 .perfil_video_previa img {
     width: 100%;
 }
+.margen_arriba_5 {
+    margin-top: 5px;
+}
 .margen_arriba_10 {
     margin-top: 10px;
 }
@@ -383,6 +380,9 @@ video {
 }
 .margen_arriba_40 {
     margin-top: 40px;
+}
+.margen_arriba_50 {
+    margin-top: 50px;
 }
 .carousel-control.left, .carousel-control.right {
     background-image: none

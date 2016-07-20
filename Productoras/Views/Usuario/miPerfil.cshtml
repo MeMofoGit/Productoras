@@ -9,7 +9,7 @@
         <!--        <p class="lead">+Pequeña biografia</p>-->
         <div id="fotoPerfil_jumbotron" class="perfil_imagenPerfil" style="background-image:url('../../Fotos/@Model.fotoPerfil_c'); position: absolute; z-index: 1;"></div>
         @*<div id="fotoPerfilActualizar_jumbotron" class="perfil_imagenPerfil" style="background-color: rgba(255, 255, 255, 0.5); position: relative; z-index: 3; padding: 10px; text-align: center; display: none;">Cambiar</div>*@
-        @Ajax.RawActionLink("<div id='fotoPerfilActualizar_jumbotron' class='perfil_imagenPerfil' style='background-color: rgba(255, 255, 255, 0.5); position: relative; z-index: 2; padding: 10px; text-align: center; display: none;'>Cambiar</div>", "ActualizarFotoPerfil", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "fotoPerfil_popup()" }, null)
+        @Ajax.RawActionLink("<div id='fotoPerfilActualizar_jumbotron' class='perfil_imagenPerfil' style='background-color: rgba(255, 255, 255, 0.5); position: relative; z-index: 2; padding: 10px; text-align: center; display: none;'>Cambiar</div>", "ActualizarFotoPerfil", "Usuario", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "load_popup()" }, null)
 
     </div>
 
