@@ -535,9 +535,45 @@ namespace Proyecto.Controllers
             return PartialView("Partials/lstCompetencias", clsTipo);
         }
         [HttpPost]
-        public ActionResult PerfilAddCompetencia(int argCompetencia)
+        public ActionResult PerfilAddCompetencia(int idSubcategoria)
         {
-            return null;
+            int idUsuario = (int)Session["id_usuario"];
+            var usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
+
+            var clsSubcategoria = db.UsuariosTiposSubcategorias.Where(s => s.id == idSubcategoria).First();
+            UsuariosTecnicosSubcategorias clsTecnicoSubcategoria = new UsuariosTecnicosSubcategorias();
+            clsTecnicoSubcategoria.subcategoria_xref = clsSubcategoria.id;
+            clsTecnicoSubcategoria.usuarioTecnico_xref = usuario.UsuariosTecnico.First().id;
+            //Falta experiencia y fecha inico y fin
+
+            usuario.UsuariosTecnico.First().UsuariosTecnicosSubcategorias.Add(clsTecnicoSubcategoria);
+            db.SaveChanges();
+            //UsuariosTiposSubcategorias subcategoria = new UsuariosTiposSubcategorias();
+
+            //foreach(var categoriaItem in clsTipo.UsuariosTiposCategorias)
+            //{
+            //    foreach(var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
+            //    {
+
+            //    }
+            //}
+            return Content(clsSubcategoria.nombre_c);
+        }
+        public ActionResult PerfilBorrarSubcategoria(int idSubcategoria)
+        {
+            int idUsuario = (int)Session["id_usuario"];
+            var tipoPerfil = Session["tipoPerfil"];
+
+            Usuarios usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
+            int idUsuarioTecnico = usuario.UsuariosTecnico.First().id;
+            if (usuario.tipo_xref == 1) {
+                var clsSubcategoria = db.UsuariosTecnicosSubcategorias.SingleOrDefault(s => s.subcategoria_xref == idSubcategoria && s.usuarioTecnico_xref == idUsuarioTecnico);
+                db.UsuariosTecnicosSubcategorias.Remove(clsSubcategoria);
+            }
+
+            db.SaveChanges();
+
+            return Content("Ok");
         }
         public PartialViewResult NuevoVideo()
         {

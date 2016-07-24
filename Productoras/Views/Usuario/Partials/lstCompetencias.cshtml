@@ -19,11 +19,11 @@
                                 <div class="col-md-12 margen_arriba_5">
                                     @if (categoriaItem.UsuariosTipos.Usuarios.First().UsuariosTecnico.First().UsuariosTecnicosSubcategorias.Where(s => s.subcategoria_xref == subcategoriaItem.id).Count() > 0)
                                     {
-                                        <button id="btnCategoria" class="btn btn-info btnCategoria itemSeleccionado" style="width: 100%;">@subcategoriaItem.nombre_c</button>
+                                        <button id="btnSubcategoria_@subcategoriaItem.id" class="btn btn-info btnCategoria itemSeleccionado" style="width: 100%;" onclick="toggleSubcategoria(@subcategoriaItem.id);">@subcategoriaItem.nombre_c</button>
                                     }
                                     else
                                     {
-                                        <button id="btnCategoria" class="btn btn-default btnCategoria" style="width: 100%;">@subcategoriaItem.nombre_c</button>
+                                        <button id="btnSubcategoria_@subcategoriaItem.id" class="btn btn-default btnCategoria" style="width: 100%;" onclick="toggleSubcategoria(@subcategoriaItem.id);">@subcategoriaItem.nombre_c</button>
                                     }
                                 </div>
                             }
@@ -36,33 +36,40 @@
     }
 </div>
 <script>
-    $('.btnCategoria').click(function () {
+
+    function toggleSubcategoria(idSubcategoria) {
         var totalSeleccionados = 0;
-        if ($(this).hasClass('itemSeleccionado')) {
+        var btnSubcategoria = $('#btnSubcategoria_' + idSubcategoria);
+        if (btnSubcategoria.hasClass('itemSeleccionado')) {
             totalSeleccionados - 1;
-            $(this).removeClass('btn-info');
-            $(this).removeClass('itemSeleccionado')
-            $(this).addClass('btn-default');
+            btnSubcategoria.removeClass('btn-info');
+            btnSubcategoria.removeClass('itemSeleccionado');
+            btnSubcategoria.addClass('btn-default');
+            borrarSubcategoria(idSubcategoria);
         }
-        else {
+
+        else if (btnSubcategoria.hasClass('itemSeleccionado') == false) {
             $('.itemSeleccionado').each(function () {
                 totalSeleccionados++;
             });
+
             if (totalSeleccionados <= 4) {
-                $(this).removeClass('btn-default');
-                $(this).addClass('btn-info');
-                $(this).addClass('itemSeleccionado')
+                $.ajax({
+                    data: { idSubcategoria: idSubcategoria },
+                    url: "PerfilAddCompetencia",
+                    method: "POST",
+                    success: function (data) {
+                        $('#btnSubcategoria_' + idSubcategoria).removeClass('btn-default');
+                        $('#btnSubcategoria_' + idSubcategoria).addClass('btn-info');
+                        $('#btnSubcategoria_' + idSubcategoria).addClass('itemSeleccionado');
+                        $('#lstSubcategorias').append("<li id='subcategoria_" + idSubcategoria + "'>" + data + " <i class='fa fa-trash pull-right' onclick='borrarSubcategoria(" + idSubcategoria + ")'></i></li>");
+                    }
+                });
+
             }
-            else if(totalSeleccionados > 4) {
-                alert("Desmarca alguna categoría antes de selecionar otra.")
+            else if (totalSeleccionados > 4) {
+                alert("Desmarca alguna categoría antes de selecionar otra.");
             }
         }
-    });
-    //$(document).ready(function () {
-    //    var contador = 0;
-    //    $('.itemSeleccionado').each(function () {
-    //        contador++;
-    //    });
-    //    alert(contador);
-    //});
+    }
 </script>

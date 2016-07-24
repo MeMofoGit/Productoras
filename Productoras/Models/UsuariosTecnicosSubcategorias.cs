@@ -18,8 +18,8 @@ namespace Productoras.Models
         public Nullable<System.DateTime> fechaIni_dt { get; set; }
         public Nullable<System.DateTime> fechaFin_dt { get; set; }
         public Nullable<int> experiencia_i { get; set; }
-        public int usuarioTecnico_xref { get; set; }
-        public int subcategoria_xref { get; set; }
+        public Nullable<int> usuarioTecnico_xref { get; set; }
+        public Nullable<int> subcategoria_xref { get; set; }
     
         public virtual UsuariosTecnico UsuariosTecnico { get; set; }
         public virtual UsuariosTiposSubcategorias UsuariosTiposSubcategorias { get; set; }

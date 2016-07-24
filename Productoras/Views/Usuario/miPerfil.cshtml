@@ -50,16 +50,16 @@
                     <div class="panel panel-default perfil_panel_md">
                         <div class="panel-heading">
                             <i class="fa fa-briefcase" aria-hidden="true"></i> Perfil técnico
-                            @Ajax.RawActionLink("<button class='btn btn-success btn-xs pull- right'><i class='fa fa-plus'></i> Añadir</button>", "PerfilAddCompetencia", "Usuario", new { id = Model.id }, new AjaxOptions { LoadingElementDuration = 2000, UpdateTargetId = "funcion_result", OnBegin = "load_cargando()", OnSuccess = "cerrar_cargando(); load_popup()" }, null)
+                            @Ajax.RawActionLink("<button class='btn btn-success btn-xs pull-right'><i class='fa fa-plus'></i> Añadir</button>", "PerfilAddCompetencia", "Usuario", new { id = Model.id }, new AjaxOptions { LoadingElementDuration = 2000, UpdateTargetId = "funcion_result", OnBegin = "load_cargando()", OnSuccess = "cerrar_cargando(); load_popup()" }, null)
                             @*<button class="btn btn-success btn-xs pull-right"><i class="fa fa-plus"></i> Añadir</button>*@
                         </div>
                         <div class="panel-body">
-                            <ul>
+                            <ul id="lstSubcategorias">
                                 @foreach (var tecnico in Model.UsuariosTecnico)
                                 {
                                     foreach (var subcategoria in tecnico.UsuariosTecnicosSubcategorias)
                                     {
-                                        <li>@subcategoria.UsuariosTiposSubcategorias.nombre_c <i class="fa fa-trash pull-right"></i><a onclick="editarSubcategoria()"><i class="fa fa-pencil pull-right"></i></a></li>
+                                        <li id="subcategoria_@subcategoria.subcategoria_xref">@subcategoria.UsuariosTiposSubcategorias.nombre_c <i id="btnBorrarSubcategoria" class="fa fa-trash iconBtn pull-right" onclick="borrarSubcategoria(@subcategoria.subcategoria_xref)"></i></li>
                                     }
                                 }
 
@@ -731,4 +731,15 @@
     $(window).scroll(function (e) {
         parallax();
     });
+
+    //Borrar subcategoria tecnica
+    function borrarSubcategoria(idSubcategoria) {
+        $.ajax({
+            url: "PerfilBorrarSubcategoria",
+            data: { idSubcategoria: idSubcategoria },
+            success: function (data) {
+                $('#subcategoria_' + idSubcategoria).css("display", "none");
+            }
+        });
+    }
 </script>

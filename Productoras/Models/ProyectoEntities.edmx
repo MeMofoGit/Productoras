@@ -275,8 +275,8 @@
           <Property Name="fechaIni_dt" Type="datetime" />
           <Property Name="fechaFin_dt" Type="datetime" />
           <Property Name="experiencia_i" Type="int" />
-          <Property Name="usuarioTecnico_xref" Type="int" Nullable="false" />
-          <Property Name="subcategoria_xref" Type="int" Nullable="false" />
+          <Property Name="usuarioTecnico_xref" Type="int" />
+          <Property Name="subcategoria_xref" Type="int" />
         </EntityType>
         <EntityType Name="UsuariosTipos">
           <Key>
@@ -721,7 +721,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsuariosTecnicosSubcategorias_UsuariosTecnico">
-          <End Role="UsuariosTecnico" Type="Self.UsuariosTecnico" Multiplicity="1" />
+          <End Role="UsuariosTecnico" Type="Self.UsuariosTecnico" Multiplicity="0..1" />
           <End Role="UsuariosTecnicosSubcategorias" Type="Self.UsuariosTecnicosSubcategorias" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UsuariosTecnico">
@@ -733,7 +733,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
-          <End Role="UsuariosTiposSubcategorias" Type="Self.UsuariosTiposSubcategorias" Multiplicity="1" />
+          <End Role="UsuariosTiposSubcategorias" Type="Self.UsuariosTiposSubcategorias" Multiplicity="0..1" />
           <End Role="UsuariosTecnicosSubcategorias" Type="Self.UsuariosTecnicosSubcategorias" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UsuariosTiposSubcategorias">
@@ -1506,8 +1506,8 @@
           <Property Name="fechaIni_dt" Type="DateTime" Precision="3" />
           <Property Name="fechaFin_dt" Type="DateTime" Precision="3" />
           <Property Name="experiencia_i" Type="Int32" />
-          <Property Name="usuarioTecnico_xref" Type="Int32" Nullable="false" />
-          <Property Name="subcategoria_xref" Type="Int32" Nullable="false" />
+          <Property Name="usuarioTecnico_xref" Type="Int32" />
+          <Property Name="subcategoria_xref" Type="Int32" />
           <NavigationProperty Name="UsuariosTecnico" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTecnico" FromRole="UsuariosTecnicosSubcategorias" ToRole="UsuariosTecnico" />
           <NavigationProperty Name="UsuariosTiposSubcategorias" Relationship="ProyectoModel.FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias" FromRole="UsuariosTecnicosSubcategorias" ToRole="UsuariosTiposSubcategorias" />
         </EntityType>
@@ -1988,7 +1988,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsuariosTecnicosSubcategorias_UsuariosTecnico">
-          <End Type="ProyectoModel.UsuariosTecnico" Role="UsuariosTecnico" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosTecnico" Role="UsuariosTecnico" Multiplicity="0..1" />
           <End Type="ProyectoModel.UsuariosTecnicosSubcategorias" Role="UsuariosTecnicosSubcategorias" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UsuariosTecnico">
@@ -2000,7 +2000,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UsuariosTecnicosSubcategorias_UsuariosTiposSubcategorias">
-          <End Type="ProyectoModel.UsuariosTiposSubcategorias" Role="UsuariosTiposSubcategorias" Multiplicity="1" />
+          <End Type="ProyectoModel.UsuariosTiposSubcategorias" Role="UsuariosTiposSubcategorias" Multiplicity="0..1" />
           <End Type="ProyectoModel.UsuariosTecnicosSubcategorias" Role="UsuariosTecnicosSubcategorias" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UsuariosTiposSubcategorias">
