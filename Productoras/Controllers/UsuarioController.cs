@@ -848,6 +848,7 @@ namespace Proyecto.Controllers
                 {
                     Session["id_usuario"] = argUsuario.id;
                     Session["username"] = argUsuario.username_c;
+                    Session["tipo_usuario"] = argUsuario.tipo_xref;
                     valido = true;
                 }
             }

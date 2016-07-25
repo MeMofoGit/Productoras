@@ -1,41 +1,127 @@
 ﻿@model Productoras.Models.UsuariosTipos
+@using Productoras.Helpers
 
 <div class="detalles_popups">
     @{ var i = 0; }
-    @foreach (var categoriaItem in Model.UsuariosTiposCategorias)
-    {
-        i++;
+    <div id="listaCategorias">
+        <ul class="nav nav-tabs">
+            @{
+                //Variable auxiliar para establecer como active solo el primer tab
+                var tabActive = false;
+            }
+            @*Se recorren las categorias para imprimir los tabs*@
+            @foreach (var categoriaItem in Model.UsuariosTiposCategorias)
+            {
+                i++;
 
-        if (categoriaItem.activo_b == true && categoriaItem.tipoUsuario_xref == 1)
-        {
-            <div class="col-md-4">
-                <div class="panel panel-default" style="min-height: 300px;">
-                    <div class="panel-heading">@categoriaItem.nombre_c</div>
-                    <div class="panel-body">
-                        @foreach (var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
-                        {
-                            if (subcategoriaItem.activo_b == true && subcategoriaItem.UsuariosTiposCategorias.tipoUsuario_xref == 1)
-                            {
-                                <div class="col-md-12 margen_arriba_5">
-                                    @if (categoriaItem.UsuariosTipos.Usuarios.First().UsuariosTecnico.First().UsuariosTecnicosSubcategorias.Where(s => s.subcategoria_xref == subcategoriaItem.id).Count() > 0)
+                if (categoriaItem.activo_b == true && categoriaItem.tipoUsuario_xref == (int)Session["tipo_usuario"])
+                {
+                    if (tabActive == false)
+                    {
+                        <li class="active"><a data-toggle="tab" href="#@categoriaItem.id">@categoriaItem.nombre_c</a></li>
+                        tabActive = true;
+                    }
+                    else
+                    {
+                        <li class=""><a data-toggle="tab" href="#@categoriaItem.id">@categoriaItem.nombre_c</a></li>
+                    }
+
+                    @*<div class="col-md-4">
+                            <div class="panel panel-default" style="min-height: 300px;">
+                                <div class="panel-heading">@categoriaItem.nombre_c</div>
+                                <div class="panel-body">
+                                    @foreach (var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
                                     {
-                                        <button id="btnSubcategoria_@subcategoriaItem.id" class="btn btn-info btnCategoria itemSeleccionado" style="width: 100%;" onclick="toggleSubcategoria(@subcategoriaItem.id);">@subcategoriaItem.nombre_c</button>
-                                    }
-                                    else
-                                    {
-                                        <button id="btnSubcategoria_@subcategoriaItem.id" class="btn btn-default btnCategoria" style="width: 100%;" onclick="toggleSubcategoria(@subcategoriaItem.id);">@subcategoriaItem.nombre_c</button>
+                                        if (subcategoriaItem.activo_b == true && subcategoriaItem.UsuariosTiposCategorias.tipoUsuario_xref == 1)
+                                        {
+                                            <div class="col-md-12 margen_arriba_5">
+                                                @if (categoriaItem.UsuariosTipos.Usuarios.First().UsuariosTecnico.First().UsuariosTecnicosSubcategorias.Where(s => s.subcategoria_xref == subcategoriaItem.id).Count() > 0)
+                                                {
+                                                    <button id="btnSubcategoria_@subcategoriaItem.id" class="btn btn-info btnCategoria itemSeleccionado" style="width: 100%;" onclick="toggleSubcategoria(@subcategoriaItem.id);">@subcategoriaItem.nombre_c</button>
+                                                }
+                                                else
+                                                {
+                                                    <button id="btnSubcategoria_@subcategoriaItem.id" class="btn btn-default btnCategoria" style="width: 100%;" onclick="toggleSubcategoria(@subcategoriaItem.id);">@subcategoriaItem.nombre_c</button>
+                                                }
+                                            </div>
+                                        }
                                     }
                                 </div>
+                            </div>
+                        </div>*@
+                }
+            }
+        </ul>
+        <div class="tab-content">
+            @{
+                //Variables para establecer como active SOLO el primer tab-content
+                var tabContentActive = false;
+                var claseActive = "";
+            }
+            @foreach (var categoriaItem in Model.UsuariosTiposCategorias)
+            {
+                if (tabContentActive == false)
+                {
+                    claseActive = "in active";
+                    tabContentActive = true;
+                }
+                else
+                {
+                    claseActive = "";
+                }
+                <div id="@categoriaItem.id" class="tab-pane fade @claseActive">
+                    <h3>@categoriaItem.nombre_c</h3>
+                    <div class="col-md-6 listaSubcategorias">
+                        @foreach (var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
+                        {
+                            if (categoriaItem.UsuariosTipos.Usuarios.First().UsuariosTecnico.First().UsuariosTecnicosSubcategorias.Where(s => s.subcategoria_xref == subcategoriaItem.id).Count() > 0)
+                            {
+                                <button class="btn btn-success margen_arriba_10 btn-block" onclick="setSubcategoria(@subcategoriaItem.id, '@subcategoriaItem.nombre_c', '@subcategoriaItem.UsuariosTecnicosSubcategorias.First().fechaIni_dt.Value.ToString("dd/MM/yyyy")', '@subcategoriaItem.UsuariosTecnicosSubcategorias.First().fechaFin_dt.Value.ToString("dd/MM/yyyy")')">@subcategoriaItem.nombre_c</button>
                             }
+                            else
+                            {
+                                <button class="btn btn-default margen_arriba_10 btn-block" onclick="setSubcategoria(@subcategoriaItem.id, '@subcategoriaItem.nombre_c', null, null)">@subcategoriaItem.nombre_c</button>
+                            }
+                        }
+                    </div>
+
+                </div>
+            }
+            <div class="col-md-6 subcategoriasFecha">
+                <div class="panel panel-default">
+                    <div id="headCategoriaFecha" class="panel-heading">
+                        Categoria
+                    </div>
+                    <div class="panel-body">
+                        @using (Ajax.BeginForm("", "", null, null, null))
+                        {
+                            <input id="idSubcategoria" type="hidden" name="idSubcategoria" />
+                            <label class="control-label">Fecha inicio </label>
+                            <input id="categoriaFechaIni" type="date" name="categoriaFechaIni" class="form-control" />
+                            <label class="control-label margen_arriba_10">Fecha fin </label>
+                            <input id="categoriaFechaFin" type="date" name="categoriaFechaFin" class="form-control" />
+
+                            <button id="btnCategoriasFecha" class="btn btn-info pull-right margen_arriba_20">Añadir</button>
                         }
                     </div>
                 </div>
             </div>
 
-        }
-    }
+        </div>
+    </div>
 </div>
 <script>
+    function setSubcategoria(idSubcategoria, nomCategoria, categoriaFechaIni, categoriaFechaFin) {
+        //Cambiar el nombre del panel-heading del panel de selección de fecha de categoría
+        $('#headCategoriaFecha').text(nomCategoria);
+        $('#idSubcategoria').val(idSubcategoria);
+        $('#categoriaFechaIni').val('');
+        $('#categoriaFechaFin').val('');
+        if (categoriaFechaIni != null) {
+            $('#categoriaFechaIni').val(categoriaFechaIni);
+            $('#categoriaFechaFin').val(categoriaFechaFin);
+        }
+    }
 
     function toggleSubcategoria(idSubcategoria) {
         var totalSeleccionados = 0;
