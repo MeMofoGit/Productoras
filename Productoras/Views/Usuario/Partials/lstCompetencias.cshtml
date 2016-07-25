@@ -58,13 +58,17 @@
                 var tabContentActive = false;
                 var claseActive = "";
             }
+            @*Recorrer todas las categorias*@
             @foreach (var categoriaItem in Model.UsuariosTiposCategorias)
             {
+                //Comprobar que sea la primera para ponerle la clase "in active" y que sea el tab-content activo
                 if (tabContentActive == false)
                 {
                     claseActive = "in active";
+                    //Ponemos la variable a true para que ningun otro content-tab tenga la clase "in active"
                     tabContentActive = true;
                 }
+                //A prtir del primer tab-content se pone la variable vacio para que no asigne la clase active a ninguna otra categoria
                 else
                 {
                     claseActive = "";
@@ -72,8 +76,10 @@
                 <div id="@categoriaItem.id" class="tab-pane fade @claseActive">
                     <h3>@categoriaItem.nombre_c</h3>
                     <div class="col-md-6 listaSubcategorias">
+                        @*Se recorren todas las subcategorias dentro de la categoria actual*@
                         @foreach (var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
                         {
+                            //Comprobar si el usuario actual ya tiene esta subcategoría añadida
                             if (categoriaItem.UsuariosTipos.Usuarios.First().UsuariosTecnico.First().UsuariosTecnicosSubcategorias.Where(s => s.subcategoria_xref == subcategoriaItem.id).Count() > 0)
                             {
                                 <button class="btn btn-success margen_arriba_10 btn-block" onclick="setSubcategoria(@subcategoriaItem.id, '@subcategoriaItem.nombre_c', '@subcategoriaItem.UsuariosTecnicosSubcategorias.First().fechaIni_dt.Value.ToString("dd/MM/yyyy")', '@subcategoriaItem.UsuariosTecnicosSubcategorias.First().fechaFin_dt.Value.ToString("dd/MM/yyyy")')">@subcategoriaItem.nombre_c</button>
@@ -93,7 +99,7 @@
                         Categoria
                     </div>
                     <div class="panel-body">
-                        @using (Ajax.BeginForm("", "", null, null, null))
+                        @using (Ajax.BeginForm("PerfilAddCategoria", "Usuario", null, new AjaxOptions { UpdateTargetId = "funcion_result", OnSuccess = "cerrar_cargando(); load_popup();" }, null))
                         {
                             <input id="idSubcategoria" type="hidden" name="idSubcategoria" />
                             <label class="control-label">Fecha inicio </label>
@@ -101,7 +107,7 @@
                             <label class="control-label margen_arriba_10">Fecha fin </label>
                             <input id="categoriaFechaFin" type="date" name="categoriaFechaFin" class="form-control" />
 
-                            <button id="btnCategoriasFecha" class="btn btn-info pull-right margen_arriba_20">Añadir</button>
+                            <button id="btnCategoriasFecha" class="btn btn-info pull-right margen_arriba_20" type="submit">Añadir</button>
                         }
                     </div>
                 </div>
@@ -117,9 +123,11 @@
         $('#idSubcategoria').val(idSubcategoria);
         $('#categoriaFechaIni').val('');
         $('#categoriaFechaFin').val('');
+        $('#btnCategoriasFecha').text("Añadir");
         if (categoriaFechaIni != null) {
             $('#categoriaFechaIni').val(categoriaFechaIni);
             $('#categoriaFechaFin').val(categoriaFechaFin);
+            $('#btnCategoriasFecha').text("Guardar");
         }
     }
 
@@ -142,7 +150,7 @@
             if (totalSeleccionados <= 4) {
                 $.ajax({
                     data: { idSubcategoria: idSubcategoria },
-                    url: "PerfilAddCompetencia",
+                    url: "PerfilAddCategoria",
                     method: "POST",
                     success: function (data) {
                         $('#btnSubcategoria_' + idSubcategoria).removeClass('btn-default');

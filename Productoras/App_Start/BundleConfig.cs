@@ -23,7 +23,8 @@ namespace Productoras
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Content/js/bootstrap.js",
-                      "~/Content/js/respond.js"));
+                      "~/Content/js/respond.js",
+                      "~/Content/js/sitio.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css/bootstrap.css",

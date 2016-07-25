@@ -517,47 +517,38 @@ namespace Proyecto.Controllers
             return Json("Actualizado");
         }
         [HttpGet]
-        public PartialViewResult PerfilAddCompetencia()
+        public PartialViewResult PerfilAddCategoria()
         {
             int idUsuario = (int)Session["id_usuario"];
             var usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
 
             var clsTipo = db.UsuariosTipos.Where(t => t.id == usuario.tipo_xref).FirstOrDefault();
-            //UsuariosTiposSubcategorias subcategoria = new UsuariosTiposSubcategorias();
 
-            //foreach(var categoriaItem in clsTipo.UsuariosTiposCategorias)
-            //{
-            //    foreach(var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
-            //    {
-
-            //    }
-            //}
             return PartialView("Partials/lstCompetencias", clsTipo);
         }
         [HttpPost]
-        public ActionResult PerfilAddCompetencia(int idSubcategoria)
+        public PartialViewResult PerfilAddCategoria(int idSubcategoria, DateTime categoriaFechaIni, DateTime categoriaFechaFin)
         {
             int idUsuario = (int)Session["id_usuario"];
             var usuario = db.Usuarios.Where(u => u.id == idUsuario).FirstOrDefault();
 
             var clsSubcategoria = db.UsuariosTiposSubcategorias.Where(s => s.id == idSubcategoria).First();
             UsuariosTecnicosSubcategorias clsTecnicoSubcategoria = new UsuariosTecnicosSubcategorias();
+            //Diferencia entre la fecha de inicio y la fecha de fin en dias
+            TimeSpan diferenciaFechas = categoriaFechaFin - categoriaFechaIni;
+
             clsTecnicoSubcategoria.subcategoria_xref = clsSubcategoria.id;
             clsTecnicoSubcategoria.usuarioTecnico_xref = usuario.UsuariosTecnico.First().id;
-            //Falta experiencia y fecha inico y fin
+            clsTecnicoSubcategoria.fechaIni_dt = categoriaFechaIni;
+            clsTecnicoSubcategoria.fechaFin_dt = categoriaFechaFin;
+            clsTecnicoSubcategoria.experiencia_i = diferenciaFechas.Days;
 
             usuario.UsuariosTecnico.First().UsuariosTecnicosSubcategorias.Add(clsTecnicoSubcategoria);
             db.SaveChanges();
-            //UsuariosTiposSubcategorias subcategoria = new UsuariosTiposSubcategorias();
 
-            //foreach(var categoriaItem in clsTipo.UsuariosTiposCategorias)
-            //{
-            //    foreach(var subcategoriaItem in categoriaItem.UsuariosTiposSubcategorias)
-            //    {
+            var clsTipo = db.UsuariosTipos.Where(t => t.id == usuario.tipo_xref).FirstOrDefault();
 
-            //    }
-            //}
-            return Content(clsSubcategoria.nombre_c);
+            return PartialView("Partials/lstCompetencias", clsTipo);
         }
         public ActionResult PerfilBorrarSubcategoria(int idSubcategoria)
         {

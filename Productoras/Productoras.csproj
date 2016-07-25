@@ -361,12 +361,14 @@
     <Content Include="Content\img\perfilGaleria4.jpg" />
     <Content Include="Content\img\perfilGaleria5.jpg" />
     <Content Include="Content\img\perfilRecurso2.jpg" />
+    <Content Include="Content\img\spinner.gif" />
     <Content Include="Content\img\videoPerfil.jpg" />
     <Content Include="Content\img\videoPerfil2.jpg" />
     <Content Include="Content\img\videoPrevia.jpg" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\jquery-1.12.3.js" />
     <Content Include="Content\js\modernizr.js" />
+    <Content Include="Content\js\sitio.js" />
     <Content Include="Content\vid\fondo2.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

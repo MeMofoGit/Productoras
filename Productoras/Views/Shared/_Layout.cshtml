@@ -12,7 +12,7 @@
     <div class="opaca-gris"></div>
 
     <div id="cargando_popup" class="cargando_popup">
-        Cargando...
+        <img src="~/Content/img/spinner.gif" class="imgSpinner"/> Cargando...
     </div>
 
     <div id="funcion_result"></div>
@@ -34,22 +34,7 @@
         </footer>
     </div>
     <script>
-        $(window).on("beforeunload ", function () {
-            wait();
-        });
-        function wait() {
-            $(".img_wait").fadeIn(300);
-            $(".opaca-gris").fadeIn(300);
-        }
-        function waitOut() {
-            $(".opaca-gris").fadeOut(300);
-            $(".img_wait").fadeOut(300);
-        }
-        function loadAjax() {
-            $(document).ajaxStart(function () {
-                wait();
-            });
-        }
+
     </script>
 
 </body>

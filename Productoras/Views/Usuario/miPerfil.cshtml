@@ -50,7 +50,7 @@
                     <div class="panel panel-default perfil_panel_md">
                         <div class="panel-heading">
                             <i class="fa fa-briefcase" aria-hidden="true"></i> Perfil técnico
-                            @Ajax.RawActionLink("<button class='btn btn-success btn-xs pull-right'><i class='fa fa-plus'></i> Añadir</button>", "PerfilAddCompetencia", "Usuario", new { id = Model.id }, new AjaxOptions { LoadingElementDuration = 2000, UpdateTargetId = "funcion_result", OnBegin = "load_cargando()", OnSuccess = "cerrar_cargando(); load_popup()" }, null)
+                            @Ajax.RawActionLink("<button class='btn btn-success btn-xs pull-right'><i class='fa fa-plus'></i> Añadir</button>", "PerfilAddCategoria", "Usuario", new { id = Model.id }, new AjaxOptions { @*LoadingElementDuration = 2000,*@ UpdateTargetId = "funcion_result", OnBegin = "load_cargando()", OnSuccess = "cerrar_cargando(); load_popup()" }, null)
                             @*<button class="btn btn-success btn-xs pull-right"><i class="fa fa-plus"></i> Añadir</button>*@
                         </div>
                         <div class="panel-body">
@@ -644,26 +644,6 @@
         }, 1000, "easeInOutExpo");
 
         cerrar_popup();
-    }
-    function cerrar_cargando() {
-        $(".opaca-gris").on("click", function () {
-            $(".cargando_popup").removeClass("animated zoomIn");
-            $(".cargando_popup").addClass("animated zoomOut");
-            $(".cargando_popup").fadeOut(300);
-            $(".opaca-gris").fadeOut(300);
-        });
-    }
-    function load_cargando() {
-        $(".cargando_popup").removeClass("animated zoomOut");
-        $(".cargando_popup").addClass("animated zoomIn");
-        $(".cargando_popup").fadeIn(300);
-        $(".opaca-gris").fadeIn(300);
-
-        $('html,body').animate({
-            scrollTop: 0
-        }, 1000, "easeInOutExpo");
-
-        cerrar_cargando();
     }
 
     jQuery(document).ready(function ($) {
